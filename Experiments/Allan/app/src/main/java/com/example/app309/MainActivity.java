@@ -11,6 +11,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +29,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            }
+        });
+
+        Button middle = findViewById(R.id.button2);
+        middle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               TextView homeMessage =  findViewById(R.id.middle);
+               homeMessage.setText("Neww");
             }
         });
     }
