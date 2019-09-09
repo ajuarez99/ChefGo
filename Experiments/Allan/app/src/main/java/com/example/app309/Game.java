@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.Random;
 
 public class Game extends AppCompatActivity {
@@ -23,8 +25,8 @@ public class Game extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        String[] options = {"Rock", "Paper", "Scissors"};
-        String[] computerChoices = new String[3];
+        final String[] options = {"Rock", "Paper", "Scissors"};
+        final String[] computerChoices = new String[3];
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,18 +36,53 @@ public class Game extends AppCompatActivity {
             }
         });
         generateGame(options,computerChoices);
-
+        final Random rand = new Random();
         //Left Option Press
         final Button Left = findViewById(R.id.button);
         Left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            TextView choice = Left;
+
+            String choice = Left.getText().toString();
             TextView userScreen = findViewById(R.id.userPick);
-            userScreen.setText(choice.toString());
+            userScreen.setText(choice);
+            TextView computerScreen = findViewById((R.id.computerPick));
+            computerScreen.setText(options[(rand.nextInt(3))]);
+            Outcome();
+            }
+        });
+
+        //middle option
+        final Button Middle = findViewById(R.id.button2);
+        Middle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String choice = Middle.getText().toString();
+                TextView userScreen = findViewById(R.id.userPick);
+                userScreen.setText(choice);
+                TextView computerScreen = findViewById((R.id.computerPick));
+                computerScreen.setText(options[(rand.nextInt(3))]);
+                Outcome();
+            }
+        });
+        //Right option
+        final Button Right = findViewById(R.id.option3);
+        Right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String choice = Right.getText().toString();
+                TextView userScreen = findViewById(R.id.userPick);
+                userScreen.setText(choice);
+                TextView computerScreen = findViewById((R.id.computerPick));
+                computerScreen.setText(options[(rand.nextInt(3))]);
+                Outcome();
 
             }
         });
+
+    }
+    public void Outcome(){
+        
     }
     public void generateGame(String[] options, String[] computerChoices){
         Random rand = new Random();
