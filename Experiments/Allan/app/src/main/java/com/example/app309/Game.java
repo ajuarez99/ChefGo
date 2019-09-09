@@ -48,6 +48,7 @@ public class Game extends AppCompatActivity {
             userScreen.setText(choice);
             TextView computerScreen = findViewById((R.id.computerPick));
             computerScreen.setText(options[(rand.nextInt(3))]);
+            Left.setEnabled(false);
             Outcome();
             }
         });
@@ -62,6 +63,7 @@ public class Game extends AppCompatActivity {
                 userScreen.setText(choice);
                 TextView computerScreen = findViewById((R.id.computerPick));
                 computerScreen.setText(options[(rand.nextInt(3))]);
+                Middle.setEnabled(false);
                 Outcome();
             }
         });
@@ -75,6 +77,7 @@ public class Game extends AppCompatActivity {
                 userScreen.setText(choice);
                 TextView computerScreen = findViewById((R.id.computerPick));
                 computerScreen.setText(options[(rand.nextInt(3))]);
+                Right.setEnabled(false);
                 Outcome();
 
             }
@@ -82,7 +85,24 @@ public class Game extends AppCompatActivity {
 
     }
     public void Outcome(){
-        
+        TextView userPick = findViewById(R.id.userPick);
+        TextView computerPick = findViewById(R.id.computerPick);
+
+        String userChoice = userPick.getText().toString();
+        String computerChoice = computerPick.getText().toString();
+        TextView Outcome = findViewById(R.id.outcome);
+        if((userChoice == "Rock" && computerChoice == "Paper") || (userChoice == "Paper" && computerChoice == "Scissors") || (userChoice == "Scissors" && computerChoice == "Rock"))
+        {
+
+            Outcome.setText("You Lose!");
+        }
+        else if((userChoice == "Rock" && computerChoice == "Scissors") || (userChoice == "Paper" && computerChoice == "Rock") || (userChoice == "Scissors" && computerChoice == "Paper")){
+            Outcome.setText("You Win!");
+        }
+        else{
+            Outcome.setText("You Tied, Try Again");
+        }
+
     }
     public void generateGame(String[] options, String[] computerChoices){
         Random rand = new Random();
