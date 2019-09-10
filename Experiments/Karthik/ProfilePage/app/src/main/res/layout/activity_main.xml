@@ -20,18 +20,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/Address"
-            android:layout_width="match_parent"
+        <Switch
+            android:id="@+id/Cook"
+            android:layout_width="355dp"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="e.x. 100 Science Street, Ames, IA 50014"
-            android:inputType="textPersonName" />
+            android:layout_marginLeft="5dp"
+            android:text="Are you a cook?"
+            android:textOn="ON"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/Email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:ems="10"
             android:hint="example@email.com"
             android:inputType="textPersonName" />
@@ -40,6 +42,7 @@
             android:id="@+id/phoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:ems="10"
             android:hint="(XXX) XXX-XXXX"
             android:inputType="textPersonName" />
@@ -50,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Enter Name"
+        android:hint="Enter Username"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
