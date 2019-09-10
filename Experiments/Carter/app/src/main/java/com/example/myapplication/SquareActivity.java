@@ -27,9 +27,9 @@ public class SquareActivity extends AppCompatActivity {
                 editText = findViewById(R.id.editTextBox);
                 textView = findViewById(R.id.displayResults);
                 String temp = editText.getText().toString();
-                int val = Integer.parseInt(temp);
+                double val = Double.parseDouble(temp);
                 val *= val;
-                textView.setText(Integer.toString(val));
+                textView.setText("Area: " + Double.toString(val));
             }
         });
 
