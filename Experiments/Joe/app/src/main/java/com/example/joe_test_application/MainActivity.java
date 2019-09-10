@@ -8,9 +8,15 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.service.autofill.TextValueSanitizer;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.content.Intent;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,14 +27,29 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Button pickButton = findViewById(R.id.pickButton);
+        pickButton.setOnClickListener(new OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                openActivity2();
+            }
+        });
+        
+        
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
+        //
+    }
+
+    public void openActivity2(){
+        Intent intent = new Intent(this, Second_Activity.class);
+        startActivity(intent);
     }
 
     @Override

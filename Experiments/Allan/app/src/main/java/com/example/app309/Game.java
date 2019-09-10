@@ -1,5 +1,6 @@
 package com.example.app309;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -36,6 +37,16 @@ public class Game extends AppCompatActivity {
             }
         });
         generateGame(options,computerChoices);
+        // Button action
+        Button middle = findViewById(R.id.home);
+        middle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Game.this, MainActivity.class);
+                startActivity(intent);
+
+            }
+        });
         final Random rand = new Random();
         //Left Option Press
         final Button Left = findViewById(R.id.button);
@@ -91,13 +102,23 @@ public class Game extends AppCompatActivity {
         String userChoice = userPick.getText().toString();
         String computerChoice = computerPick.getText().toString();
         TextView Outcome = findViewById(R.id.outcome);
+        final Button Right = findViewById(R.id.option3);
+        final Button Middle = findViewById(R.id.button2);
+        final Button Left = findViewById(R.id.button);
         if((userChoice == "Rock" && computerChoice == "Paper") || (userChoice == "Paper" && computerChoice == "Scissors") || (userChoice == "Scissors" && computerChoice == "Rock"))
         {
 
             Outcome.setText("You Lose!");
+            Right.setEnabled(false);
+            Middle.setEnabled(false);
+            Left.setEnabled(false);
         }
         else if((userChoice == "Rock" && computerChoice == "Scissors") || (userChoice == "Paper" && computerChoice == "Rock") || (userChoice == "Scissors" && computerChoice == "Paper")){
             Outcome.setText("You Win!");
+            Right.setEnabled(false);
+            Middle.setEnabled(false);
+            Left.setEnabled(false);
+
         }
         else{
             Outcome.setText("You Tied, Try Again");

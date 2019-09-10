@@ -15,10 +15,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -29,30 +43,55 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Button button = findViewById(R.id.Create);
         profile = findViewById(R.id.profile);
 
 
-        button.setOnClickListener(new View.OnClickListener() {
+
+       /* button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText name = findViewById(R.id.Name);
-                EditText addr = findViewById(R.id.Address);
-                EditText email = findViewById(R.id.Email);
-                EditText number = findViewById(R.id.phoneNumber);
 
-                String userInfo = name.getText().toString() + "\n" + addr.getText().toString() +
-                        "\n" + email.getText().toString() + "\n" + number.getText().toString() + "\n";
 
-                Log.d("User is:", userInfo);
+
+                String url = "http://10.0.2.2:8080/users";
+                StringRequest postRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("Response", response.toString());
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error", "POST error");
+                    }
+                }) {
+
+                @Override
+                protected Map<String, String> getParams() {
+                    EditText name = findViewById(R.id.Name);
+                    Switch cook = findViewById(R.id.Cook);
+                    EditText email = findViewById(R.id.Email);
+                    EditText number = findViewById(R.id.phoneNumber);
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("id", "");
+                    params.put("cook", Boolean.toString(cook.isChecked()));
+                    params.put("email", email.getText().toString());
+                    params.put("phone", number.getText().toString());
+                    params.put("username", name.getText().toString());
+                    return params;
+                }
+            };
+
+                RequestSingleton.getInstance(MainActivity.this).addToQueue(postRequest);
 
             }
-        });
+        });*/
 
 
 
@@ -67,6 +106,8 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
