@@ -1,5 +1,6 @@
 package com.example.app309;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -31,13 +32,17 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        //Calender experiment
 
+
+        // Button action
         Button middle = findViewById(R.id.button2);
         middle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               TextView homeMessage =  findViewById(R.id.middle);
-               homeMessage.setText("Neww");
+                Intent intent = new Intent(MainActivity.this, Game.class);
+                startActivity(intent);
+
             }
         });
     }
