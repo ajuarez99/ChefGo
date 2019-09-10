@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        //
     }
 
     public void openActivity2(){
