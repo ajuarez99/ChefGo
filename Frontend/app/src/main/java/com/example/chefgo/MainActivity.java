@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         startCustomerOrderHistory();
     }
 
-    public void startCustomerOrderHistory(View v){
+    public void startCustomerOrderHistory(){
         startActivity(new Intent(MainActivity.this, CustomerOrderHistoryActivity.class));
     }
 }
