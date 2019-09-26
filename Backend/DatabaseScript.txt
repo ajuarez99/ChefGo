@@ -1,0 +1,12 @@
+create table Users(
+fname varchar(20),
+lname varchar(30),
+username varchar(30),
+password varchar(30),
+photo blob,
+user_type_flag int,
+rating float not null check(rating between 0 and 5),
+address varchar(40),
+state varchar(20),
+zip int,
+primary key(username));
