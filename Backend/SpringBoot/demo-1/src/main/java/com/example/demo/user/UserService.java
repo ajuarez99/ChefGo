@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class UserService {
 	
@@ -16,10 +17,19 @@ public class UserService {
 	
 	public List<Users> getAllUsers() {
 		List<Users> users = new ArrayList<>();
+
 		userRepo.findAll().forEach(users::add);
 		return users;
 	}
+
+
 	
+	public Users getUserbyId(int id) {
+		Optional<Users> u = userRepo.findById(id);
+		
+		return u.get();
+	}
+
 	public void addUser(Users user) {
 		userRepo.save(user);
 	}
