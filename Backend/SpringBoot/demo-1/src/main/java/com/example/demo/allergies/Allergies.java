@@ -1,4 +1,4 @@
-package Entities;
+package com.example.demo.allergies;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

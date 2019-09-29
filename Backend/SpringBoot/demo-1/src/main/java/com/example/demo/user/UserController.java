@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import Entities.Users;
 
 @RestController
 public class UserController {
@@ -27,9 +26,14 @@ public class UserController {
 		users.addUser(user);
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT, path = "/users/{id}")
+	@RequestMapping(method = RequestMethod.PUT, path = "/users/{id}/username")
 	public void updateUsername(@PathVariable int id, @RequestBody String username) {
 		users.updateUsername(id, username);
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT, path = "/users/{id}/password")
+	public void updatePassword(@PathVariable int id, @RequestBody String password) {
+		users.updatePassword(id, password);
 	}
 	
 	@RequestMapping(method = RequestMethod.DELETE, path = "/users/{id}")

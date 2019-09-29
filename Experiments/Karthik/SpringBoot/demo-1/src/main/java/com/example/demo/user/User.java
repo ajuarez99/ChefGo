@@ -18,7 +18,7 @@ import org.springframework.core.style.ToStringCreator;
 
 
 @Entity
-@Table(name = "users")
+@Table(name = "Demo2")
 public class User {
 	
     @Id

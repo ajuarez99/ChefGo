@@ -1,4 +1,4 @@
-package Entities;
+package com.example.demo.orderhistory;
 
 import java.sql.Date;
 
