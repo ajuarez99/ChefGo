@@ -16,18 +16,23 @@ public class UserController {
 	private UserService users;
 	
 	@RequestMapping("/users")
-	public List<User> displayUsers() {
+	public List<Users> displayUsers() {
 		return users.getAllUsers();
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, path = "/users")
-	public void addUser(@RequestBody User user) {
+	public void addUser(@RequestBody Users user) {
 		users.addUser(user);
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT, path = "/users/{id}")
+	@RequestMapping(method = RequestMethod.PUT, path = "/users/{id}/username")
 	public void updateUsername(@PathVariable int id, @RequestBody String username) {
 		users.updateUsername(id, username);
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT, path = "/users/{id}/password")
+	public void updatePassword(@PathVariable int id, @RequestBody String password) {
+		users.updatePassword(id, password);
 	}
 	
 	@RequestMapping(method = RequestMethod.DELETE, path = "/users/{id}")

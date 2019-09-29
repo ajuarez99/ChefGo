@@ -14,20 +14,28 @@ public class UserService {
 	private UserRepo userRepo;
 	
 	
-	public List<User> getAllUsers() {
-		List<User> users = new ArrayList<>();
+	public List<Users> getAllUsers() {
+		List<Users> users = new ArrayList<>();
 		userRepo.findAll().forEach(users::add);
 		return users;
 	}
 	
-	public void addUser(User user) {
+	public void addUser(Users user) {
 		userRepo.save(user);
 	}
 	
 	public void updateUsername(int id, String username) {
-		Optional<User> u = userRepo.findById(id);
-		User update = u.get();
+		Optional<Users> u = userRepo.findById(id);
+		Users update = u.get();
 		update.setUsername(username);
+		userRepo.save(update);
+			
+	}
+	
+	public void updatePassword(int id, String password) {
+		Optional<Users> u = userRepo.findById(id);
+		Users update = u.get();
+		update.setPassword(password);
 		userRepo.save(update);
 			
 	}

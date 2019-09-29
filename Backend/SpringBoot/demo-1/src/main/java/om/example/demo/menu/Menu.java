@@ -1,4 +1,4 @@
-package Entities;
+package om.example.demo.menu;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
