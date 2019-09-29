@@ -8,21 +8,29 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    Button nextButton;
-
+    Button customerProfileButton;
+    Button customerOrderHistory;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        nextButton = (Button) findViewById(R.id.buttonNext);
-        nextButton.setOnClickListener(new View.OnClickListener() {
+        customerProfileButton = (Button) findViewById(R.id.buttonNext);
+        customerProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, CustomerProfileActivity.class);
-                startActivity(i);
+                Intent cpButton = new Intent(MainActivity.this, CustomerProfileActivity.class);
+                startActivity(cpButton);
             }
         });
 
+        customerOrderHistory = (Button) findViewById(R.id.buttonCustomerOrderHistory);
+        customerOrderHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent cpoh = new Intent(MainActivity.this, CustomerOrderHistoryActivity.class);
+                startActivity(cpoh);
+            }
+        });
     }
 }
