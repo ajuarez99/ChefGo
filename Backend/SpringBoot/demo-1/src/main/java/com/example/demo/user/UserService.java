@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import Entities.Users;
+import Repos.UserRepo;
 
 @Service
 public class UserService {
@@ -18,12 +19,13 @@ public class UserService {
 	
 	public List<Users> getAllUsers() {
 		List<Users> users = new ArrayList<>();
-		userRepo.findAll().forEach(users::add);
+		userRepo.findAll().forEach(users::add);	
 		return users;
 	}
 	
 	public Users getUserbyId(int id) {
 		Optional<Users> u = userRepo.findById(id);
+		
 		return u.get();
 	}
 	public void addUser(Users user) {
