@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import Entities.Users;
+
 @RestController
 public class UserController {
 
@@ -16,12 +18,12 @@ public class UserController {
 	private UserService users;
 	
 	@RequestMapping("/users")
-	public List<User> displayUsers() {
+	public List<Users> displayUsers() {
 		return users.getAllUsers();
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, path = "/users")
-	public void addUser(@RequestBody User user) {
+	public void addUser(@RequestBody Users user) {
 		users.addUser(user);
 	}
 	

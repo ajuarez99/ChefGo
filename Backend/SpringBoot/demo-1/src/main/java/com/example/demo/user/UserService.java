@@ -7,6 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import Entities.Users;
+
 @Service
 public class UserService {
 	
@@ -14,19 +16,23 @@ public class UserService {
 	private UserRepo userRepo;
 	
 	
-	public List<User> getAllUsers() {
-		List<User> users = new ArrayList<>();
+	public List<Users> getAllUsers() {
+		List<Users> users = new ArrayList<>();
 		userRepo.findAll().forEach(users::add);
 		return users;
 	}
 	
-	public void addUser(User user) {
+	public Users getUserbyId(int id) {
+		Optional<Users> u = userRepo.findById(id);
+		return u.get();
+	}
+	public void addUser(Users user) {
 		userRepo.save(user);
 	}
 	
 	public void updateUsername(int id, String username) {
-		Optional<User> u = userRepo.findById(id);
-		User update = u.get();
+		Optional<Users> u = userRepo.findById(id);
+		Users update = u.get();
 		update.setUsername(username);
 		userRepo.save(update);
 			
