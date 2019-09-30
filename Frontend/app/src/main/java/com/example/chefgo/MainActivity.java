@@ -34,23 +34,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(orderHistoryIntent);
             }
         });
-
-        jsonButton = findViewById(R.id.jsonButton);
-        jsonButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent jsonIntent = new Intent(MainActivity.this, JsonRequestActivity.class);
-                startActivity(jsonIntent);
-            }
-        });
-
-        stringButton = findViewById(R.id.stringButton);
-        stringButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent stringIntent = new Intent(MainActivity.this, StringRequestActivity.class);
-                startActivity(stringIntent);
-            }
-        });
     }
 }
