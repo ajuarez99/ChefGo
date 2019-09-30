@@ -1,11 +1,9 @@
 package com.example.chefgo.net_utils;
+import com.android.volley.toolbox.ImageLoader.ImageCache;
+import android.graphics.Bitmap;
+import android.util.LruCache;
 
-public class LruBitmapCache {
-    import com.android.volley.toolbox.ImageLoader.ImageCache;
-    import android.graphics.Bitmap;
-    import android.support.v4.util.LruCache;
-
-    public class LruBitmapCache extends LruCache<String, Bitmap>
+public class LruBitmapCache extends LruCache<String, Bitmap>
             implements
             ImageCache {
         public static int getDefaultLruCacheSize() {
