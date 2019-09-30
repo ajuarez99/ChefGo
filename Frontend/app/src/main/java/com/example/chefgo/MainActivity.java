@@ -19,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
         customerProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent cpButton = new Intent(MainActivity.this, CustomerProfileActivity.class);
-                startActivity(cpButton);
+                Intent customerProfileIntent = new Intent(MainActivity.this, CustomerProfileActivity.class);
+                startActivity(customerProfileIntent);
             }
         });
 
