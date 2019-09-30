@@ -9,45 +9,48 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-import org.springframework.core.style.ToStringCreator;
+import com.example.demo.user.Users;
 
 @Entity
 @Table(name = "Allergies")
 public class Allergies {
 
-	@Column(name = "users_name")
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
-	@Size(max = 30)
-	private String userName;
+	private Integer id;
+	
 	
 	@Column(name = "aType")
 	@Size(max = 40)
 	private String aType;
 	
+	@ManyToOne
+	private Users user;
+	
+	public Allergies(String aType, Integer id, Users user) {
+		this.aType = aType;
+		this.id = id;
+		this.user= user;
+	}
+	
 	public Allergies() {
-		
+
 	}
 	
-	public Allergies(String name, String type) {
-		this.userName = name;
-		this.aType = type;
+	public void setId(int id) {
+		this.id = id;
 	}
-	
-	public String getUserName() {
-		return this.userName;
-	}
-	public void setUserName(String name) {
-		this.userName = name;
+	public Integer getId() {
+		return this.id;
 	}
 	public String getType() {
 		return this.aType;
 	}
-	public void setType(String type) {
-		this.aType = type;
+	public void setType(String aType) {
+		this.aType = aType;
 	}
+	
 }

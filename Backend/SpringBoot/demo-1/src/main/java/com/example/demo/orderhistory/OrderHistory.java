@@ -22,7 +22,7 @@ import com.example.demo.reviews.Reviews;
 
 @Entity
 @Table(name = "Order_History")
-public class OrderHistory implements Serializable{
+public class OrderHistory {
 
 //   
 //    @Column(name = "rid")
@@ -33,9 +33,13 @@ public class OrderHistory implements Serializable{
 //    @JoinColumn(name = "Reviews_rid")
 //    private Reviews review;
 //    
+	@Id
+	@Column(name = "id")
+	private Integer id;
+	
     @Column(name = "price")
     private Double price;
-    @Id
+   
     @Column(name = "orderDate")
     private Date orderDate;
     
@@ -60,9 +64,10 @@ public class OrderHistory implements Serializable{
     public OrderHistory() {
     }
     
-    public OrderHistory(/*Integer rid, Integer oid,*/ Date date, Double price, String chef, String dish, String customer) {
+    public OrderHistory(/*Integer rid, Integer oid,*/ Date date, Double price, String chef, String dish, String customer, Integer id) {
     	//this.rid = rid;
     	this.price = price;
+    	this.id = id;
     	//this.oid = oid;
     	this.orderDate = date;
     	this.dishName = dish;

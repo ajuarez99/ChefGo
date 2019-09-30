@@ -7,10 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.user.UserService;
-import com.example.demo.user.Users;
-
+@RestController
 public class OrderHistoryController {
 	@Autowired
 	private OrderHistoryService orderHistory;

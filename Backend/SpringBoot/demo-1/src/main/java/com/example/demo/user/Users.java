@@ -1,26 +1,19 @@
 package com.example.demo.user;
 
 
-import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import com.example.demo.reviews.Reviews;
-
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.example.demo.allergies.Allergies;
 
 
 
@@ -44,9 +37,9 @@ public class Users {
     @Size(max = 30)
     private String lname;
     
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(unique = true)
-//    private Reviews review;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "USER_ID")
+    private List<Allergies> allergies;
     
     @Column(name = "password")
     @Size(max = 30)
@@ -74,7 +67,8 @@ public class Users {
     	
     }
     
-    public Users(String username, String email, String f, String l, String pass, String user, Double rating, Integer type, String address, String state, Integer zip) {
+    public Users(String username, String email, String f, String l, String pass, String user, Double rating,
+    		Integer type, String address, String state, Integer zip, List<Allergies> allergies) {
     	this.username = username;
     	this.email = email;
     	this.fName= f;
@@ -85,6 +79,7 @@ public class Users {
     	this.address = address;
     	this.state = state;
     	this.zip = zip;
+    	this.allergies = allergies;
     }
     
     public Integer getUserType() {
@@ -149,5 +144,11 @@ public class Users {
     }
     public void setEmail(String email) {
     	this.email = email;
+    }
+    public void setAllergies(List<Allergies> allergies) {
+    	this.allergies = allergies;
+    }
+    public List<Allergies> getAllergies(){
+    	return this.allergies;
     }
 }
