@@ -30,8 +30,8 @@ public class StringRequestActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_string_request);
 
-        btnStringReq = (Button) findViewById(R.id.btnStringReq);
-        msgResponse = (TextView) findViewById(R.id.msgResponse);
+        btnStringReq = findViewById(R.id.btnStringReq);
+        msgResponse = findViewById(R.id.msgResponse);
 
         pDialog = new ProgressDialog(this);
         pDialog.setMessage("Loading...");
@@ -64,8 +64,8 @@ public class StringRequestActivity extends Activity {
         StringRequest strReq = new StringRequest(Method.GET, Const.URL_STRING_REQ, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d(TAG, response.toString());
-                msgResponse.setText(response.toString());
+                Log.d(TAG, response);
+                msgResponse.setText(response);
                 hideProgressDialog();
             }
         }, new Response.ErrorListener() {
