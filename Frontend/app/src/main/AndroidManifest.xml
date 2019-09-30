@@ -12,9 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ImageRequestActivity"></activity>
-        <activity android:name=".JsonRequestActivity" />
-        <activity android:name=".StringRequestActivity" />
         <activity android:name=".CustomerOrderHistoryActivity" />
         <activity android:name=".CustomerProfileActivity" />
         <activity android:name=".MainActivity">

@@ -30,8 +30,14 @@ public class OrderHistory {
     @JoinColumn(name = "rid", referencedColumnName = "rid")
     private Reviews review;
 //    
+	@Id
+	@Column(name = "id")
+	private Integer id;
+	
     @Column(name = "price")
     private Double price;
+
+
 
     @Column(name = "orderDate")
     private Date orderDate;
@@ -57,6 +63,8 @@ public class OrderHistory {
     public OrderHistory() {
     }
     
+
+
     public OrderHistory(/*Integer rid,*/ Integer oid,Date orderDate, Double price, String chefName, String dishName, String customerName) {
     	//this.rid = rid;
     	this.price = price;
@@ -65,6 +73,7 @@ public class OrderHistory {
     	this.dishName = dishName;
     	this.chefName = chefName;
     	this.customerName = customerName;
+
     }
     public Reviews getReview() {
     	return this.review;
