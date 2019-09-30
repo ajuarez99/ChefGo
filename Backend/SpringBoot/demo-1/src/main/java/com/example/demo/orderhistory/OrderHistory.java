@@ -65,12 +65,12 @@ public class OrderHistory {
     	this.chefName = chefName;
     	this.customerName = customerName;
     }
-  /*  public Integer getrid() {
-    	return this.rid;
+    public Reviews getReview() {
+    	return this.review;
     }
-    public void setRid(Integer rid) {
-    	this.rid = rid;
-    }*/
+    public void setReview(Reviews review) {
+    	this.review = review;
+    }
    public Integer getoid() {
     	return this.oid;
     }

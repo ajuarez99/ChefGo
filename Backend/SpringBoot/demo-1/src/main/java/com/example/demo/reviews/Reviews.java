@@ -54,12 +54,15 @@ public class Reviews {
     @Size(max = 30)
     private String reviewee;
     
-//    @OneToOne()
-//    @JoinColumn(name = "username")
-//    private Users users;
+    @ManyToOne()
+    @JoinColumn(name = "username")
+    private Users users;
     
-//    @OneToOne(mappedBy = "OrderHistory")
-//    private OrderHistory orderHistory;
+    @OneToOne
+    @JoinColumn(name="orderHistoryId")
+    private OrderHistory orderHistory;
+    
+    
     public Reviews() {
     	
     }

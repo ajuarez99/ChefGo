@@ -5,13 +5,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.orderhistory.OrderHistory;
 import com.example.demo.orderhistory.OrderHistoryRepo;
 import com.example.demo.user.Users;
 
-@RestController
+@Service
 public class ReviewsService {
 	
 
