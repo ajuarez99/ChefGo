@@ -1,15 +1,20 @@
 package com.example.demo.orderhistory;
 
-import java.sql.Date;
+
+/*import java.sql.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class OrderHistory {
+@Entity
+@Table(name = "orderHistory")
+public class OrderHistory{
 
 	
 	
@@ -20,7 +25,7 @@ public class OrderHistory {
     private Integer rid;
     
     @Column(name = "price")
-    private double price;
+    private Double price;
  
     @Column(name = "orderDate")
     private Date orderDate;
@@ -31,7 +36,7 @@ public class OrderHistory {
     @NotNull 
     private Integer oid;
     
-    @Column(name= "DishName")
+    @Column(name= "dishName")
     @Size(max = 50)
     private String dishName;
     
@@ -46,8 +51,9 @@ public class OrderHistory {
     public OrderHistory() {
     }
     
-    public OrderHistory(Integer rid, Integer oid, Date date, double price, String chef, String dish, String customer) {
+    public OrderHistory(Integer rid, Integer oid, Date date, Double price, String chef, String dish, String customer) {
     	this.rid = rid;
+    	this.price = price;
     	this.oid = oid;
     	this.orderDate = date;
     	this.dishName = dish;
@@ -67,10 +73,10 @@ public class OrderHistory {
     	this.oid = oid;
     }
     
-    public double getPrice() {
+    public Double getPrice() {
     	return this.price;
     }
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
     	this.price = price;
     }
     public String getDish() {
@@ -101,3 +107,4 @@ public class OrderHistory {
     
     
 }
+*/

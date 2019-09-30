@@ -24,9 +24,14 @@ public class UserService {
 
 
 	
-	public Users getUserbyId(int id) {
+	public Users getUserById(int id) {
 		Optional<Users> u = userRepo.findById(id);
 		
+		return u.get();
+	}
+	
+	public Users getUserByUsername(String username) {
+		Optional<Users> u = userRepo.findByUsername(username);
 		return u.get();
 	}
 
