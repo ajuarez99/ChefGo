@@ -17,13 +17,18 @@ public class UserController {
 	private UserService users;
 	
 	@RequestMapping("/users")
-	public List<Users> displayUsers() {
+	public List<Users> displayAllUsers() {
 		return users.getAllUsers();
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, path = "/users")
 	public void addUser(@RequestBody Users user) {
 		users.addUser(user);
+	}
+	
+	@RequestMapping("/users/{username}")
+	public Users displayUser(@PathVariable String username) {
+		return users.getUserByUsername(username);
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, path = "/users/{id}/username")
