@@ -15,7 +15,6 @@ import javax.validation.constraints.Size;
 @Table(name = "Users")
 public class Users {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "username")
     @NotNull 
     private String username;

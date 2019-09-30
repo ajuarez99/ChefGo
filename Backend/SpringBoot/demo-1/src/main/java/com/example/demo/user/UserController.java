@@ -17,7 +17,7 @@ public class UserController {
 	private UserService users;
 	
 	@RequestMapping("/users")
-	public List<Users> displayUsers() {
+	public List<Users> displayAllUsers() {
 		return users.getAllUsers();
 	}
 	
@@ -27,7 +27,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("/users/{username}")
-	public Users displayUsers(@PathVariable String username) {
+	public Users displayUser(@PathVariable String username) {
 		return users.getUserByUsername(username);
 	}
 	
