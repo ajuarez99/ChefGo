@@ -22,16 +22,12 @@ import com.example.demo.reviews.Reviews;
 
 @Entity
 @Table(name = "Order_History")
-public class OrderHistory implements Serializable{
+public class OrderHistory {
 
-//   
-//    @Column(name = "rid")
-//    @NotNull 
-//    private Integer rid;
-//    
-//    @OneToOne
-//    @JoinColumn(name = "Reviews_rid")
-//    private Reviews review;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "rid", referencedColumnName = "rid")
+    private Reviews review;
 //    
     @Column(name = "price")
     private Double price;
