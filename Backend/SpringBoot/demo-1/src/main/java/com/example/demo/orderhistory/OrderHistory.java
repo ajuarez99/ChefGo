@@ -35,11 +35,9 @@ public class OrderHistory {
 	
     @Column(name = "price")
     private Double price;
-<<<<<<< HEAD
-   
-=======
 
->>>>>>> c880e7c054e9de419791b103918b3b78a40ed0a2
+
+
     @Column(name = "orderDate")
     private Date orderDate;
     
@@ -64,17 +62,8 @@ public class OrderHistory {
     public OrderHistory() {
     }
     
-<<<<<<< HEAD
-    public OrderHistory(/*Integer rid, Integer oid,*/ Date date, Double price, String chef, String dish, String customer, Integer id) {
-    	//this.rid = rid;
-    	this.price = price;
-    	this.id = id;
-    	//this.oid = oid;
-    	this.orderDate = date;
-    	this.dishName = dish;
-    	this.chefName = chef;
-    	this.customerName = customer;
-=======
+
+
     public OrderHistory(/*Integer rid,*/ Integer oid,Date orderDate, Double price, String chefName, String dishName, String customerName) {
     	//this.rid = rid;
     	this.price = price;
@@ -83,7 +72,7 @@ public class OrderHistory {
     	this.dishName = dishName;
     	this.chefName = chefName;
     	this.customerName = customerName;
->>>>>>> c880e7c054e9de419791b103918b3b78a40ed0a2
+
     }
     public Reviews getReview() {
     	return this.review;
