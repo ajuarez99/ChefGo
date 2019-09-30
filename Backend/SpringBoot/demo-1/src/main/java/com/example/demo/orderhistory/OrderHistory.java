@@ -35,15 +35,15 @@ public class OrderHistory implements Serializable{
 //    
     @Column(name = "price")
     private Double price;
-    @Id
+
     @Column(name = "orderDate")
     private Date orderDate;
     
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "oid")
-//    @NotNull 
-//    private Integer oid;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "oid")
+    @NotNull 
+    private Integer oid;
     
     @Column(name= "dishName")
     @Size(max = 50)
@@ -60,14 +60,14 @@ public class OrderHistory implements Serializable{
     public OrderHistory() {
     }
     
-    public OrderHistory(/*Integer rid, Integer oid,*/ Date date, Double price, String chef, String dish, String customer) {
+    public OrderHistory(/*Integer rid,*/ Integer oid,Date orderDate, Double price, String chefName, String dishName, String customerName) {
     	//this.rid = rid;
     	this.price = price;
-    	//this.oid = oid;
-    	this.orderDate = date;
-    	this.dishName = dish;
-    	this.chefName = chef;
-    	this.customerName = customer;
+    	this.oid = oid;
+    	this.orderDate = orderDate;
+    	this.dishName = dishName;
+    	this.chefName = chefName;
+    	this.customerName = customerName;
     }
   /*  public Integer getrid() {
     	return this.rid;
@@ -75,13 +75,13 @@ public class OrderHistory implements Serializable{
     public void setRid(Integer rid) {
     	this.rid = rid;
     }*/
-   /* public Integer getoid() {
+   public Integer getoid() {
     	return this.oid;
     }
     public void setOid(Integer oid) {
     	this.oid = oid;
     }
-    */
+    
     public Double getPrice() {
     	return this.price;
     }

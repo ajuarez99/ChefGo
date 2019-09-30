@@ -7,8 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.user.UserRepo;
-import com.example.demo.user.Users;
+
 @Service
 public class OrderHistoryService {
 
