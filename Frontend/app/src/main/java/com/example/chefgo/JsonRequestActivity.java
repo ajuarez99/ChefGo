@@ -75,7 +75,6 @@ public class JsonRequestActivity extends Activity implements OnClickListener {
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, response.toString());
                         msgResponse.setText(response.toString());
-                        msgResponse.
                         hideProgressDialog();
                     }
                 }, new Response.ErrorListener() {
