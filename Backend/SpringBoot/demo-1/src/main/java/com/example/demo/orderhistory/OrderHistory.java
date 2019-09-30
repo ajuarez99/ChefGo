@@ -1,7 +1,7 @@
 package com.example.demo.orderhistory;
 
 
-/*import java.sql.Date;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -107,4 +107,3 @@ public class OrderHistory{
     
     
 }
-*/

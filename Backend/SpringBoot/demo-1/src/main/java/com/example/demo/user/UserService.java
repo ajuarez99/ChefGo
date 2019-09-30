@@ -22,13 +22,6 @@ public class UserService {
 		return users;
 	}
 
-
-	
-	public Users getUserById(int id) {
-		Optional<Users> u = userRepo.findById(id);
-		
-		return u.get();
-	}
 	
 	public Users getUserByUsername(String username) {
 		Optional<Users> u = userRepo.findByUsername(username);
@@ -39,25 +32,34 @@ public class UserService {
 		userRepo.save(user);
 	}
 	
-	public void updateUsername(int id, String username) {
-		Optional<Users> u = userRepo.findById(id);
-		Users update = u.get();
-		update.setUsername(username);
-		userRepo.save(update);
-			
-	}
 	
-	public void updatePassword(int id, String password) {
-		Optional<Users> u = userRepo.findById(id);
+	public void updatePassword(String username, String password) {
+		Optional<Users> u = userRepo.findByUsername(username);
 		Users update = u.get();
 		update.setPassword(password);
 		userRepo.save(update);
 			
 	}
+	
+	public void updateEmail(String username, String email) {
+		Optional<Users> u = userRepo.findByUsername(username);
+		Users update = u.get();
+		update.setEmail(email);
+		userRepo.save(update);
+			
+	}
+	
+	public void updateAddress(String username, String address, String state, Integer zip) {
+		Optional<Users> u = userRepo.findByUsername(username);
+		Users update = u.get();
+		update.setAddress(address);
+		update.setState(state);
+		update.setZip(zip);
+		userRepo.save(update);
+	}
 
-	public void deleteUser(int id) {
-		userRepo.deleteById(id);
-		
+	public void deleteUser(String username) {
+		userRepo.deleteByUsername(username);
 	}
 	
 	

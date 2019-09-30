@@ -19,6 +19,10 @@ public class Users {
     @NotNull 
     private String username;
  
+    @Column(name = "email")
+    @NotNull
+    private String email;
+    
     @Column(name = "fname")
     @Size(max = 30)
     private String fName;
@@ -54,8 +58,9 @@ public class Users {
     	
     }
     
-    public Users(String username, String f, String l, String pass, String user, Double rating, Integer type, String address, String state, Integer zip) {
+    public Users(String username, String email, String f, String l, String pass, String user, Double rating, Integer type, String address, String state, Integer zip) {
     	this.username = username;
+    	this.email = email;
     	this.fName= f;
     	this.lname = l;
     	this.password = pass;
@@ -121,5 +126,12 @@ public class Users {
     }
     public Integer getZip() {
     	return this.zip;
+    }
+    
+    public String getEmail() {
+    	return this.email;
+    }
+    public void setEmail(String email) {
+    	this.email = email;
     }
 }
