@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
         customerOrderHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent cpoh = new Intent(MainActivity.this, CustomerOrderHistoryActivity.class);
-                startActivity(cpoh);
+                Intent orderHistoryIntent = new Intent(MainActivity.this, CustomerOrderHistoryActivity.class);
+                startActivity(orderHistoryIntent);
             }
         });
     }
