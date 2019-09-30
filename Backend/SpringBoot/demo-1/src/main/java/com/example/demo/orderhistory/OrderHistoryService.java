@@ -22,8 +22,11 @@ public class OrderHistoryService {
 		orderHistoryRepo.findAll().forEach(orders::add);
 		return orders;
 	}
-
-
+	
+	public List<OrderHistory> getOrderByChefName(String username) {
+		List<OrderHistory> u = orderHistoryRepo.findByChefName(username);
+		return u;
+	}
 	
 	public OrderHistory getOrderById(int id) {
 		Optional<OrderHistory> u = orderHistoryRepo.findById(id);

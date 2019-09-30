@@ -1,6 +1,7 @@
 package com.example.demo.orderhistory;
 
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.CascadeType;
@@ -21,30 +22,28 @@ import com.example.demo.reviews.Reviews;
 
 @Entity
 @Table(name = "Order_History")
-public class OrderHistory {
+public class OrderHistory implements Serializable{
 
-	
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "rid")
-    @NotNull 
-    private Integer rid;
+//   
+//    @Column(name = "rid")
+//    @NotNull 
+//    private Integer rid;
 //    
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(unique = true)
+//    @OneToOne
+//    @JoinColumn(name = "Reviews_rid")
 //    private Reviews review;
+//    
     @Column(name = "price")
     private Double price;
- 
+    @Id
     @Column(name = "orderDate")
     private Date orderDate;
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "oid")
-    @NotNull 
-    private Integer oid;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "oid")
+//    @NotNull 
+//    private Integer oid;
     
     @Column(name= "dishName")
     @Size(max = 50)
@@ -61,28 +60,28 @@ public class OrderHistory {
     public OrderHistory() {
     }
     
-    public OrderHistory(Integer rid, Integer oid, Date date, Double price, String chef, String dish, String customer) {
-    	this.rid = rid;
+    public OrderHistory(/*Integer rid, Integer oid,*/ Date date, Double price, String chef, String dish, String customer) {
+    	//this.rid = rid;
     	this.price = price;
-    	this.oid = oid;
+    	//this.oid = oid;
     	this.orderDate = date;
     	this.dishName = dish;
     	this.chefName = chef;
     	this.customerName = customer;
     }
-    public Integer getrid() {
+  /*  public Integer getrid() {
     	return this.rid;
     }
     public void setRid(Integer rid) {
     	this.rid = rid;
-    }
-    public Integer getoid() {
+    }*/
+   /* public Integer getoid() {
     	return this.oid;
     }
     public void setOid(Integer oid) {
     	this.oid = oid;
     }
-    
+    */
     public Double getPrice() {
     	return this.price;
     }
