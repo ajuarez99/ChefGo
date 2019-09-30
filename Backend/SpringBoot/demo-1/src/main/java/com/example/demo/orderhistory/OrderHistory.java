@@ -25,6 +25,7 @@ import com.example.demo.reviews.Reviews;
 public class OrderHistory {
 
 
+	
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "rid", referencedColumnName = "rid")
     private Reviews review;

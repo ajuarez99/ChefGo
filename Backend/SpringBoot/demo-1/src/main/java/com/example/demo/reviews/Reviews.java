@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -36,6 +37,7 @@ public class Reviews {
     private Integer rid;
  
     @Column(name = "rating")
+    @Digits(fraction = 1, integer = 1)
     private double rating;
     
     @Column(name = "rDescription")
