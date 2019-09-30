@@ -26,23 +26,24 @@ public class UserController {
 		users.addUser(user);
 	}
 	
-	@RequestMapping("/users/{username}")
-	public Users displayUser(@PathVariable String username) {
-		return users.getUserByUsername(username);
+	@RequestMapping(method = RequestMethod.PUT, path = "/users/{username}/email")
+	public void updateUserEmail(@PathVariable String username, @RequestBody String email) {
+		users.updateEmail(username, email);
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT, path = "/users/{id}/username")
-	public void updateUsername(@PathVariable int id, @RequestBody String username) {
-		users.updateUsername(id, username);
+
+	@RequestMapping(method = RequestMethod.PUT, path = "/users/{username}/password")
+	public void updatePassword(@PathVariable String username, @RequestBody String password) {
+		users.updatePassword(username, password);
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT, path = "/users/{id}/password")
-	public void updatePassword(@PathVariable int id, @RequestBody String password) {
-		users.updatePassword(id, password);
+	@RequestMapping(method = RequestMethod.PUT, path = "/users/{username}/address")
+	public void updateAddress(@PathVariable String username, @RequestBody String address, @RequestBody String state,
+			@RequestBody Integer zip) {
+		users.updateAddress(username, address, state, zip);
 	}
-	
-	@RequestMapping(method = RequestMethod.DELETE, path = "/users/{id}")
-	public void deleteUser(@PathVariable int id) {
-		users.deleteUser(id);
+	@RequestMapping(method = RequestMethod.DELETE, path = "/users/{username}")
+	public void deleteUser(@PathVariable String username) {
+		users.deleteUser(username);
 	}
 }

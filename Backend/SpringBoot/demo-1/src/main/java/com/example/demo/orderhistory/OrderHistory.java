@@ -1,32 +1,43 @@
 package com.example.demo.orderhistory;
 
 
-/*import java.sql.Date;
+import java.io.Serializable;
+import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Entity
-@Table(name = "orderHistory")
-public class OrderHistory{
+import com.example.demo.reviews.Reviews;
 
+@Entity
+@Table(name = "Order_History")
+public class OrderHistory {
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "rid", referencedColumnName = "rid")
+    private Reviews review;
+//    
+	@Id
+	@Column(name = "id")
+	private Integer id;
 	
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "rid")
-    @NotNull 
-    private Integer rid;
-    
     @Column(name = "price")
     private Double price;
- 
+
+
+
     @Column(name = "orderDate")
     private Date orderDate;
     
@@ -51,22 +62,25 @@ public class OrderHistory{
     public OrderHistory() {
     }
     
-    public OrderHistory(Integer rid, Integer oid, Date date, Double price, String chef, String dish, String customer) {
-    	this.rid = rid;
+
+
+    public OrderHistory(/*Integer rid,*/ Integer oid,Date orderDate, Double price, String chefName, String dishName, String customerName) {
+    	//this.rid = rid;
     	this.price = price;
     	this.oid = oid;
-    	this.orderDate = date;
-    	this.dishName = dish;
-    	this.chefName = chef;
-    	this.customerName = customer;
+    	this.orderDate = orderDate;
+    	this.dishName = dishName;
+    	this.chefName = chefName;
+    	this.customerName = customerName;
+
     }
-    public Integer getrid() {
-    	return this.rid;
+    public Reviews getReview() {
+    	return this.review;
     }
-    public void setRid(Integer rid) {
-    	this.rid = rid;
+    public void setReview(Reviews review) {
+    	this.review = review;
     }
-    public Integer getoid() {
+   public Integer getoid() {
     	return this.oid;
     }
     public void setOid(Integer oid) {
@@ -107,4 +121,3 @@ public class OrderHistory{
     
     
 }
-*/

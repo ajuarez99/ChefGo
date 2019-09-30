@@ -4,6 +4,7 @@ package com.example.demo.reviews;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -19,6 +21,9 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.springframework.core.style.ToStringCreator;
+
+import com.example.demo.orderhistory.OrderHistory;
+import com.example.demo.user.Users;
 
 @Entity
 @Table(name = "Reviews")
@@ -48,6 +53,15 @@ public class Reviews {
     @Column(name = "reviewee")
     @Size(max = 30)
     private String reviewee;
+    
+    @ManyToOne()
+    @JoinColumn(name = "username")
+    private Users users;
+    
+    @OneToOne
+    @JoinColumn(name="orderHistoryId")
+    private OrderHistory orderHistory;
+    
     
     public Reviews() {
     	
