@@ -2,13 +2,22 @@ package com.example.demo.orderhistory;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.example.demo.reviews.Reviews;
+
+@Entity
+@Table(name = "Order_History")
 public class OrderHistory {
 
 	
@@ -18,7 +27,10 @@ public class OrderHistory {
     @Column(name = "rid")
     @NotNull 
     private Integer rid;
-    
+//    
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(unique = true)
+//    private Reviews review;
     @Column(name = "price")
     private double price;
  

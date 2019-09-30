@@ -4,6 +4,7 @@ package com.example.demo.reviews;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,6 +23,7 @@ import org.hibernate.annotations.NotFoundAction;
 import org.springframework.core.style.ToStringCreator;
 
 import com.example.demo.orderhistory.OrderHistory;
+import com.example.demo.user.Users;
 
 @Entity
 @Table(name = "Reviews")
@@ -52,8 +54,12 @@ public class Reviews {
     @Size(max = 30)
     private String reviewee;
     
-    @OneToOne(mappedBy = "OrderHistory")
-    private OrderHistory orderHistory;
+//    @OneToOne()
+//    @JoinColumn(name = "username")
+//    private Users users;
+    
+//    @OneToOne(mappedBy = "OrderHistory")
+//    private OrderHistory orderHistory;
     public Reviews() {
     	
     }

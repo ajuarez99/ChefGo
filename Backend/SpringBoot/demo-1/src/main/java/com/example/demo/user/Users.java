@@ -29,9 +29,9 @@ public class Users {
     @Size(max = 30)
     private String lname;
     
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(unique = true)
-    private Reviews review;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(unique = true)
+//    private Reviews review;
     
     @Column(name = "password")
     @Size(max = 30)

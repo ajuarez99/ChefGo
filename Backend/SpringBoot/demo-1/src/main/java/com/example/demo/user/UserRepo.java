@@ -1,8 +1,9 @@
 package com.example.demo.user;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepo extends CrudRepository<Users, Integer> {
+
+public interface UserRepo extends JpaRepository<Users, Integer> {
 	
 	
 
