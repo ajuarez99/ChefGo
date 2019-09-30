@@ -24,14 +24,10 @@ import com.example.demo.reviews.Reviews;
 @Table(name = "Order_History")
 public class OrderHistory {
 
-//   
-//    @Column(name = "rid")
-//    @NotNull 
-//    private Integer rid;
-//    
-//    @OneToOne
-//    @JoinColumn(name = "Reviews_rid")
-//    private Reviews review;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "rid", referencedColumnName = "rid")
+    private Reviews review;
 //    
 	@Id
 	@Column(name = "id")
@@ -39,15 +35,19 @@ public class OrderHistory {
 	
     @Column(name = "price")
     private Double price;
+<<<<<<< HEAD
    
+=======
+
+>>>>>>> c880e7c054e9de419791b103918b3b78a40ed0a2
     @Column(name = "orderDate")
     private Date orderDate;
     
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "oid")
-//    @NotNull 
-//    private Integer oid;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "oid")
+    @NotNull 
+    private Integer oid;
     
     @Column(name= "dishName")
     @Size(max = 50)
@@ -64,6 +64,7 @@ public class OrderHistory {
     public OrderHistory() {
     }
     
+<<<<<<< HEAD
     public OrderHistory(/*Integer rid, Integer oid,*/ Date date, Double price, String chef, String dish, String customer, Integer id) {
     	//this.rid = rid;
     	this.price = price;
@@ -73,20 +74,30 @@ public class OrderHistory {
     	this.dishName = dish;
     	this.chefName = chef;
     	this.customerName = customer;
+=======
+    public OrderHistory(/*Integer rid,*/ Integer oid,Date orderDate, Double price, String chefName, String dishName, String customerName) {
+    	//this.rid = rid;
+    	this.price = price;
+    	this.oid = oid;
+    	this.orderDate = orderDate;
+    	this.dishName = dishName;
+    	this.chefName = chefName;
+    	this.customerName = customerName;
+>>>>>>> c880e7c054e9de419791b103918b3b78a40ed0a2
     }
-  /*  public Integer getrid() {
-    	return this.rid;
+    public Reviews getReview() {
+    	return this.review;
     }
-    public void setRid(Integer rid) {
-    	this.rid = rid;
-    }*/
-   /* public Integer getoid() {
+    public void setReview(Reviews review) {
+    	this.review = review;
+    }
+   public Integer getoid() {
     	return this.oid;
     }
     public void setOid(Integer oid) {
     	this.oid = oid;
     }
-    */
+    
     public Double getPrice() {
     	return this.price;
     }
