@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        customerProfileButton = (Button) findViewById(R.id.buttonNext);
+        customerProfileButton = findViewById(R.id.buttonNext);
         customerProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        customerOrderHistoryButton = (Button) findViewById(R.id.buttonCustomerOrderHistory);
+        customerOrderHistoryButton = findViewById(R.id.buttonCustomerOrderHistory);
         customerOrderHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
