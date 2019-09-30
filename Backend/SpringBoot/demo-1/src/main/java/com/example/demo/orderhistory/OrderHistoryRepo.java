@@ -1,8 +1,8 @@
-package com.example.demo.orderhistory;
+/*package com.example.demo.orderhistory;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface OrderHistoryRepo extends CrudRepository<OrderHistory, Integer> {
+public interface OrderHistoryRepo extends JpaRepository<OrderHistory, Integer> {
 
-}
+}*/

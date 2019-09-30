@@ -1,14 +1,18 @@
 package com.example.demo.user;
 
-import java.sql.Date;
-
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+
+
+@Entity
+@Table(name = "Users")
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,11 +33,11 @@ public class Users {
     @Size(max = 30)
     private String password;
     
-    @Column(name = "user_type_flag")
+    @Column(name = "userType")
     private Integer userType;
     
     @Column(name = "rating")
-    private double rating;
+    private Double rating;
     
     
     @Column(name = "address")
@@ -51,7 +55,8 @@ public class Users {
     	
     }
     
-    public Users(String f, String l, String pass, String user, double rating, Integer type, String address, String state, Integer zip) {
+    public Users(String username, String f, String l, String pass, String user, Double rating, Integer type, String address, String state, Integer zip) {
+    	this.username = username;
     	this.fName= f;
     	this.lname = l;
     	this.password = pass;
@@ -93,10 +98,10 @@ public class Users {
     public void setPassword(String pass) {
     	this.password = pass;
     }
-    public double getRating() {
+    public Double getRating() {
     	return this.rating;
     }
-    public void setRating(double r) {
+    public void setRating(Double r) {
     	this.rating = r;
     }
     

@@ -26,6 +26,11 @@ public class UserController {
 		users.addUser(user);
 	}
 	
+	@RequestMapping("/users/{username}")
+	public Users displayUsers(@PathVariable String username) {
+		return users.getUserByUsername(username);
+	}
+	
 	@RequestMapping(method = RequestMethod.PUT, path = "/users/{id}/username")
 	public void updateUsername(@PathVariable int id, @RequestBody String username) {
 		users.updateUsername(id, username);
