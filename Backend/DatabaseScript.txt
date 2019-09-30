@@ -31,7 +31,7 @@ primary key(users_name) references Users(username)
 
 create table Reviews(
 
-rid int NOT NULL UNIQUE,
+rid int NOT NULL UNIQUE AUTO-Increment,
 
 rating float not null check(rating between 0 and 5),
 
@@ -57,9 +57,9 @@ price float,
 
 orderDate date,
 
-oid int NOT NULL unique,
+oid int NOT NULL unique AUTO-Increment,
 
-rid int NOT NULL unique,
+rid int NOT NULL unique AUTO-Increment,
 
 DishName varchar(50),
 

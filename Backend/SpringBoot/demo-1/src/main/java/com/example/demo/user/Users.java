@@ -1,10 +1,23 @@
 package com.example.demo.user;
 
+
+import java.sql.Date;
+
+import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.example.demo.reviews.Reviews;
+
+
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -31,6 +44,9 @@ public class Users {
     @Size(max = 30)
     private String lname;
     
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(unique = true)
+//    private Reviews review;
     
     @Column(name = "password")
     @Size(max = 30)
