@@ -7,6 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.user.Users;
+
 
 @Service
 public class OrderHistoryService {
@@ -42,6 +44,11 @@ public class OrderHistoryService {
 		OrderHistory update = u.get();
 		update.setDish(dish);
 		orderHistoryRepo.save(update);	
+	}
+	public void deleteOrder(Integer oid) {
+		Optional<OrderHistory> u = orderHistoryRepo.findByOid(oid);
+		OrderHistory toDelete = u.get();
+		orderHistoryRepo.delete(toDelete);
 	}
 	
 
