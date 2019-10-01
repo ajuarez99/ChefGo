@@ -1,6 +1,7 @@
 package com.example.demo.user;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -38,7 +39,7 @@ public class Users {
     private String lname;
     
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "user_id")
     private List<Allergies> allergies;
     
     @Column(name = "password")
@@ -65,6 +66,21 @@ public class Users {
     
     public Users() {
     	
+    }
+    
+    public Users(String username, String email, String f, String l, String pass, String user, Double rating,
+    		Integer type, String address, String state, Integer zip) {
+    	this.username = username;
+    	this.email = email;
+    	this.fName= f;
+    	this.lname = l;
+    	this.password = pass;
+    	this.userType = type;
+    	this.rating = rating;
+    	this.address = address;
+    	this.state = state;
+    	this.zip = zip;
+    	this.allergies = new ArrayList<Allergies>();
     }
     
     public Users(String username, String email, String f, String l, String pass, String user, Double rating,

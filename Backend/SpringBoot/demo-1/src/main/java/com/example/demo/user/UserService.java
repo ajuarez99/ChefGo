@@ -7,6 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.allergies.Allergies;
+
 
 @Service
 public class UserService {
@@ -59,7 +61,13 @@ public class UserService {
 	}
 
 	public void deleteUser(String username) {
-		userRepo.deleteByUsername(username);
+		Optional<Users> u = userRepo.findByUsername(username);
+		Users toDelete = u.get();
+		userRepo.delete(toDelete);
+	}
+	
+	public void addAllergy(Allergies allergy) {
+		
 	}
 	
 	

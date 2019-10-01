@@ -27,13 +27,9 @@ public class OrderHistory {
 
 	
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "rid", referencedColumnName = "rid")
+    @JoinColumn(name = "rid")
     private Reviews review;
-//    
-	@Id
-	@Column(name = "id")
-	private Integer id;
-	
+
     @Column(name = "price")
     private Double price;
 
@@ -65,8 +61,7 @@ public class OrderHistory {
     
 
 
-    public OrderHistory(/*Integer rid,*/ Integer oid,Date orderDate, Double price, String chefName, String dishName, String customerName) {
-    	//this.rid = rid;
+    public OrderHistory(Integer oid,Date orderDate, Double price, String chefName, String dishName, String customerName) {
     	this.price = price;
     	this.oid = oid;
     	this.orderDate = orderDate;

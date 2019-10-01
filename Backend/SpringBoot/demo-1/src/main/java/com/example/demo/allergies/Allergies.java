@@ -23,17 +23,17 @@ public class Allergies {
 	private Integer id;
 	
 	
-	@Column(name = "aType")
+	@Column(name = "allergy")
 	@Size(max = 40)
-	private String aType;
+	private String allergy;
 	
 	@ManyToOne
 	private Users user;
 	
-	public Allergies(String aType, Integer id, Users user) {
-		this.aType = aType;
+
+	public Allergies(Integer id, String allergy) {
+		this.allergy = allergy;
 		this.id = id;
-		this.user= user;
 	}
 	
 	public Allergies() {
@@ -46,11 +46,17 @@ public class Allergies {
 	public Integer getId() {
 		return this.id;
 	}
-	public String getType() {
-		return this.aType;
+	public String getAllergy() {
+		return this.allergy;
 	}
-	public void setType(String aType) {
-		this.aType = aType;
+	public void setAllergy(String allergy) {
+		this.allergy = allergy;
+	}
+	public Users getUser() {
+		return user;
+	}
+	public void setUser(Users user) {
+		this.user = user;
 	}
 	
 }
