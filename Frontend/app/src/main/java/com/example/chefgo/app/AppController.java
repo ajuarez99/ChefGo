@@ -7,12 +7,15 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.example.chefgo.net_utils.LruBitmapCache;
 
+
+
 public class AppController extends Application {
     public static final String TAG = AppController.class
             .getSimpleName();
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     private static AppController mInstance;
+    public String http = "http://coms-309-sb-3.misc.iastate.edu:8080/";
     @Override
     public void onCreate() {
         super.onCreate();
@@ -35,7 +38,7 @@ public class AppController extends Application {
         return this.mImageLoader;
     }
     public <T> void addToRequestQueue(Request<T> req, String tag) {
-// set the default tag if tag is empty
+        // set the default tag if tag is empty
         req.setTag(TextUtils.isEmpty(tag) ? TAG : tag);
         getRequestQueue().add(req);
     }
