@@ -2,6 +2,7 @@ package com.example.chefgo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -33,5 +34,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(orderHistoryIntent);
             }
         });
+
+        RequestHandler requestHandler = new RequestHandler();
+        requestHandler.makeJsonObjReq();
     }
 }
