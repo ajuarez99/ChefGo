@@ -27,8 +27,8 @@ public class OrderHistoryService {
 		return u;
 	}
 	
-	public OrderHistory getOrderById(int id) {
-		Optional<OrderHistory> u = orderHistoryRepo.findById(id);
+	public OrderHistory getOrderByOid(int oid) {
+		Optional<OrderHistory> u = orderHistoryRepo.findByOid(oid);
 		
 		return u.get();
 	}

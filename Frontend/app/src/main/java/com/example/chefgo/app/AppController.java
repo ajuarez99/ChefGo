@@ -15,7 +15,7 @@ public class AppController extends Application {
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     private static AppController mInstance;
-    public String http = "http://coms-309-sb-3.misc.iastate.edu:8080/";
+    public String http = "http://10.0.2.2:8082/orderHistory";
     @Override
     public void onCreate() {
         super.onCreate();

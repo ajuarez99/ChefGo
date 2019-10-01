@@ -10,13 +10,15 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
     Button customerProfileButton;
     Button customerOrderHistoryButton;
+    Button test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        customerProfileButton = findViewById(R.id.buttonNext);
+
+        customerProfileButton = findViewById(R.id.buttonCustomerProfile);
         customerProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

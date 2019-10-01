@@ -26,7 +26,7 @@ public class OrderHistoryController {
 	
 	@RequestMapping("/orderHistory/{id}")
 	public OrderHistory displayOrderById(@PathVariable int id) {
-		return orderHistory.getOrderById(id);
+		return orderHistory.getOrderByOid(id);
 	}
 
 	@RequestMapping("/orderHistory/{username}")
