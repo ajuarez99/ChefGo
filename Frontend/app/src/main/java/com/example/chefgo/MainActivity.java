@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
     Button customerProfileButton;
     Button customerOrderHistoryButton;
-    Button test;
+    Button customerOrderMeal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,5 +36,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        customerOrderMeal = findViewById(R.id.buttonCustomerOrderMeal);
+        customerOrderMeal.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent orderMealIntent = new Intent(MainActivity.this, CustomerOrderMealActivity.class);
+                startActivity(orderMealIntent);
+            }
+        });
     }
 }
