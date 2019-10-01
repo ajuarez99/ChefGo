@@ -40,17 +40,17 @@ public class CustomerProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_profile);
         testButton = findViewById(R.id.testButton);
-       txtResponse = findViewById(R.id.responseView);
+        txtResponse = findViewById(R.id.responseView);
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                makeStringReq();
+                makeJSONArrayReq();
             }
         });
     }
 
 
-    private void makeStringReq() {
+    private void makeJSONArrayReq() {
 
 
         JsonArrayRequest req = new JsonArrayRequest(URL,
