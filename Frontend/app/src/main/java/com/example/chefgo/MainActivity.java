@@ -1,12 +1,11 @@
 package com.example.chefgo;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     Button customerProfileButton;
@@ -35,7 +34,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        RequestHandler requestHandler = new RequestHandler();
-        requestHandler.makeJsonObjReq();
     }
 }
