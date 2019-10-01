@@ -24,14 +24,19 @@ public class OrderHistoryController {
 		orderHistory.addOrderToHistory(order);
 	}
 	
+	@RequestMapping("/order/{username}")
+	public List<OrderHistory> getOrderByChef(@PathVariable String username) {
+		return orderHistory.getOrderByChefName(username);
+	}
+	
 	@RequestMapping("/orderHistory/{id}")
 	public OrderHistory displayOrderById(@PathVariable int id) {
 		return orderHistory.getOrderByOid(id);
 	}
 
-	@RequestMapping("/orderHistory/{username}")
-	public List<OrderHistory> getOrderByChef(@PathVariable String username) {
-		return orderHistory.getOrderByChefName(username);
+	 
+	@RequestMapping(method = RequestMethod.DELETE, path = "/delete/{id}")
+	public void deleteOrder(@PathVariable Integer id) {
+		orderHistory.deleteOrder(id);
 	}
-
 }
