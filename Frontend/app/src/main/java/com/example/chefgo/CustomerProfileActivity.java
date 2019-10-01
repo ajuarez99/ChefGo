@@ -9,19 +9,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.example.chefgo.app.AppController;
-import com.android.volley.Request.Method;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +28,8 @@ public class CustomerProfileActivity extends AppCompatActivity {
     private String jsonResponse;
 
     private TextView txtResponse;
-    private String URL = "http://10.0.2.2:8082/orderHistory";
+    //private String URL = "http://10.0.2.2:8082/orderHistory";
+    private String  URL = "http://coms-309-sb-3.misc.iastate.edu:8080/users";
     private String jsonObjectTag = "jobj_req", tag_json_arry = "jarray_req";
     String tag_string_req ="string_req";
 
@@ -74,19 +67,20 @@ public class CustomerProfileActivity extends AppCompatActivity {
 
                                 JSONObject person = (JSONObject) response.get(i);
 
+                                String id = person.getString("id");
+                                String email = person.getString("email");
+                                String phone = person.getString("phone");
+                                String cook = person.getString("cook");
+                                String firstName = person.getString("firstName");
+                                //JSONObject phone = person.getJSONObject("review");
+                                //String home = person.getString("cook");
+                                //String mobile = person.getString("firstName");
 
-                                String name = person.getString("price");
-                                String email = person.getString("oid");
-                                JSONObject phone = person
-                                        .getJSONObject("review");
-                                String home = phone.getString("rating");
-                                String mobile = phone.getString("date");
-
-                                jsonResponse += "pirice: " + name + "\n\n";
-                                jsonResponse += "oid: " + email + "\n\n";
-                                jsonResponse += "rating: " + home + "\n\n";
-                                jsonResponse += "date: " + mobile + "\n\n\n";
-
+                                jsonResponse += "id: " + id + "\n\n";
+                                jsonResponse += "email: " + email + "\n\n";
+                                jsonResponse += "phone: " + phone + "\n\n";
+                                jsonResponse += "cook: " + cook + "\n\n";
+                                jsonResponse += "firstName: " + firstName + "\n\n";
                             }
 
                             txtResponse.setText(jsonResponse);
