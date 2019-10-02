@@ -27,14 +27,14 @@ public class UserController {
 	}
 	
 	@RequestMapping("/user/{username}/{password}")
-	public String validateUser(@PathVariable String username, @PathVariable String password) {
+	public User validateUser(@PathVariable String username, @PathVariable String password) {
 		Users user = users.getUserByUsername(username);
 		
 		if(user.getPassword().equals(password)) {
-			return "Success";
+			return user;
 		}
 		else {
-			return"Error: Wrong Password, Please try again.";
+			return null;
 		}
 	}
 	
