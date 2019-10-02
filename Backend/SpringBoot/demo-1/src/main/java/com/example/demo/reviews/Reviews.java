@@ -56,9 +56,9 @@ public class Reviews {
     @Size(max = 30)
     private String reviewee;
     
-    @ManyToOne()
-    @JoinColumn(name = "username")
-    private Users users;
+//    @ManyToOne()
+//    @JoinColumn(name = "username")
+//    private Users users;
     
     @OneToOne
     @JoinColumn(name="orderHistoryId")
