@@ -53,7 +53,8 @@ public class CustomerProfileActivity extends AppCompatActivity {
         nameInput = findViewById(R.id.nameInput);
         postNameButton = findViewById(R.id.postNameButton);
         nameView = findViewById(R.id.nameText);
-
+        makeJSONArrayReq();
+        nameView.setText(FName);
         postNameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,12 +123,12 @@ public class CustomerProfileActivity extends AppCompatActivity {
         Map<String, String> params = new HashMap();
         params.put("username", "jstr");
         params.put("email", "jstrobe@iastate.edu");
-        params.put("fName", "Joe");
+        params.put("fName", firstName);
         params.put("lName", "Strobel");
         params.put("password", "password");
         params.put("userType", "1");
         params.put("rating", "2.2");
-        params.put("address", firstName);
+        params.put("address", "Morningside St");
         params.put("state", "Iowa");
         params.put("zip", "50014");
 //        params.put("allergies","");
