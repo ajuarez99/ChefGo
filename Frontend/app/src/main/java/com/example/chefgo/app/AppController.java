@@ -5,7 +5,7 @@ import com.android.volley.toolbox.Volley;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
-import com.example.chefgo.net_utils.LruBitmapCache;
+import com.example.chefgo.net_util.LruBitmapCache;
 
 
 
