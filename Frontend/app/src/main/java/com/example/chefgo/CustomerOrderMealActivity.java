@@ -20,6 +20,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static com.example.chefgo.app.AppController.TAG;
 
 public class CustomerOrderMealActivity extends AppCompatActivity {
@@ -36,40 +39,49 @@ public class CustomerOrderMealActivity extends AppCompatActivity {
         inputDish = findViewById(R.id.inputDish);
         confirmDish = findViewById(R.id.confirmDish);
 
-        final String meal = inputDish.getText().toString();
+        //final String meal = inputDish.getText().toString();
         confirmDish.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                postJSONObjectRequest(meal);
+                postJSONObjectRequest();
             }
         });
     }
 
-    private void postJSONObjectRequest(String meal){
+    private void postJSONObjectRequest(){
 
-        JSONObject orderObject = new JSONObject();
-        JSONObject reviewObject = new JSONObject();
+        Map<String, String> map = new HashMap<>();
+        map.put("oid", "4");
+        map.put("price", "5");
+        map.put("dish", "food");
+        map.put("chef", "Allan");
+        map.put("customer", "Carter");
+        map.put("date", "69-69-420");
+        JSONObject orderObject = new JSONObject(map);
+        //JSONObject reviewObject = new JSONObject();
+
+        /*
         try {
+
             reviewObject.put("rid", 4);
             reviewObject.put("rating", 5.0);
             reviewObject.put("reviewer", "Joe");
             reviewObject.put("reviewee", "Karthik");
-            reviewObject.put("date", "69-69-420");
+            reviewObject.put("date", "06-16-1999");
             reviewObject.put("description", "Allan is beautiful");
             JSONArray reviewArray = new JSONArray();
             reviewArray.put(reviewObject);
 
             orderObject.put("oid", "4");
             orderObject.put("price", "5");
-            orderObject.put("review", reviewArray);
+            //orderObject.put("review", reviewArray);
             orderObject.put("dish", meal);
             orderObject.put("chef", "Carter");
             orderObject.put("customer", "Allan");
-            orderObject.put("date", "69-69-420");
+            orderObject.put("date", "06-16-1999");
         } catch (JSONException e){
 
         }
-
-        Toast.makeText(CustomerOrderMealActivity.this, "test", Toast.LENGTH_LONG).show();
+        */
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, URL, orderObject,
                 new Response.Listener<JSONObject>() {
@@ -82,6 +94,7 @@ public class CustomerOrderMealActivity extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(CustomerOrderMealActivity.this, "Order placed unsuccessfully", Toast.LENGTH_LONG).show();
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
             }
         }) {
