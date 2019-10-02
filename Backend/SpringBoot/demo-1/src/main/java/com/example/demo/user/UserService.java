@@ -50,6 +50,12 @@ public class UserService {
 		userRepo.save(update);
 			
 	}
+	public void updatefname(String username, String fname) {
+		Optional<Users> u = userRepo.findByUsername(username);
+		Users update = u.get();
+		update.setfName(fname);
+		userRepo.save(update);
+	}
 	
 	public void updateAddress(String username, String address, String state, Integer zip) {
 		Optional<Users> u = userRepo.findByUsername(username);

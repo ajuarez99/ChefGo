@@ -30,7 +30,15 @@ public class UserController {
 	public void updateUserEmail(@PathVariable String username, @RequestBody String email) {
 		users.updateEmail(username, email);
 	}
-	
+	@RequestMapping( path = "/user/{username}")
+	public Users findbyUserName(@PathVariable String username) {
+		return users.getUserByUsername(username);
+		
+	}
+	@RequestMapping(method = RequestMethod.PUT, path = "/user/{username}/{fname}")
+	public void updatefName(@PathVariable String username, @PathVariable String fname) {
+		users.updatefname(username, fname);
+	}
 
 	@RequestMapping(method = RequestMethod.PUT, path = "/users/{username}/password")
 	public void updatePassword(@PathVariable String username, @RequestBody String password) {
