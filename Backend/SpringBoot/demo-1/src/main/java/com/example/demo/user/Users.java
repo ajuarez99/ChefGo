@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -23,11 +24,11 @@ import com.example.demo.allergies.Allergies;
 public class Users {
     @Id
     @Column(name = "username")
+    @Size(max = 50)
     @NotNull 
     private String username;
  
     @Column(name = "email")
-    @NotNull
     private String email;
     
     @Column(name = "fname")
@@ -38,9 +39,9 @@ public class Users {
     @Size(max = 30)
     private String lname;
     
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private List<Allergies> allergies;
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "user_id")
+//    private List<Allergies> allergies;
     
     @Column(name = "password")
     @Size(max = 30)
@@ -64,6 +65,7 @@ public class Users {
     @Column (name = "zip")
     private Integer zip;
     
+    
     public Users() {
     	
     }
@@ -80,23 +82,23 @@ public class Users {
     	this.address = address;
     	this.state = state;
     	this.zip = zip;
-    	this.allergies = new ArrayList<Allergies>();
+    	//this.allergies = new ArrayList<Allergies>();
     }
     
-    public Users(String username, String email, String f, String l, String pass, String user, Double rating,
-    		Integer type, String address, String state, Integer zip, List<Allergies> allergies) {
-    	this.username = username;
-    	this.email = email;
-    	this.fName= f;
-    	this.lname = l;
-    	this.password = pass;
-    	this.userType = type;
-    	this.rating = rating;
-    	this.address = address;
-    	this.state = state;
-    	this.zip = zip;
-    	this.allergies = allergies;
-    }
+//    public Users(String username, String email, String f, String l, String pass, String user, Double rating,
+//    		Integer type, String address, String state, Integer zip, List<Allergies> allergies) {
+//    	this.username = username;
+//    	this.email = email;
+//    	this.fName= f;
+//    	this.lname = l;
+//    	this.password = pass;
+//    	this.userType = type;
+//    	this.rating = rating;
+//    	this.address = address;
+//    	this.state = state;
+//    	this.zip = zip;
+//    	this.allergies = allergies;
+//    }
     
     public Integer getUserType() {
     	return this.userType;
@@ -161,10 +163,10 @@ public class Users {
     public void setEmail(String email) {
     	this.email = email;
     }
-    public void setAllergies(List<Allergies> allergies) {
-    	this.allergies = allergies;
-    }
-    public List<Allergies> getAllergies(){
-    	return this.allergies;
-    }
+//    public void setAllergies(List<Allergies> allergies) {
+//    	this.allergies = allergies;
+//    }
+//    public List<Allergies> getAllergies(){
+//    	return this.allergies;
+//    }
 }
