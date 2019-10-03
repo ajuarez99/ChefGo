@@ -1,11 +1,13 @@
 package com.example.chefgo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,11 +29,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 import java.util.HashMap;
 import java.util.Map;
-
-
 
 import static com.example.chefgo.app.AppController.TAG;
 
@@ -81,6 +80,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 makeJSONArrayReq();
                 nameView.setText(FName);
+                nameInput.setText(null);
             }
         });
         profilePicButton.setOnClickListener(new View.OnClickListener() {
@@ -148,6 +148,9 @@ public class CustomerProfileActivity extends AppCompatActivity {
 
     private void postUser(final String firstName) {
 
+        InputMethodManager inputManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+
         Map<String, String> params = new HashMap();
         params.put("username", "jstr");
         params.put("email", "jstrobe@iastate.edu");
@@ -172,8 +175,8 @@ public class CustomerProfileActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "POSTED", Toast.LENGTH_SHORT);
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                 System.out.println("THIS IS THE ERROR: " + error.getMessage());
             }
         });
