@@ -16,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.app.AppController;
 
 import org.json.JSONArray;
@@ -42,7 +43,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
     private String jsonObjectTag = "jobj_req", tag_json_arry = "jarray_req";
     String tag_string_req ="string_req";
     String FName;
-
+    private UsersDomain user ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,8 @@ public class CustomerProfileActivity extends AppCompatActivity {
         nameInput = findViewById(R.id.nameInput);
         postNameButton = findViewById(R.id.postNameButton);
         nameView = findViewById(R.id.nameText);
+
+        user = (UsersDomain) getIntent().getParcelableExtra("User");
 
         postNameButton.setOnClickListener(new View.OnClickListener() {
             @Override

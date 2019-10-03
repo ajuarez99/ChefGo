@@ -13,18 +13,20 @@ public class MainActivity extends AppCompatActivity {
     Button customerProfileButton;
     Button customerOrderHistoryButton;
     Button customerOrderMeal;
+    private UsersDomain  user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        UsersDomain user = (UsersDomain) getIntent().getParcelableExtra("User");
+        user = (UsersDomain) getIntent().getParcelableExtra("User");
         customerProfileButton = findViewById(R.id.buttonCustomerProfile);
         customerProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent customerProfileIntent = new Intent(MainActivity.this, CustomerProfileActivity.class);
+                customerProfileIntent.putExtra("User", user);
                 startActivity(customerProfileIntent);
             }
         });
