@@ -7,6 +7,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.chefgo.DomainObjects.UsersDomain;
+
 public class MainActivity extends AppCompatActivity {
     Button customerProfileButton;
     Button customerOrderHistoryButton;
@@ -17,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        UsersDomain user = (UsersDomain) getIntent().getParcelableExtra("User");
         customerProfileButton = findViewById(R.id.buttonCustomerProfile);
         customerProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -28,10 +28,15 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.R;
 import com.example.chefgo.app.AppController;
 
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import static com.example.chefgo.app.AppController.TAG;
 
@@ -41,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     private String URL = "http://10.0.2.2:8082/user";
     private String jsonObjectTag = "jobj_req", tag_json_arry = "jarray_req";
     String tag_string_req ="string_req";
-
+    private UsersDomain user = new UsersDomain();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                 EditText password = findViewById(R.id.password);
                 String request = URL + "/";
                 request += username.getText().toString() +"/" + password.getText().toString();
-                makeStringReq(request);
+                makeJSONObjectReq(request);
             }
         });
 
@@ -65,33 +70,53 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-    private void makeStringReq(final String request) {
+    private void makeJSONObjectReq(final String request) {
 
-        StringRequest strReq = new StringRequest(Request.Method.GET, request, new Response.Listener<String>() {
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+                request, null, new Response.Listener<JSONObject>() {
+
             @Override
-            public void onResponse(String response) {
-                Log.d(TAG, response);
-                if(response.equals("Success")){
-                    Intent main = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(main);
-                }
-                else{
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, response.toString());
+
+                try {
+
+                    user.setUsername(response.getString("username"));
+                    user.setEmail(response.getString("email"));
+                    user.setfName(response.getString("fName"));
+                    user.setLname(response.getString("lName"));
+                    user.setAddress(response.getString("address"));
+                    user.setState(response.getString("state"));
+                    user.setZip(response.getInt("zip"));
+                    user.setPassword(response.getString("password"));
+                    user.setRating(response.getDouble("rating"));
+                    user.setUserType(response.getInt("userType"));
+
+                Intent inten = new Intent(LoginActivity.this, MainActivity.class);
+                inten.putExtra("User", user);
+                startActivity(inten);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                     Toast.makeText(getApplicationContext(),
-                            "WRONG", Toast.LENGTH_SHORT).show();
+                            "Error: " + e.getMessage(),
+                            Toast.LENGTH_LONG).show();
                 }
 
             }
         }, new Response.ErrorListener() {
+
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
+                        "Wrong password", Toast.LENGTH_SHORT).show();
 
             }
         });
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(jsonObjReq);
     }
 
 

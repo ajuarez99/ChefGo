@@ -27,7 +27,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("/user/{username}/{password}")
-	public User validateUser(@PathVariable String username, @PathVariable String password) {
+	public Users validateUser(@PathVariable String username, @PathVariable String password) {
 		Users user = users.getUserByUsername(username);
 		
 		if(user.getPassword().equals(password)) {
