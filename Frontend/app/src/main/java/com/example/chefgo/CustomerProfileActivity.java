@@ -45,6 +45,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
     RatingBar ratingBar;
     ImageView profilePic;
     String username;
+    String rate;
     private String jsonResponse;
 
     private TextView txtResponse;
@@ -69,10 +70,17 @@ public class CustomerProfileActivity extends AppCompatActivity {
         profilePic = findViewById(R.id.profilePic);
         makeJSONArrayReq();
         nameView.setText(FName);
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                ratingBar.setRating(v);
+                rate = Float.toString(v);
+            }
+        });
         postNameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                postUser(nameInput.getText().toString());
+                postUser(nameInput.getText().toString(), rate);
             }
         });
         refreshButton.setOnClickListener(new View.OnClickListener() {
@@ -146,7 +154,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(req);
     }
 
-    private void postUser(final String firstName) {
+    private void postUser(final String firstName, final String rating) {
 
         InputMethodManager inputManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
@@ -158,7 +166,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
         params.put("lName", "Strobel");
         params.put("password", "password");
         params.put("userType", "1");
-        params.put("rating", "2.2");
+        params.put("rating", rating);
         params.put("address", "Morningside St");
         params.put("state", "Iowa");
         params.put("zip", "50014");
