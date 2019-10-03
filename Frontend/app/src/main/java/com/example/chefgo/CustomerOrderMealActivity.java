@@ -20,6 +20,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,23 +41,26 @@ public class CustomerOrderMealActivity extends AppCompatActivity {
         inputDish = findViewById(R.id.inputDish);
         confirmDish = findViewById(R.id.confirmDish);
 
-        //final String meal = inputDish.getText().toString();
         confirmDish.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                postJSONObjectRequest();
+                String meal = inputDish.getText().toString();
+                Toast.makeText(CustomerOrderMealActivity.this, "Order confirmed.", Toast.LENGTH_LONG).show();
+                postJSONObjectRequest(meal);
             }
         });
     }
 
-    private void postJSONObjectRequest(){
+    private void postJSONObjectRequest(String meal){
 
         Map<String, String> map = new HashMap<>();
-        map.put("oid", "4");
+        map.put("oid", "12");
         map.put("price", "5");
-        map.put("dish", "food");
-        map.put("chef", "Allan");
+        map.put("dish", meal);
+        map.put("chef", "TBD");
         map.put("customer", "Carter");
-        map.put("date", "69-69-420");
+        map.put("date", "2019-09-28T23:16:12.32Z");
+        map.put("review", null);
+
         JSONObject orderObject = new JSONObject(map);
         //JSONObject reviewObject = new JSONObject();
 
@@ -94,7 +99,6 @@ public class CustomerOrderMealActivity extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(CustomerOrderMealActivity.this, "Order placed unsuccessfully", Toast.LENGTH_LONG).show();
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
             }
         }) {
