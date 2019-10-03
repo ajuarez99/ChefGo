@@ -7,15 +7,14 @@
     tools:context=".CustomerProfileActivity">
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
+        android:id="@+id/profilePic"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="32dp"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/nameText"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
@@ -39,6 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="472dp"
         android:clickable="false"
+        android:numStars="5"
+        android:rating="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameText"
@@ -83,11 +84,21 @@
         android:id="@+id/nameInput"
         android:layout_width="255dp"
         android:layout_height="47dp"
-        android:text="Input Name"
+        android:hint="Enter Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.288" />
+
+    <Button
+        android:id="@+id/setProfPic"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:text="Choose Profile Pic"
+        app:layout_constraintBottom_toTopOf="@+id/testButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postNameButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
