@@ -24,7 +24,16 @@
         android:id="@+id/inputDish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="20dp"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@+id/enterMealText"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <EditText
+        android:id="@+id/inputPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="180dp"
         android:inputType="text"
         app:layout_constraintTop_toBottomOf="@+id/enterMealText"
         tools:layout_editor_absoluteX="0dp" />
@@ -39,7 +48,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputDish"
-        app:layout_constraintVertical_bias="0.24" />
+        app:layout_constraintVertical_bias="0.54" />
 
     <TextView
         android:id="@+id/enterMealText"
@@ -49,6 +58,18 @@
         android:textSize="25dp"
         android:text="Place order here:"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/orderHistoryTitle" />
+
+    <TextView
+        android:id="@+id/enterPriceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="196dp"
+        android:text="Price range:"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/orderHistoryTitle" />
 
