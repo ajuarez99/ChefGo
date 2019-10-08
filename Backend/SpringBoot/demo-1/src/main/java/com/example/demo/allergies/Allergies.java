@@ -27,8 +27,8 @@ public class Allergies {
 	@Size(max = 40)
 	private String allergy;
 	
-	@ManyToOne
-	private Users user;
+//	@ManyToOne
+//	private Users user;
 	
 
 	public Allergies(Integer id, String allergy) {
@@ -52,11 +52,11 @@ public class Allergies {
 	public void setAllergy(String allergy) {
 		this.allergy = allergy;
 	}
-	public Users getUser() {
-		return user;
-	}
-	public void setUser(Users user) {
-		this.user = user;
-	}
+//	public Users getUser() {
+//		return user;
+//	}
+//	public void setUser(Users user) {
+//		this.user = user;
+//	}
 	
 }

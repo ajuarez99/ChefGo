@@ -25,15 +25,15 @@ public class AllergiesService {
 	public List<Allergies> getUserAllergies(Users user){
 		List<Allergies> allergies = new ArrayList<Allergies>();
 		
-		allergiesRepo.findByUser(user).forEach(allergies :: add);
+		//allergiesRepo.findByUser(user).forEach(allergies :: add);
 		return allergies;
 	}
 	
-	public void assignUserToAllergy(Allergies allergy, Users user) {
-		allergy.setUser(user);
-		allergiesRepo.save(allergy);
-		
-	}
+//	public void assignUserToAllergy(Allergies allergy, Users user) {
+//		allergy.setUser(user);
+//		allergiesRepo.save(allergy);
+//		
+//	}
 	
 	
 	

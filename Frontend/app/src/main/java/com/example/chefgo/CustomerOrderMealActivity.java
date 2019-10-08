@@ -2,8 +2,9 @@ package com.example.chefgo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,10 +17,9 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.chefgo.app.AppController;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,8 +27,8 @@ import static com.example.chefgo.app.AppController.TAG;
 
 public class CustomerOrderMealActivity extends AppCompatActivity {
 
-    EditText inputDish;
-    Button confirmDish;
+    EditText inputDish, inputPrice;
+    Button confirmButton;
     private String  URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory";
 
     @Override
@@ -37,25 +37,35 @@ public class CustomerOrderMealActivity extends AppCompatActivity {
         setContentView(R.layout.activity_customer_order_meal);
 
         inputDish = findViewById(R.id.inputDish);
-        confirmDish = findViewById(R.id.confirmDish);
+        inputPrice = findViewById(R.id.inputPrice);
+        confirmButton = findViewById(R.id.confirmDish);
 
-        //final String meal = inputDish.getText().toString();
-        confirmDish.setOnClickListener(new View.OnClickListener(){
+        confirmButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                postJSONObjectRequest();
+                String meal = inputDish.getText().toString();
+                String price = inputPrice.getText().toString();
+                Toast.makeText(CustomerOrderMealActivity.this, "Order confirmed.", Toast.LENGTH_LONG).show();
+                postJSONObjectRequest(meal, price);
+                inputDish.getText().clear();
+                inputPrice.getText().clear();
             }
         });
     }
 
-    private void postJSONObjectRequest(){
+    @TargetApi(Build.VERSION_CODES.P)
+    private void postJSONObjectRequest(String meal, String price){
+
+        String date = Instant.now().toString();
 
         Map<String, String> map = new HashMap<>();
-        map.put("oid", "4");
-        map.put("price", "5");
-        map.put("dish", "food");
-        map.put("chef", "Allan");
+        map.put("oid", "12");
+        map.put("price", price);
+        map.put("dish", meal);
+        map.put("chef", "TBD");
         map.put("customer", "Carter");
-        map.put("date", "69-69-420");
+        map.put("date", date);
+        map.put("review", null);
+
         JSONObject orderObject = new JSONObject(map);
         //JSONObject reviewObject = new JSONObject();
 
@@ -94,7 +104,6 @@ public class CustomerOrderMealActivity extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(CustomerOrderMealActivity.this, "Order placed unsuccessfully", Toast.LENGTH_LONG).show();
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
             }
         }) {
