@@ -16,17 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-<<<<<<< HEAD
+
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login">
-=======
-        <activity android:name=".ViewMealRequests"></activity>
-        <activity android:name=".CustomerOrderMealActivity" />
-        <activity android:name=".CustomerOrderHistoryActivity" />
-        <activity android:name=".CustomerProfileActivity" />
-        <activity android:name=".MainActivity">
->>>>>>> master
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,9 +29,13 @@
         <activity android:name=".CustomerOrderMealActivity" />
         <activity android:name=".CustomerOrderHistoryActivity" />
         <activity android:name=".CustomerProfileActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"> </activity>
+            <activity android:name =".ViewMealRequests"></activity>
 
-        </activity>
+
+
+
+
     </application>
 
 </manifest>
