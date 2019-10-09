@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent orderMealIntent = new Intent(MainActivity.this, CustomerOrderMealActivity.class);
+                orderMealIntent.putExtra("User", user);
                 startActivity(orderMealIntent);
             }
         });

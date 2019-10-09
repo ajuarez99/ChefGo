@@ -15,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.app.AppController;
 
 import org.json.JSONObject;
@@ -30,7 +31,7 @@ public class CustomerOrderMealActivity extends AppCompatActivity {
     EditText inputDish, inputPrice;
     Button confirmButton;
     private String  URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory";
-
+    UsersDomain user = new UsersDomain();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +40,7 @@ public class CustomerOrderMealActivity extends AppCompatActivity {
         inputDish = findViewById(R.id.inputDish);
         inputPrice = findViewById(R.id.inputPrice);
         confirmButton = findViewById(R.id.confirmDish);
-
+        user = getIntent().getParcelableExtra("User");
         confirmButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 String meal = inputDish.getText().toString();
@@ -62,7 +63,7 @@ public class CustomerOrderMealActivity extends AppCompatActivity {
         map.put("price", price);
         map.put("dish", meal);
         map.put("chef", "TBD");
-        map.put("customer", "Carter");
+        map.put("customer", user.getUsername());
         map.put("date", date);
         map.put("review", null);
 
