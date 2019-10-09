@@ -23,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.app.AppController;
 
 import org.json.JSONArray;
@@ -49,27 +50,48 @@ public class CustomerProfileActivity extends AppCompatActivity {
     private String jsonResponse;
 
     private TextView txtResponse;
-    //private String URL = "http://10.0.2.2:8082/users";
-    private String URL = "http://coms-309-sb-3.misc.iastate.edu:8080/users";
+    // private String URL = "http://coms-309-sb-3.misc.iastate.edu:8080/user";
+    private String URL = "http://10.0.2.2:8080/user";
+
     private String jsonObjectTag = "jobj_req", tag_json_arry = "jarray_req";
     String tag_string_req = "string_req";
     String FName;
+
+    private UsersDomain user ;
+
     private static final int GET_FROM_GALLERY = 3;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_customer_profile);
         refreshButton = findViewById(R.id.testButton);
         txtResponse = findViewById(R.id.responseView);
         nameInput = findViewById(R.id.nameInput);
         postNameButton = findViewById(R.id.postNameButton);
         nameView = findViewById(R.id.nameText);
+
+
+
+        user =  getIntent().getParcelableExtra("User");
+
+      //  makeJSONArrayReq();
+
+
+
         ratingBar = findViewById(R.id.ratingBar);
         profilePicButton = findViewById(R.id.setProfPic);
         profilePic = findViewById(R.id.profilePic);
-        makeJSONArrayReq();
-        nameView.setText(FName);
+        String name = user.getfName() + " " + user.getlName();
+        nameView.setText(name);
+        if(user.getRating() != null) {
+            ratingBar.setRating(user.getRating().floatValue());
+        }
+        else{
+            ratingBar.setRating(0);
+        }
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
@@ -77,6 +99,23 @@ public class CustomerProfileActivity extends AppCompatActivity {
                 rate = Float.toString(v);
             }
         });
+
+
+//        postNameButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                postUser(nameInput.getText().toString(), rate);
+//            }
+//        });
+//        refreshButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                makeJSONArrayReq();
+//                nameView.setText(FName);
+//                nameInput.setText(null);
+//            }
+//        });
+
         postNameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,6 +131,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
                 nameInput.setText(null);
             }
         });
+
         profilePicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

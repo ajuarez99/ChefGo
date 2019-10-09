@@ -1,4 +1,4 @@
-package com.example.chefgo.net_utils;
+package com.example.chefgo.net_util;
 import com.android.volley.toolbox.ImageLoader.ImageCache;
 import android.graphics.Bitmap;
 import android.util.LruCache;

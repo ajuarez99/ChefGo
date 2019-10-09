@@ -26,6 +26,18 @@ public class UserController {
 		users.addUser(user);
 	}
 	
+//	@RequestMapping("/user/{username}/{password}")
+//	public Users validateUser(@PathVariable String username, @PathVariable String password) {
+//		Users user = users.getUserByUsername(username);
+//		
+//		if(user.getPassword().equals(password)) {
+//			return user;
+//		}
+//		else {
+//			return null;
+//		}
+//	}
+	
 	@RequestMapping(method = RequestMethod.PUT, path = "/users/{username}/email")
 	public void updateUserEmail(@PathVariable String username, @RequestBody String email) {
 		users.updateEmail(username, email);
