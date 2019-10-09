@@ -13,7 +13,11 @@ public class MainActivity extends AppCompatActivity {
     Button customerProfileButton;
     Button customerOrderHistoryButton;
     Button customerOrderMeal;
+
     private UsersDomain  user;
+
+
+    Button activeMealsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,5 +52,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(orderMealIntent);
             }
         });
+
+        activeMealsButton = findViewById(R.id.activeMealsButton);
+        activeMealsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent activeMealsIntent = new Intent(MainActivity.this, ViewMealRequests.class);
+                startActivity(activeMealsIntent);
+            }
+        });
+
     }
 }

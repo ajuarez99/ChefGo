@@ -100,6 +100,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
             }
         });
 
+
 //        postNameButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -114,6 +115,23 @@ public class CustomerProfileActivity extends AppCompatActivity {
 //                nameInput.setText(null);
 //            }
 //        });
+
+        postNameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                postUser(nameInput.getText().toString(), rate);
+                FName = nameInput.getText().toString();
+            }
+        });
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                makeJSONArrayReq();
+                nameView.setText(FName);
+                nameInput.setText(null);
+            }
+        });
+
         profilePicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,7 +164,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
                                 String firstName = person.getString("fName");
                                 double rating = person.getDouble("rating");
                                 username = person.getString("username");
-
+                                FName = firstName;
                                 jsonResponse += "firstName: " + firstName + "\n\n";
                                 nameView.setText(firstName);
                                 ratingBar.setRating((float) rating);

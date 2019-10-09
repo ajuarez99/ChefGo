@@ -7,10 +7,12 @@
     tools:context=".CustomerOrderHistoryActivity">
 
     <ListView
-        android:id="@+id/listview"
+        android:id="@+id/activeMealsListView"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_below="@id/title" />
+        android:layout_height="573dp"
+        android:layout_below="@id/title" >
+
+    </ListView>
 
     <TextView
         android:id="@+id/title"
@@ -18,14 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textSize="50dp"
-        android:text="Order History" />
-
-    <Button
-        android:id="@+id/refresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/listview"
-        android:text="Refresh" />
+        android:text="Active Meals"
+        android:textSize="50dp" />
 
 </RelativeLayout>
