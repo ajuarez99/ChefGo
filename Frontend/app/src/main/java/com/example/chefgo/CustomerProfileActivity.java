@@ -81,6 +81,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 postUser(nameInput.getText().toString(), rate);
+                FName = nameInput.getText().toString();
             }
         });
         refreshButton.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +124,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
                                 String firstName = person.getString("fName");
                                 double rating = person.getDouble("rating");
                                 username = person.getString("username");
-
+                                FName = firstName;
                                 jsonResponse += "firstName: " + firstName + "\n\n";
                                 nameView.setText(firstName);
                                 ratingBar.setRating((float) rating);
