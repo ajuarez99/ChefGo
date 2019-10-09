@@ -50,9 +50,8 @@ public class CustomerProfileActivity extends AppCompatActivity {
     private String jsonResponse;
 
     private TextView txtResponse;
-
+    // private String URL = "http://coms-309-sb-3.misc.iastate.edu:8080/user";
     private String URL = "http://10.0.2.2:8080/user";
-   // private String URL = "http://coms-309-sb-3.misc.iastate.edu:8080/users";
 
     private String jsonObjectTag = "jobj_req", tag_json_arry = "jarray_req";
     String tag_string_req = "string_req";
@@ -66,6 +65,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_customer_profile);
         refreshButton = findViewById(R.id.testButton);
         txtResponse = findViewById(R.id.responseView);
@@ -75,18 +75,23 @@ public class CustomerProfileActivity extends AppCompatActivity {
 
 
 
-        user = (UsersDomain) getIntent().getParcelableExtra("User");
+        user =  getIntent().getParcelableExtra("User");
 
+      //  makeJSONArrayReq();
 
-        makeJSONArrayReq();
-        nameView.setText(FName);
 
 
         ratingBar = findViewById(R.id.ratingBar);
         profilePicButton = findViewById(R.id.setProfPic);
         profilePic = findViewById(R.id.profilePic);
-        makeJSONArrayReq();
-        nameView.setText(FName);
+        String name = user.getfName() + " " + user.getlName();
+        nameView.setText(name);
+        if(user.getRating() != null) {
+            ratingBar.setRating(user.getRating().floatValue());
+        }
+        else{
+            ratingBar.setRating(0);
+        }
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
@@ -95,20 +100,20 @@ public class CustomerProfileActivity extends AppCompatActivity {
             }
         });
 
-        postNameButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                postUser(nameInput.getText().toString(), rate);
-            }
-        });
-        refreshButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                makeJSONArrayReq();
-                nameView.setText(FName);
-                nameInput.setText(null);
-            }
-        });
+//        postNameButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                postUser(nameInput.getText().toString(), rate);
+//            }
+//        });
+//        refreshButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                makeJSONArrayReq();
+//                nameView.setText(FName);
+//                nameInput.setText(null);
+//            }
+//        });
         profilePicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

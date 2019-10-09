@@ -1,5 +1,6 @@
 package com.example.chefgo;
 
+import android.accounts.AccountManager;
 import android.app.Activity;
 
 import androidx.lifecycle.Observer;
@@ -12,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -35,6 +37,7 @@ import com.example.chefgo.R;
 import com.example.chefgo.app.AppController;
 
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,26 +46,31 @@ import static com.example.chefgo.app.AppController.TAG;
 public class LoginActivity extends AppCompatActivity {
 
     private Button login;
-   // private String URL = "http://coms-309-sb-3.misc.iastate.edu:8080/user";
-   private String URL = "http://10.0.2.2:8080/user";
+    private String URL = "http://coms-309-sb-3.misc.iastate.edu:8080/user";
+   //private String URL = "http://10.0.2.2:8080/user";
     private String jsonObjectTag = "jobj_req", tag_json_arry = "jarray_req";
     String tag_string_req ="string_req";
     private UsersDomain user = new UsersDomain();
+    EditText username;
+    EditText password;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        AccountManager am = AccountManager.get(this);
+        Bundle options = new Bundle();
+
 
         login = findViewById(R.id.login);
         login.setEnabled(true);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText username = findViewById(R.id.username);
-                EditText password = findViewById(R.id.password);
+                 username = findViewById(R.id.username);
+                 password = findViewById(R.id.password);
                 String request = URL + "/";
-                request += username.getText().toString() +"/" + password.getText().toString();
+                request += username.getText().toString();
                 makeJSONObjectReq(request);
             }
         });
@@ -93,9 +101,16 @@ public class LoginActivity extends AppCompatActivity {
                     user.setRating(response.getDouble("rating"));
                     user.setUserType(response.getInt("userType"));
 
-                Intent inten = new Intent(LoginActivity.this, MainActivity.class);
-                inten.putExtra("User", user);
-                startActivity(inten);
+                if(user.getPassword().equals(password.getText().toString())) {
+                    Intent inten = new Intent(LoginActivity.this, MainActivity.class);
+                    inten.putExtra("User", user);
+                    startActivity(inten);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),
+                            "Wrong Password: ",
+                            Toast.LENGTH_LONG).show();
+                }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
