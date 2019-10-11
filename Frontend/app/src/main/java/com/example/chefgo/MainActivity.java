@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.auth0.android.Auth0;
 import com.example.chefgo.DomainObjects.UsersDomain;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     Button customerOrderMeal;
 
     private UsersDomain  user;
-
+    private Auth0 auth0;
 
     Button activeMealsButton;
 
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        auth0 = new Auth0(this);
+        auth0.setOIDCConformant(true);
         user = (UsersDomain) getIntent().getParcelableExtra("User");
         customerProfileButton = findViewById(R.id.buttonCustomerProfile);
         customerProfileButton.setOnClickListener(new View.OnClickListener() {

@@ -2,17 +2,30 @@ package com.example.chefgo.LoginorRegistrationActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import java.util.ArrayList;
-import java.util.List;
-import com.example.chefgo.R;
+import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.chefgo.R;
+import com.example.chefgo.app.AppController;
+
+import org.json.JSONObject;
 
 public class RegistrationActivity extends AppCompatActivity {
     private Button submit;
@@ -25,12 +38,13 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText address;
     private EditText zipcode;
     private Spinner state;
-    private  Spinner userType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         submit = findViewById(R.id.submit);
+        submit.setEnabled(true);
         username = findViewById(R.id.username);
         password = findViewById((R.id.password));
         confirmPassword = findViewById(R.id.cPassword);
@@ -40,25 +54,67 @@ public class RegistrationActivity extends AppCompatActivity {
         address = findViewById(R.id.address);
         zipcode = findViewById(R.id.zipcode);
         state = findViewById(R.id.stateSpinner);
-        userType = findViewById(R.id.userTypeSpinner);
+
         fillStateSpinner();
-        fillUserTypeSpinner();
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+           //    submitRegistration();
+            }
+        });
+
+
+
 
     }
-   private void fillStateSpinner(){
-       List<String>  UserTypes = new ArrayList<String>();
+//    private void submitRegistration() {
+//
+//        String emailAddress = email.getText().toString().trim();
+//
+//        if (android.util.Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches()) {
+//
+//        }
+//        else{
+//
+//        }
+//        InputMethodManager inputManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+//        inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+//
+//        Map<String, String> params = new HashMap();
+//        params.put("username", "jstr");
+//        params.put("email", "jstrobe@iastate.edu");
+//        params.put("fName", firstName);
+//        params.put("lName", "Strobel");
+//        params.put("password", "password");
+//        params.put("userType", "1");
+//        params.put("rating", rating);
+//        params.put("address", "Morningside St");
+//        params.put("state", "Iowa");
+//        params.put("zip", "50014");
+////        params.put("allergies","");
+//
+//        JSONObject parameters = new JSONObject(params);
+//
+//        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, URL, parameters, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                System.out.println(response);
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                error.printStackTrace();
+//                Toast.makeText(getApplicationContext(), "POSTED", Toast.LENGTH_SHORT);
+//                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+//                System.out.println("THIS IS THE ERROR: " + error.getMessage());
+//            }
+//        });
+//
+//        AppController.getInstance().addToRequestQueue(jsonRequest);
+//    }
 
-       UserTypes.add("Customer");
-       UserTypes.add("Chef");
-       ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, UserTypes);
-
-       // Drop down layout style - list view with radio button
-       dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-       // attaching data adapter to spinner
-       userType.setAdapter(dataAdapter);
-    }
-    private void fillUserTypeSpinner(){
+    private void fillStateSpinner(){
     List<String> states = new ArrayList<String>();
 
     states.add("Alabama");
@@ -118,7 +174,7 @@ public class RegistrationActivity extends AppCompatActivity {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // attaching data adapter to spinner
-        userType.setAdapter(dataAdapter);
+        state.setAdapter(dataAdapter);
     }
-    }
+
 }
