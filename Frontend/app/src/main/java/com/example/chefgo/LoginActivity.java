@@ -102,9 +102,18 @@ public class LoginActivity extends AppCompatActivity {
                     user.setUserType(response.getInt("userType"));
 
                 if(user.getPassword().equals(password.getText().toString())) {
-                    Intent inten = new Intent(LoginActivity.this, MainActivity.class);
-                    inten.putExtra("User", user);
-                    startActivity(inten);
+                    //if user is a customer
+                    if(user.getUserType() == 1) {
+                        Intent customer = new Intent(LoginActivity.this, MainActivity.class);
+                        customer.putExtra("User", user);
+                        startActivity(customer);
+                    }
+                    // if user is a chef
+                    else if(user.getUserType() == 2){
+                        Intent chef = new Intent(LoginActivity.this, MainActivity.class);
+                        chef.putExtra("User", user);
+                        startActivity(chef);
+                    }
                 }
                 else{
                     Toast.makeText(getApplicationContext(),
