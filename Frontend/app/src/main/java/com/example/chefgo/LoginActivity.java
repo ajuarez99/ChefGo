@@ -32,6 +32,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.example.chefgo.ChefClient.ChefMainActivity;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.R;
 import com.example.chefgo.app.AppController;
@@ -110,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     // if user is a chef
                     else if(user.getUserType() == 2){
-                        Intent chef = new Intent(LoginActivity.this, MainActivity.class);
+                        Intent chef = new Intent(LoginActivity.this, ChefMainActivity.class);
                         chef.putExtra("User", user);
                         startActivity(chef);
                     }
