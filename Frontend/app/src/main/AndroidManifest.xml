@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ChefClient.ChefMainActivity"></activity>
+        <activity android:name=".ChefClient.ChefProfile"></activity>
+        <activity android:name=".ChefClient.ChefMainActivity" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login">
@@ -29,7 +30,7 @@
         <activity android:name=".CustomerOrderMealActivity" />
         <activity android:name=".CustomerOrderHistoryActivity" />
         <activity android:name=".CustomerProfileActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".ViewMealRequests" />
     </application>
 
