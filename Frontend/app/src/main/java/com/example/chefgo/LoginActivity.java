@@ -1,18 +1,29 @@
-package com.example.chefgo.LoginorRegistrationActivity;
+package com.example.chefgo;
 
 import android.accounts.AccountManager;
+import android.app.Activity;
 
-import android.app.Dialog;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -20,15 +31,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.auth0.android.Auth0;
-import com.auth0.android.Auth0Exception;
-import com.auth0.android.authentication.AuthenticationException;
-import com.auth0.android.provider.AuthCallback;
-import com.auth0.android.provider.VoidCallback;
-import com.auth0.android.provider.WebAuthProvider;
-import com.auth0.android.result.Credentials;
+import com.android.volley.toolbox.StringRequest;
 import com.example.chefgo.DomainObjects.UsersDomain;
-import com.example.chefgo.MainActivity;
 import com.example.chefgo.R;
 import com.example.chefgo.app.AppController;
 
@@ -49,8 +53,6 @@ public class LoginActivity extends AppCompatActivity {
     private UsersDomain user = new UsersDomain();
     EditText username;
     EditText password;
-    private Button register;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,45 +60,24 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         AccountManager am = AccountManager.get(this);
         Bundle options = new Bundle();
-\
 
-        //region login
+
         login = findViewById(R.id.login);
         login.setEnabled(true);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            login();
+                 username = findViewById(R.id.username);
+                 password = findViewById(R.id.password);
+                String request = URL + "/";
+                request += username.getText().toString();
+                makeJSONObjectReq(request);
             }
         });
-        //endregion
 
-        //region register
-        register = findViewById(R.id.registration);
-        register.setEnabled(true);
-        register.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Intent register = new Intent(LoginActivity.this, RegistrationActivity.class);
-            startActivity(register);
-        }
-        });
-        //endregion
-
-
-//        username = findViewById(R.id.username);
-//        password = findViewById(R.id.password);
-//        String request = URL + "/";
-//        request += username.getText().toString();
-//        makeJSONObjectReq(request);
     }
 
 
-    private void showNextActivity() {
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
 
     private void makeJSONObjectReq(final String request) {
 
@@ -121,9 +102,18 @@ public class LoginActivity extends AppCompatActivity {
                     user.setUserType(response.getInt("userType"));
 
                 if(user.getPassword().equals(password.getText().toString())) {
-                    Intent inten = new Intent(LoginActivity.this, MainActivity.class);
-                    inten.putExtra("User", user);
-                    startActivity(inten);
+                    //if user is a customer
+                    if(user.getUserType() == 1) {
+                        Intent customer = new Intent(LoginActivity.this, MainActivity.class);
+                        customer.putExtra("User", user);
+                        startActivity(customer);
+                    }
+                    // if user is a chef
+                    else if(user.getUserType() == 2){
+                        Intent chef = new Intent(LoginActivity.this, MainActivity.class);
+                        chef.putExtra("User", user);
+                        startActivity(chef);
+                    }
                 }
                 else{
                     Toast.makeText(getApplicationContext(),
