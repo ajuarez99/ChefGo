@@ -12,7 +12,7 @@
         android:layout_height="56dp"
         android:text="Name"
         android:textAlignment="center"
-        android:textSize="35dp"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.915"

@@ -10,6 +10,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.R;
 
 import java.util.List;
@@ -19,6 +20,8 @@ public class ChefProfile extends AppCompatActivity {
     ListView chefReviews;
     RatingBar chefRating;
     TextView chefName;
+
+    private UsersDomain user;
 
     private String URL = "http://coms-309-sb-3.misc.iastate.edu:8080/user";
 
@@ -31,6 +34,8 @@ public class ChefProfile extends AppCompatActivity {
         chefReviews = findViewById(R.id.chefReviewList);
         chefRating = findViewById(R.id.chefRating);
         chefName = findViewById(R.id.chefNameText);
+
+        user =  getIntent().getParcelableExtra("User");
 
         chefMenu.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
@@ -49,7 +54,12 @@ public class ChefProfile extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), selectedItem, Toast.LENGTH_LONG).show();
             }
         });
+        String name = user.getfName() + " " + user.getlName();
+        chefName.setText(name);
+        chefRating.setRating(user.getRating().floatValue());
     }
+
+
 
 
 }
