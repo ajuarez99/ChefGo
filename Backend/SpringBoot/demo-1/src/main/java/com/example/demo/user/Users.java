@@ -1,21 +1,21 @@
 package com.example.demo.user;
 
 
-import java.util.ArrayList;
+
+
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.example.demo.allergies.Allergies;
+import com.example.demo.orderhistory.OrderHistory;
 
 
 
@@ -39,9 +39,8 @@ public class Users {
     @Size(max = 30)
     private String lname;
     
-//    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "user_id")
-//    private List<Allergies> allergies;
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+    private List<OrderHistory> orders;
     
     @Column(name = "password")
     @Size(max = 30)
@@ -82,27 +81,12 @@ public class Users {
     	this.address = address;
     	this.state = state;
     	this.zip = zip;
-    	//this.allergies = new ArrayList<Allergies>();
     }
-    
-//    public Users(String username, String email, String f, String l, String pass, String user, Double rating,
-//    		Integer type, String address, String state, Integer zip, List<Allergies> allergies) {
-//    	this.username = username;
-//    	this.email = email;
-//    	this.fName= f;
-//    	this.lname = l;
-//    	this.password = pass;
-//    	this.userType = type;
-//    	this.rating = rating;
-//    	this.address = address;
-//    	this.state = state;
-//    	this.zip = zip;
-//    	this.allergies = allergies;
-//    }
-    
+        
     public Integer getUserType() {
     	return this.userType;
     }
+    
     public void setUserType(Integer user) {
     	this.userType = user;
     }
@@ -110,30 +94,39 @@ public class Users {
     public String getfName() {
     	return this.fName;
     }
+    
     public void setfName(String name) {
     	this.fName = name;
     }
+    
     public String getlName() {
     	return this.lname;
     }
+    
     public void setLname(String name) {
     	this.lname= name;
     }
+    
     public String getUsername() {
     	return this.username;
     }
+    
     public void setUsername(String name) {
     	this.username = name;
     }
+    
     public String getPassword() {
     	return this.password;
     }
+    
     public void setPassword(String pass) {
     	this.password = pass;
     }
+    
     public Double getRating() {
     	return this.rating;
     }
+    
     public void setRating(Double r) {
     	this.rating = r;
     }
@@ -147,12 +140,15 @@ public class Users {
     public String getState() {
     	return this.state;
     }
+    
     public void setState(String state) {
     	this.state = state;
     }
+    
     public void setZip(Integer zip) {
     	this.zip = zip;
     }
+    
     public Integer getZip() {
     	return this.zip;
     }
@@ -160,13 +156,17 @@ public class Users {
     public String getEmail() {
     	return this.email;
     }
+    
     public void setEmail(String email) {
     	this.email = email;
     }
-//    public void setAllergies(List<Allergies> allergies) {
-//    	this.allergies = allergies;
-//    }
-//    public List<Allergies> getAllergies(){
-//    	return this.allergies;
-//    }
+    
+    public void addOrder(OrderHistory order) {
+    	this.orders.add(order);
+    	order.setCustomer(this);
+    }
+    
+    public List<OrderHistory> getOrders(){
+    	return this.orders;
+    }
 }

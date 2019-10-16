@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.allergies.Allergies;
+import com.example.demo.orderhistory.OrderHistory;
 
 
 @Service
@@ -72,9 +72,13 @@ public class UserService {
 		userRepo.delete(toDelete);
 	}
 	
-	public void addAllergy(Allergies allergy) {
-		
+	public void addOrder(String username, OrderHistory order) {
+		Optional<Users> u = userRepo.findByUsername(username);
+		Users madeOrder = u.get();
+		madeOrder.addOrder(order);
+		userRepo.save(madeOrder);
 	}
+
 	
 	
 }

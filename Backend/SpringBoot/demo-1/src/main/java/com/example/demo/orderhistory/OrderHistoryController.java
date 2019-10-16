@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.reviews.Reviews;
+
 @RestController
 public class OrderHistoryController {
 	@Autowired
@@ -22,6 +24,11 @@ public class OrderHistoryController {
 	@RequestMapping(method = RequestMethod.POST, path = "/orderHistory")
 	public void addOrder(@RequestBody OrderHistory order) {
 		orderHistory.addOrderToHistory(order);
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT, path = "/orderHistory/review/{oid}")
+	public void addReview(@RequestBody Reviews review, @PathVariable Integer oid) {
+		orderHistory.addReview(oid, review);
 	}
 	
 	@RequestMapping("/order/{username}")

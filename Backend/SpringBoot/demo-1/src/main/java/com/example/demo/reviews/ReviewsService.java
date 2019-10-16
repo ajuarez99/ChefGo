@@ -28,29 +28,30 @@ public class ReviewsService {
 	}
 	
 	public List<Reviews> getReviewsByReviewee(String username) {
-		List<Reviews> u = reviewsRepo.findByReviewee(username);
-		return u;
+		List<Reviews> reviews = reviewsRepo.findByReviewee(username);
+		return reviews;
 	}
 	
 	public List<Reviews> getReviewsByReviewer(String username) {
-		List<Reviews> u = reviewsRepo.findByReviewer(username);
-		return u;
+		List<Reviews> reviews = reviewsRepo.findByReviewer(username);
+		return reviews;
 	}
 	
 	
 	public Reviews getReviewById(int id) {
-		Optional<Reviews> u = reviewsRepo.findById(id);
+		Optional<Reviews> review = reviewsRepo.findById(id);
 		
-		return u.get();
+		return review.get();
 	}
 
 	public void addReviews(Reviews order) {
 		reviewsRepo.save(order);
 	}
-	public void updateReview(int id, String review) {
+	
+	public void updateReview(int id, Reviews newReview) {
 	Optional<Reviews> u = reviewsRepo.findById(id);
 	Reviews update = u.get();
-	update.setDescription(review);
+	update = newReview;
 	reviewsRepo.save(update);
 	}
 

@@ -1,24 +1,24 @@
 package com.example.demo.orderhistory;
 
 
-import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.example.demo.reviews.Reviews;
+import com.example.demo.user.Users;
 
 @Entity
 @Table(name = "Order_History")
@@ -26,13 +26,16 @@ public class OrderHistory {
 
 
 	
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "rid")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "reviewID")
     private Reviews review;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customerID")
+    private Users customer;
 
     @Column(name = "price")
     private Double price;
-
 
 
     @Column(name = "orderDate")
@@ -48,28 +51,26 @@ public class OrderHistory {
     @Size(max = 50)
     private String dishName;
     
-    @Column(name= "chefName")
-    @Size(max = 60)
-    private String chefName;
-    
-    @Column(name= "customerName")
-    @Size(max = 60)
-    private String customerName;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "chefID")
+    private Users chef;
     
     public OrderHistory() {
     }
     
 
 
-    public OrderHistory(Integer oid,Date orderDate, Double price, String chefName, String dishName, String customerName) {
+    public OrderHistory(Integer oid,Date orderDate, Double price, Users chef, String dishName, Users customer) {
     	this.price = price;
     	this.oid = oid;
     	this.orderDate = orderDate;
     	this.dishName = dishName;
-    	this.chefName = chefName;
-    	this.customerName = customerName;
+    	this.chef = chef;
+    	this.customer = customer;
 
     }
+    
+
     public Reviews getReview() {
     	return this.review;
     }
@@ -102,17 +103,19 @@ public class OrderHistory {
     	this.orderDate = date;
     }
     public String getChef() {
-    	return this.chefName;
+    	return this.chef.getUsername();
     }
-    public void setChef(String chef) {
-    	this.chefName = chef;
+    public void setChef(Users chef) {
+    	this.chef = chef;
     }
-    public String getCustomer() {
-    	return this.customerName;
-    }
-    public void setCustomer(String r) {
-    	this.customerName = r;
-    }
+
+	public String getCustomer() {
+		return this.customer.getUsername();
+	}
+
+	public void setCustomer(Users customer) {
+		this.customer = customer;
+	}
 
     
     

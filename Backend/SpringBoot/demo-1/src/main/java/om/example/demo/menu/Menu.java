@@ -1,20 +1,15 @@
 package om.example.demo.menu;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-import org.springframework.core.style.ToStringCreator;
+import com.example.demo.user.Users;
 
 @Entity
 @Table(name = "Menu")
@@ -31,18 +26,18 @@ public class Menu {
 	@Size(max =200)
 	private String mDescription;
 	
-	@Column(name = "chefname")
-	@Id
-	private String chefName;
+   // @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+   // @JoinColumn(name = "chefID")
+	private Users chef;
 	
 	public Menu() {
 	
 	}
-	public Menu(String dish, double cost, String desc, String name) {
+	public Menu(String dish, double cost, String desc, Users chef) {
 		this.dishName = dish;
 		this.cost = cost;
 		this.mDescription = desc;
-		this.chefName = name;
+		this.chef = chef;
 	
 	}
 	
@@ -65,10 +60,10 @@ public class Menu {
 		this.mDescription = desc;
 	}
 	public String getChef() {
-		return this.chefName;
+		return this.chef.getUsername();
 	}
-	public void setChef(String chef) {
-		this.chefName = chef;
+	public void setChef(Users chef) {
+		this.chef = chef;
 	}
 	
 }
