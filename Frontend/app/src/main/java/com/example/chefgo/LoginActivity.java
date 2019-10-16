@@ -32,6 +32,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.example.chefgo.AdminClient.AdminActivity;
 import com.example.chefgo.ChefClient.ChefMainActivity;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.R;
@@ -103,8 +104,14 @@ public class LoginActivity extends AppCompatActivity {
                     user.setUserType(response.getInt("userType"));
 
                 if(user.getPassword().equals(password.getText().toString())) {
+                    //if user is an admin
+                    if(user.getUserType() == 0 ){
+                        Intent admin = new Intent(LoginActivity.this, AdminActivity.class);
+                        admin.putExtra("User", user);
+                        startActivity(admin);
+                    }
                     //if user is a customer
-                    if(user.getUserType() == 1) {
+                    else if(user.getUserType() == 1) {
                         Intent customer = new Intent(LoginActivity.this, MainActivity.class);
                         customer.putExtra("User", user);
                         startActivity(customer);
