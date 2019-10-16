@@ -50,8 +50,8 @@ public class CustomerProfileActivity extends AppCompatActivity {
     private String jsonResponse;
 
     private TextView txtResponse;
-    // private String URL = "http://coms-309-sb-3.misc.iastate.edu:8080/user";
-    private String URL = "http://10.0.2.2:8080/user";
+    private String URL = "http://coms-309-sb-3.misc.iastate.edu:8080/user";
+    //private String URL = "http://10.0.2.2:8080/user";
 
     private String jsonObjectTag = "jobj_req", tag_json_arry = "jarray_req";
     String tag_string_req = "string_req";
