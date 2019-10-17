@@ -30,7 +30,7 @@
         <activity android:name=".CustomerOrderMealActivity" />
         <activity android:name=".CustomerOrderHistoryActivity" />
         <activity android:name=".CustomerProfileActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".CustomerMainActivity" />
         <activity android:name=".ViewMealRequests" />
     </application>
 
