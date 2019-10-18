@@ -17,6 +17,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".LoginorRegistrationActivity.RegistrationActivity"></activity>
+        <activity android:name=".AdminClient.AdminActivity"></activity>
+        <activity android:name=".ChefClient.ChefMainActivity" />
         <activity
             android:name=".LoginorRegistrationActivity.LoginActivity"
             android:label="ChefGo">

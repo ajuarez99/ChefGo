@@ -22,6 +22,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.chefgo.DomainObjects.UsersDomain;
+import com.example.chefgo.MainActivity;
 import com.example.chefgo.R;
 import com.example.chefgo.app.AppController;
 
@@ -38,13 +40,18 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText address;
     private EditText zipcode;
     private Spinner state;
-
+    private String URL = "http://coms-309-sb-3.misc.iastate.edu:8080/users";
+    //private String URL = "http://10.0.2.2:8080/user";
+    private String jsonObjectTag = "jobj_req", tag_json_arry = "jarray_req";
+    String tag_string_req ="string_req";
+    private UsersDomain user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         submit = findViewById(R.id.submit);
         submit.setEnabled(true);
+        user = new UsersDomain();
         username = findViewById(R.id.username);
         password = findViewById((R.id.password));
         confirmPassword = findViewById(R.id.cPassword);
@@ -60,7 +67,7 @@ public class RegistrationActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-           //    submitRegistration();
+              submitRegistration();
             }
         });
 
@@ -68,51 +75,77 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
     }
-//    private void submitRegistration() {
-//
-//        String emailAddress = email.getText().toString().trim();
-//
-//        if (android.util.Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches()) {
-//
-//        }
-//        else{
-//
-//        }
-//        InputMethodManager inputManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-//        inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
-//
-//        Map<String, String> params = new HashMap();
-//        params.put("username", "jstr");
-//        params.put("email", "jstrobe@iastate.edu");
-//        params.put("fName", firstName);
-//        params.put("lName", "Strobel");
-//        params.put("password", "password");
-//        params.put("userType", "1");
-//        params.put("rating", rating);
-//        params.put("address", "Morningside St");
-//        params.put("state", "Iowa");
-//        params.put("zip", "50014");
-////        params.put("allergies","");
-//
-//        JSONObject parameters = new JSONObject(params);
-//
-//        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, URL, parameters, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                System.out.println(response);
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                error.printStackTrace();
-//                Toast.makeText(getApplicationContext(), "POSTED", Toast.LENGTH_SHORT);
-//                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-//                System.out.println("THIS IS THE ERROR: " + error.getMessage());
-//            }
-//        });
-//
-//        AppController.getInstance().addToRequestQueue(jsonRequest);
-//    }
+    private void submitRegistration() {
+
+
+
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
+
+            if (!email.getText().toString().trim().matches(emailPattern)) {
+                Toast.makeText(getApplicationContext(),"Invalid email address", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(!(password.getText().toString().equals(confirmPassword.getText().toString()))){
+                Toast.makeText(getApplicationContext(),"Passwords dont match", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+
+
+        Map<String, String> params = new HashMap();
+        params.put("username", username.getText().toString());
+        params.put("email", email.getText().toString());
+        params.put("fName", fname.getText().toString());
+        params.put("password", password.getText().toString());
+        params.put("userType", "1");
+        params.put("rating", "5");
+        params.put("address", address.getText().toString());
+        params.put("state", state.getSelectedItem().toString());
+        params.put("zip",  zipcode.getText().toString());
+        params.put("lname", lname.getText().toString());
+
+
+        JSONObject parameters = new JSONObject(params);
+
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, URL, parameters, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Intent customer = new Intent(RegistrationActivity.this, MainActivity.class);
+                user.setUsername(username.getText().toString());
+                user.setEmail(email.getText().toString());
+                user.setfName(fname.getText().toString());
+                user.setLname(lname.getText().toString());
+                user.setAddress(address.getText().toString());
+                user.setState(state.getSelectedItem().toString());
+                user.setZip(Integer.parseInt(zipcode.getText().toString()));
+                user.setPassword(password.getText().toString());
+                user.setRating(5.0);
+                user.setUserType(1);
+                customer.putExtra("User", user);
+                startActivity(customer);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Intent customer = new Intent(RegistrationActivity.this, MainActivity.class);
+                user.setUsername(username.getText().toString());
+                user.setEmail(email.getText().toString());
+                user.setfName(fname.getText().toString());
+                user.setLname(lname.getText().toString());
+                user.setAddress(address.getText().toString());
+                user.setState(state.getSelectedItem().toString());
+                user.setZip(Integer.parseInt(zipcode.getText().toString()));
+                user.setPassword(password.getText().toString());
+                user.setRating(5.0);
+                user.setUserType(1);
+                customer.putExtra("User", user);
+                startActivity(customer);
+            }
+        });
+
+        AppController.getInstance().addToRequestQueue(jsonRequest);
+    }
 
     private void fillStateSpinner(){
     List<String> states = new ArrayList<String>();

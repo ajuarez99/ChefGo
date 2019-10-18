@@ -27,6 +27,8 @@ import com.auth0.android.provider.AuthCallback;
 import com.auth0.android.provider.VoidCallback;
 import com.auth0.android.provider.WebAuthProvider;
 import com.auth0.android.result.Credentials;
+import com.example.chefgo.AdminClient.AdminActivity;
+import com.example.chefgo.ChefClient.ChefMainActivity;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.MainActivity;
 import com.example.chefgo.R;
@@ -58,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         AccountManager am = AccountManager.get(this);
         Bundle options = new Bundle();
-\
+
 
         //region login
         login = findViewById(R.id.login);
@@ -66,7 +68,11 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            login();
+                username = findViewById(R.id.username);
+                password = findViewById(R.id.password);
+                String request = URL + "/";
+                request += username.getText().toString();
+                makeJSONObjectReq(request);
             }
         });
         //endregion
@@ -84,19 +90,11 @@ public class LoginActivity extends AppCompatActivity {
         //endregion
 
 
-//        username = findViewById(R.id.username);
-//        password = findViewById(R.id.password);
-//        String request = URL + "/";
-//        request += username.getText().toString();
-//        makeJSONObjectReq(request);
+
     }
 
 
-    private void showNextActivity() {
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
+
 
     private void makeJSONObjectReq(final String request) {
 
@@ -120,12 +118,29 @@ public class LoginActivity extends AppCompatActivity {
                     user.setRating(response.getDouble("rating"));
                     user.setUserType(response.getInt("userType"));
 
-                if(user.getPassword().equals(password.getText().toString())) {
-                    Intent inten = new Intent(LoginActivity.this, MainActivity.class);
-                    inten.putExtra("User", user);
-                    startActivity(inten);
-                }
-                else{
+
+                    if(user.getPassword().equals(password.getText().toString())) {
+                        //if user is an admin
+                        if(user.getUserType() == 0 ){
+                            Intent admin = new Intent(LoginActivity.this, AdminActivity.class);
+                            admin.putExtra("User", user);
+                            startActivity(admin);
+                        }
+                        //if user is a customer
+                        else if(user.getUserType() == 1) {
+                            Intent customer = new Intent(LoginActivity.this, MainActivity.class);
+                            customer.putExtra("User", user);
+                            startActivity(customer);
+                        }
+                        // if user is a chef
+                        else if(user.getUserType() == 2){
+                            Intent chef = new Intent(LoginActivity.this, ChefMainActivity.class);
+                            chef.putExtra("User", user);
+                            startActivity(chef);
+                        }
+                    }
+
+                    else{
                     Toast.makeText(getApplicationContext(),
                             "Wrong Password: ",
                             Toast.LENGTH_LONG).show();
