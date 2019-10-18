@@ -16,11 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".LoginorRegistrationActivity.RegistrationActivity"></activity>
         <activity android:name=".AdminClient.AdminActivity"></activity>
         <activity android:name=".ChefClient.ChefMainActivity" />
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login">
+            android:name=".LoginorRegistrationActivity.LoginActivity"
+            android:label="ChefGo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,7 +31,7 @@
         <activity android:name=".CustomerOrderMealActivity" />
         <activity android:name=".CustomerOrderHistoryActivity" />
         <activity android:name=".CustomerProfileActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".ViewMealRequests" />
     </application>
 
