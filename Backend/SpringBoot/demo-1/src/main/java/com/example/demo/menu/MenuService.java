@@ -20,5 +20,33 @@ public class MenuService {
 		menuRepo.findAll().forEach(menus::add);
 		return menus;
 	}
+	
+	public List<Menu> getAllMenusByChef(String username) {
+		List<Menu> menus = new ArrayList<>();
+		
+		menus = menuRepo.findByChef(username);
+		return menus;
+	}
+	
+	public void addMenu(Menu menu) {
+		menuRepo.save(menu);
+	}
+	
+	public void updateMenu(String title, Menu menu) {
+		Menu update = menuRepo.findByTitle(title);
+		update = menu;
+		menuRepo.save(update);
+	}
+	
+	public void deleteMenu(String title) {
+		Menu toDelete = menuRepo.findByTitle(title);
+		menuRepo.delete(toDelete);
+	}
+	
+	
+	
+	
+	
+	
 
 }

@@ -55,6 +55,9 @@ public class OrderHistory {
     @JoinColumn(name = "chefID")
     private Users chef;
     
+    @Column(name = "active")
+    private int isActive;
+    
     public OrderHistory() {
     }
     
@@ -67,7 +70,7 @@ public class OrderHistory {
     	this.dishName = dishName;
     	this.chef = chef;
     	this.customer = customer;
-
+    	this.isActive = 1;
     }
     
 
@@ -116,6 +119,15 @@ public class OrderHistory {
 	public void setCustomer(Users customer) {
 		this.customer = customer;
 	}
+	
+	public int isActive() {
+		return this.isActive;
+	}
+
+	public void setActive(int isActive) {
+		this.isActive = isActive;
+	}
+
 
     
     

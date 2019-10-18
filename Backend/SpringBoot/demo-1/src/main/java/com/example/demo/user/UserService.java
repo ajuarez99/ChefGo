@@ -50,10 +50,10 @@ public class UserService {
 		userRepo.save(update);
 			
 	}
-	public void updatefname(String username, String fname) {
+	public void updateName(String username, String name) {
 		Optional<Users> u = userRepo.findByUsername(username);
 		Users update = u.get();
-		update.setfName(fname);
+		update.setName(name);
 		userRepo.save(update);
 	}
 	

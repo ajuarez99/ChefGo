@@ -4,9 +4,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.example.demo.user.Users;
@@ -14,6 +16,12 @@ import com.example.demo.user.Users;
 @Entity
 @Table(name = "Menu")
 public class Menu {
+	
+	@Id
+	@NotNull
+	@Column(name = "title")
+	@Size(max = 50)
+	private String title;
 	
 	@Column(name= "appetizer")
 	@Size(max = 50)
@@ -34,18 +42,20 @@ public class Menu {
 	@Size(max =200)
 	private String mDescription;
 	
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "chefID")
 	private Users chef;
 	
+    
 	public Menu() {
 	
 	}
-	public Menu(String appetizer, String entree, String dessert, double cost, String desc, Users chef) {
+	public Menu(String title, String appetizer, String entree, String dessert, double cost, String desc, Users chef) {
 		
+		this.title = title;
 		this.appetizer = appetizer == null ? "none" : appetizer;
 		this.entree = entree == null ? "none" : entree;
-		this.dessert = dessert == null ? "none" : entree;
+		this.dessert = dessert == null ? "none" : dessert;
 		this.cost = cost;
 		this.mDescription = desc;
 		this.chef = chef;
@@ -88,6 +98,12 @@ public class Menu {
 	}
 	public void setChef(Users chef) {
 		this.chef = chef;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 }

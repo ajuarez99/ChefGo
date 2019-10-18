@@ -24,6 +24,11 @@ public class OrderHistoryService {
 		return orders;
 	}
 	
+	public List<OrderHistory> getOrdersByIsActive(int isActive){
+		List<OrderHistory> u = orderHistoryRepo.findByIsActive(isActive);
+		return u;
+	}
+	
 	public List<OrderHistory> getOrderByChefName(String username) {
 		List<OrderHistory> u = orderHistoryRepo.findByChefName(username);
 		return u;

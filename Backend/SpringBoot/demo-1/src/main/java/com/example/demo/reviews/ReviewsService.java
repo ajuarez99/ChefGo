@@ -37,7 +37,6 @@ public class ReviewsService {
 		return reviews;
 	}
 	
-	
 	public Reviews getReviewById(int id) {
 		Optional<Reviews> review = reviewsRepo.findById(id);
 		

@@ -31,15 +31,11 @@ public class Users {
     @Column(name = "email")
     private String email;
     
-    @Column(name = "fname")
+    @Column(name = "name")
     @Size(max = 30)
-    private String fName;
+    private String name;
     
-    @Column(name = "lname")
-    @Size(max = 30)
-    private String lname;
-    
-    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customer")
     private List<OrderHistory> orders;
     
     @Column(name = "password")
@@ -69,12 +65,11 @@ public class Users {
     	
     }
     
-    public Users(String username, String email, String f, String l, String pass, String user, Double rating,
+    public Users(String username, String email, String name, String pass, String user, Double rating,
     		Integer type, String address, String state, Integer zip) {
     	this.username = username;
     	this.email = email;
-    	this.fName= f;
-    	this.lname = l;
+    	this.name= name;
     	this.password = pass;
     	this.userType = type;
     	this.rating = rating;
@@ -91,20 +86,12 @@ public class Users {
     	this.userType = user;
     }
     
-    public String getfName() {
-    	return this.fName;
+    public String getName() {
+    	return this.name;
     }
     
-    public void setfName(String name) {
-    	this.fName = name;
-    }
-    
-    public String getlName() {
-    	return this.lname;
-    }
-    
-    public void setLname(String name) {
-    	this.lname= name;
+    public void setName(String name) {
+    	this.name = name;
     }
     
     public String getUsername() {

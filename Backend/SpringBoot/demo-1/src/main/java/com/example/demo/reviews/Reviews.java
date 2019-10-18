@@ -4,26 +4,18 @@ package com.example.demo.reviews;
 
 import java.sql.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-import org.springframework.core.style.ToStringCreator;
-
-import com.example.demo.orderhistory.OrderHistory;
 import com.example.demo.user.Users;
 
 @Entity
@@ -48,20 +40,20 @@ public class Reviews {
     @Column(name = "reviewDate")
     private Date reviewDate;
     
-    @Column(name = "reviewer")
-    @Size(max = 30)
-    private String reviewer;
+    @ManyToOne
+    @JoinColumn(name = "reviewerID")
+    private Users reviewer;
     
-    @Column(name = "reviewee")
-    @Size(max = 30)
-    private String reviewee;
+    @ManyToOne
+    @JoinColumn(name = "revieweeID")
+    private Users reviewee;
     
     
     public Reviews() {
     	
     }
     
-    public Reviews(Integer rid, double rating, String rDescription,Date rDate,String reviewer, String reviewee) {
+    public Reviews(Integer rid, double rating, String rDescription, Date rDate, Users reviewer, Users reviewee) {
     	this.rid =rid;
     	this.rating = rating;
     	this.rDescription = rDescription;
@@ -97,16 +89,16 @@ public class Reviews {
     	this.reviewDate = date;
     }
     public String getReviewer() {
-    	return this.reviewer;
+    	return this.reviewer.getUsername();
     }
-    public void setReviewer(String reviewer) {
+    public void setReviewer(Users reviewer) {
     	this.reviewer = reviewer;
     }
     public String getReviewee() {
-    	return this.reviewee;
+    	return this.reviewee.getUsername();
     }
-    public void setReviewee(String r) {
-    	this.reviewee = r;
+    public void setReviewee(Users reviewee) {
+    	this.reviewee = reviewee;
     }
 
     

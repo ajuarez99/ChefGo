@@ -57,9 +57,10 @@ public class UserController {
 		
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT, path = "/user/{username}/{fname}")
-	public void updatefName(@PathVariable String username, @PathVariable String fname) {
-		users.updatefname(username, fname);
+	@RequestMapping(method = RequestMethod.PUT, path = "/user/{username}/{fname}/{lname}")
+	public void updatefName(@PathVariable String username, @PathVariable String fname, @PathVariable String lname) {
+		String name = fname + " " + lname;
+		users.updateName(username, name);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, path = "/users/{username}/password")

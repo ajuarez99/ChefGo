@@ -21,6 +21,11 @@ public class OrderHistoryController {
 		return orderHistory.getAllOrders();
 	}
 	
+	@RequestMapping("/orderHistory/active")
+	public List<OrderHistory> displayActiveOrders() {
+		return orderHistory.getOrdersByIsActive(1);
+	}
+	
 	@RequestMapping(method = RequestMethod.POST, path = "/orderHistory")
 	public void addOrder(@RequestBody OrderHistory order) {
 		orderHistory.addOrderToHistory(order);
