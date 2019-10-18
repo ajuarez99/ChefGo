@@ -28,7 +28,7 @@ public class RViewAdapter extends RecyclerView.Adapter<RViewAdapter.RViewHolder>
     public RViewAdapter.RViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         //R.layout.activity... could be wrong
         TextView view = (TextView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_chef_active_meals, parent, false);
+                .inflate(R.layout.activity_chef_main, parent, false);
         RViewHolder holder = new RViewHolder(view);
         return holder;
     }

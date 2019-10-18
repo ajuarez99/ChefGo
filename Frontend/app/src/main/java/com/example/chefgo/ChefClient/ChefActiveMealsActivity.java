@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.chefgo.CustomerOrderHistoryActivity;
+import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.R;
 import com.example.chefgo.app.AppController;
 
@@ -33,6 +34,7 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
 
     private TextView title;
     private Button refreshButton;
+    private UsersDomain user;
 
     private String jsonResponse, URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory";
 
@@ -44,7 +46,7 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chef_active_meals);
-
+        user = (UsersDomain) getIntent().getParcelableExtra("User");
         title = findViewById(R.id.title);
 
         rView = findViewById(R.id.recyclerview);
