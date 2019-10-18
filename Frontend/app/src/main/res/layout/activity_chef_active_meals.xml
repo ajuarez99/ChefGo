@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CustomerOrderHistoryActivity">
+    tools:context=".ChefClient.ChefActiveMealsActivity">
 
-    <ListView
-        android:id="@+id/listview"
+    <RecyclerView
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="600dp"
         android:layout_below="@id/title" />
@@ -18,13 +20,13 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:textSize="50dp"
-        android:text="Order History" />
+        android:text="Active Meals" />
 
     <Button
-        android:id="@+id/refresh"
+        android:id="@+id/refreshButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/listview"
+        android:layout_below="@id/recyclerview"
         android:text="Refresh" />
 
 </RelativeLayout>

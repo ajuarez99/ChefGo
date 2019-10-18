@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AdminClient.AdminActivity"></activity>
+        <activity android:name=".ChefClient.ChefActiveMealsActivity"></activity>
+        <activity android:name=".AdminClient.AdminActivity" />
         <activity android:name=".ChefClient.ChefMainActivity" />
         <activity
             android:name=".LoginActivity"
