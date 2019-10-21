@@ -70,7 +70,7 @@ public class OrderHistory {
     	this.dishName = dishName;
     	this.chef = chef;
     	this.customer = customer;
-    	this.isActive = 1;
+    	this.isActive = isActive;
     }
     
 
