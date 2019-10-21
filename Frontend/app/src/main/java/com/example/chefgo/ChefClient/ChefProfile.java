@@ -40,6 +40,7 @@ public class ChefProfile extends AppCompatActivity {
     private UsersDomain user;
 
     private String REVIEWS_URL = "http://coms-309-sb-3.misc.iastate.edu:8080/reviewee/";
+    private String MENU_URL = "http://coms-309-sb-3.misc.iastate.edu:8080/menus/chef/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +56,11 @@ public class ChefProfile extends AppCompatActivity {
         //Get user info from last page
         user =  getIntent().getParcelableExtra("User");
 
-        //Set url to include the chef username
+        //Set reviews url
         REVIEWS_URL += user.getUsername();
+
+        //Set menu url
+        MENU_URL += user.getUsername();
 
         chefMenu.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
@@ -85,6 +89,9 @@ public class ChefProfile extends AppCompatActivity {
 
         //Set reviews
         makeReviewsJSONArrayReq();
+
+        //Set menu
+        makeMenuJSONArrayReq();
     }
 
 
@@ -143,6 +150,64 @@ public class ChefProfile extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(req);
     }
 
+    private void makeMenuJSONArrayReq() {
+
+
+        JsonArrayRequest req = new JsonArrayRequest(MENU_URL,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.d(TAG, response.toString());
+
+                        try {
+                            // Parsing json array response
+                            // loop through each json object
+                            ArrayList<String> arrayList = new ArrayList<>();
+                            for (int i = 0; i < response.length(); i++) {
+
+                                JSONObject menu = (JSONObject) response.get(i);
+                                jsonResponse = "";
+
+                                String title = menu.getString("title");
+                                String appetizers = menu.getString("appetizer");
+                                String entree = menu.getString("entree");
+                                String desert = menu.getString("dessert");
+                                String cost = menu.getString("cost");
+                                String desc = menu.getString("description");
+
+                                jsonResponse += ("Title: " + title + "\n");
+                                jsonResponse += ("Appetizers: " + appetizers + "\n");
+                                jsonResponse += ("Entree: " + entree + "\n");
+                                jsonResponse += ("Dessert: " + desert + "\n");
+                                jsonResponse += ("Cost: " + cost + "\n");
+                                jsonResponse += ("Description: " + desc + "\n");
+                                arrayList.add(jsonResponse);
+
+                            }
+                            ArrayAdapter arrayAdapter = new ArrayAdapter(ChefProfile.this, android.R.layout.simple_list_item_1, arrayList);
+                            chefMenu.setAdapter(arrayAdapter);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(),
+                                    "Error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(req);
+    }
 
 
 
