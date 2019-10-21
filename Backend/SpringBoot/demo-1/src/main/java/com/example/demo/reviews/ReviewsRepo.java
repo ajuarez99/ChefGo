@@ -11,7 +11,7 @@ import org.springframework.data.repository.CrudRepository;
 public interface ReviewsRepo extends CrudRepository<Reviews, Integer> {
 
 
-	public List<Reviews> findByReviewee(String reviewee);
+	public List<Reviews> findByRevieweeUsername(String username);
 
-	public List<Reviews> findByReviewer(String reviewer);
+	public List<Reviews> findByReviewerUsername(String username);
 }

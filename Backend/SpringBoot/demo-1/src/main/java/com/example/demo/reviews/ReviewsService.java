@@ -28,12 +28,12 @@ public class ReviewsService {
 	}
 	
 	public List<Reviews> getReviewsByReviewee(String username) {
-		List<Reviews> reviews = reviewsRepo.findByReviewee(username);
+		List<Reviews> reviews = reviewsRepo.findByRevieweeUsername(username);
 		return reviews;
 	}
 	
 	public List<Reviews> getReviewsByReviewer(String username) {
-		List<Reviews> reviews = reviewsRepo.findByReviewer(username);
+		List<Reviews> reviews = reviewsRepo.findByReviewerUsername(username);
 		return reviews;
 	}
 	
