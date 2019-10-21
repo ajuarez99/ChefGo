@@ -84,7 +84,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBar);
         profilePicButton = findViewById(R.id.setProfPic);
         profilePic = findViewById(R.id.profilePic);
-        String name = user.getfName() + " " + user.getlName();
+        String name = user.getName() + " " + user.getName();
         nameView.setText(name);
         if(user.getRating() != null) {
             ratingBar.setRating(user.getRating().floatValue());
