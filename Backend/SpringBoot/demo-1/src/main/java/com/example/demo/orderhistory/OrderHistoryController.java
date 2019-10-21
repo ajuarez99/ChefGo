@@ -26,6 +26,16 @@ public class OrderHistoryController {
 		return orderHistory.getOrdersByIsActive(1);
 	}
 	
+	@RequestMapping("/orderHistory/activeChef/{username}")
+	public List<OrderHistory> displayActiveOrdersByChef(@PathVariable String username) {
+		return orderHistory.getOrderByIsActiveAndChefName(username);
+	}
+	
+	@RequestMapping("/orderHistory/activeCust/{username}")
+	public List<OrderHistory> displayActiveOrdersByCustomer(@PathVariable String username) {
+		return orderHistory.getOrderByIsActiveAndCustomerName(username);
+	}
+	
 	@RequestMapping(method = RequestMethod.POST, path = "/orderHistory")
 	public void addOrder(@RequestBody OrderHistory order) {
 		orderHistory.addOrderToHistory(order);

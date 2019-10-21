@@ -34,6 +34,18 @@ public class OrderHistoryService {
 		return u;
 	}
 	
+	
+	public List<OrderHistory> getOrderByIsActiveAndChefName(String username) {
+		List<OrderHistory> u = orderHistoryRepo.findByIsActiveAndChefUsername(1,username);
+		return u;
+	}
+	
+	public List<OrderHistory> getOrderByIsActiveAndCustomerName(String username) {
+		List<OrderHistory> u = orderHistoryRepo.findByIsActiveAndCustomerUsername(1,username);
+		return u;
+	}
+	
+	
 	public OrderHistory getOrderByOid(int oid) {
 		Optional<OrderHistory> u = orderHistoryRepo.findByOid(oid);
 		
