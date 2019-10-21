@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.orderhistory.OrderHistory;
+
 
 @RestController
 public class UserController {
@@ -42,14 +44,23 @@ public class UserController {
 	public void updateUserEmail(@PathVariable String username, @RequestBody String email) {
 		users.updateEmail(username, email);
 	}
+	
+//	@RequestMapping(method = RequestMethod.PUT, path = "/users/{username}/order")
+//	public void updateUserEmail(@PathVariable String username, @RequestBody OrderHistory order) {
+//		users.addOrder(username, order);
+//	}
+	
+	
 	@RequestMapping( path = "/user/{username}")
 	public Users findbyUserName(@PathVariable String username) {
 		return users.getUserByUsername(username);
 		
 	}
-	@RequestMapping(method = RequestMethod.PUT, path = "/user/{username}/{fname}")
-	public void updatefName(@PathVariable String username, @PathVariable String fname) {
-		users.updatefname(username, fname);
+	
+	@RequestMapping(method = RequestMethod.PUT, path = "/user/{username}/{fname}/{lname}")
+	public void updatefName(@PathVariable String username, @PathVariable String fname, @PathVariable String lname) {
+		String name = fname + " " + lname;
+		users.updateName(username, name);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, path = "/users/{username}/password")
@@ -62,6 +73,7 @@ public class UserController {
 			@RequestBody Integer zip) {
 		users.updateAddress(username, address, state, zip);
 	}
+	
 	@RequestMapping(method = RequestMethod.DELETE, path = "/users/{username}")
 	public void deleteUser(@PathVariable String username) {
 		users.deleteUser(username);

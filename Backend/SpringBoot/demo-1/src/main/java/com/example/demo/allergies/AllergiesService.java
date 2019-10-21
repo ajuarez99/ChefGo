@@ -22,18 +22,23 @@ public class AllergiesService {
 		return allergies;
 	}
 	
-	public List<Allergies> getUserAllergies(Users user){
+	public List<Allergies> getUserAllergies(String username){
 		List<Allergies> allergies = new ArrayList<Allergies>();
 		
-		//allergiesRepo.findByUser(user).forEach(allergies :: add);
+		allergiesRepo.findByUserUsername(username).forEach(allergies :: add);
 		return allergies;
 	}
 	
-//	public void assignUserToAllergy(Allergies allergy, Users user) {
-//		allergy.setUser(user);
-//		allergiesRepo.save(allergy);
-//		
-//	}
+	
+	public void addAllergy(Allergies allergy) {
+		allergiesRepo.save(allergy);
+	}
+	
+	public void assignUserToAllergy(Allergies allergy, Users user) {
+		allergy.setUser(user);
+		allergiesRepo.save(allergy);
+		
+	}
 	
 	
 	
