@@ -21,7 +21,7 @@ public class MenuController {
 		return menus;
 	}
 	
-	@RequestMapping("/menus//chef/{username}")
+	@RequestMapping("/menus/chef/{username}")
 	public List<Menu> getAllMenusByChef(@PathVariable String username){
 		List<Menu> menus = menuService.getAllMenusByChef(username);
 		return menus;		

@@ -41,6 +41,7 @@ public class OrderHistoryService {
 	}
 
 	public void addOrderToHistory(OrderHistory order) {
+		order.setActive(1);
 		orderHistoryRepo.save(order);
 	}
 	
