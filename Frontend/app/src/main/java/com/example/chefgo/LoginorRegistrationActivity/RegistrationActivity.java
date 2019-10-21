@@ -114,8 +114,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 Intent customer = new Intent(RegistrationActivity.this, MainActivity.class);
                 user.setUsername(username.getText().toString());
                 user.setEmail(email.getText().toString());
-                user.setfName(fname.getText().toString());
-                user.setLname(lname.getText().toString());
+                user.setName(fname.getText().toString());
                 user.setAddress(address.getText().toString());
                 user.setState(state.getSelectedItem().toString());
                 user.setZip(Integer.parseInt(zipcode.getText().toString()));
@@ -131,8 +130,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 Intent customer = new Intent(RegistrationActivity.this, MainActivity.class);
                 user.setUsername(username.getText().toString());
                 user.setEmail(email.getText().toString());
-                user.setfName(fname.getText().toString());
-                user.setLname(lname.getText().toString());
+                user.setName(fname.getText().toString());
                 user.setAddress(address.getText().toString());
                 user.setState(state.getSelectedItem().toString());
                 user.setZip(Integer.parseInt(zipcode.getText().toString()));

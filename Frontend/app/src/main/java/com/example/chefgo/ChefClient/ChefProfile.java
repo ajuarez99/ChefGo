@@ -77,7 +77,7 @@ public class ChefProfile extends AppCompatActivity {
         });
 
         //Set name
-        String name = user.getfName() + " " + user.getlName();
+        String name = user.getName();
         chefName.setText(name);
 
         //Set rating
