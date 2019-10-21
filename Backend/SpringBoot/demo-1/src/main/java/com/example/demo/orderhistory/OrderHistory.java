@@ -59,6 +59,8 @@ public class OrderHistory {
     private Users chef;
     
     
+    
+    
     public OrderHistory() {
     }
     
@@ -72,11 +74,14 @@ public class OrderHistory {
     	this.chef = chef;
     	this.customer = customer;
     	this.isActive = 1;
+    	this.review = new Reviews();
     }
     
 
     public int getReview() {
+    	if(this.review != null)
     	return this.review.getrid();
+    	else return -1;
     }
     public void setReview(Reviews review) {
     	this.review = review;
