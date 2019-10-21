@@ -74,8 +74,8 @@ public class OrderHistory {
     }
     
 
-    public Reviews getReview() {
-    	return this.review;
+    public int getReview() {
+    	return this.review.getrid();
     }
     public void setReview(Reviews review) {
     	this.review = review;

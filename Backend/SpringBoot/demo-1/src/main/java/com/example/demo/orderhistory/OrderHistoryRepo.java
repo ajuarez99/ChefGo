@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrderHistoryRepo extends JpaRepository<OrderHistory, Integer> {
 
-	public List<OrderHistory> findByChefName(String chefName);
+	public List<OrderHistory> findByChefUsername(String username);
 	public Optional<OrderHistory> findByOid(int oid);
 	public List<OrderHistory> findByIsActive(int isActive);
 }

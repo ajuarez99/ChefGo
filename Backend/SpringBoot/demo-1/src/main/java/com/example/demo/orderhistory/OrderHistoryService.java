@@ -30,7 +30,7 @@ public class OrderHistoryService {
 	}
 	
 	public List<OrderHistory> getOrderByChefName(String username) {
-		List<OrderHistory> u = orderHistoryRepo.findByChefName(username);
+		List<OrderHistory> u = orderHistoryRepo.findByChefUsername(username);
 		return u;
 	}
 	

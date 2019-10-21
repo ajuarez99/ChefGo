@@ -27,18 +27,22 @@ public class Allergies {
 	@Size(max = 40)
 	private String allergy;
 	
-//	@ManyToOne
-//	private Users user;
+	@ManyToOne
+	@JoinColumn(name = "userID")
+	private Users user;
 	
 
-	public Allergies(Integer id, String allergy) {
-		this.allergy = allergy;
-		this.id = id;
-	}
 	
 	public Allergies() {
-
+		
 	}
+	
+	public Allergies(Integer id, String allergy, Users user) {
+		this.allergy = allergy;
+		this.id = id;
+		this.user = user;
+	}
+	
 	
 	public void setId(int id) {
 		this.id = id;
@@ -52,11 +56,11 @@ public class Allergies {
 	public void setAllergy(String allergy) {
 		this.allergy = allergy;
 	}
-//	public Users getUser() {
-//		return user;
-//	}
-//	public void setUser(Users user) {
-//		this.user = user;
-//	}
+	public String getUser() {
+		return this.user.getUsername();
+	}
+	public void setUser(Users user) {
+		this.user = user;
+	}
 	
 }

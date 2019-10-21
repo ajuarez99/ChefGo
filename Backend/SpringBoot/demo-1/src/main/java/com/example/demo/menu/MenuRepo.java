@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MenuRepo extends JpaRepository<Menu, Integer>{
 	
-	public List<Menu> findByChef(String username);
+	public List<Menu> findByChefUsername(String username);
 	public Menu findByTitle(String title);
 }

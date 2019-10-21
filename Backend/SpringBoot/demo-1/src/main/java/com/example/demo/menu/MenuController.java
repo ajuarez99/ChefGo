@@ -21,10 +21,15 @@ public class MenuController {
 		return menus;
 	}
 	
-	@RequestMapping("/menus/{username}")
+	@RequestMapping("/menus//chef/{username}")
 	public List<Menu> getAllMenusByChef(@PathVariable String username){
 		List<Menu> menus = menuService.getAllMenusByChef(username);
 		return menus;		
+	}
+	
+	@RequestMapping("/menus/title/{title}")
+	public Menu getMenuByTitle(@PathVariable String title) {
+		return menuService.getMenuByTitle(title);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, path = "/menus")

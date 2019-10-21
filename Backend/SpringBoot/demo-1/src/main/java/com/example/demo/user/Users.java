@@ -3,6 +3,7 @@ package com.example.demo.user;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -15,6 +16,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.example.demo.allergies.Allergies;
 import com.example.demo.orderhistory.OrderHistory;
 
 
@@ -60,6 +62,9 @@ public class Users {
     @Column (name = "zip")
     private Integer zip;
     
+    @OneToMany(mappedBy = "user")
+    private List<Allergies> allergies;
+    
     
     public Users() {
     	
@@ -75,6 +80,8 @@ public class Users {
     	this.rating = rating;
     	this.address = address;
     	this.state = state;
+    	this.orders = new ArrayList<OrderHistory>();
+    	this.allergies = new ArrayList<Allergies>();
     	this.zip = zip;
     }
         
@@ -149,11 +156,21 @@ public class Users {
     }
     
     public void addOrder(OrderHistory order) {
-    	this.orders.add(order);
     	order.setCustomer(this);
+    	this.orders.add(order);
     }
     
     public List<OrderHistory> getOrders(){
     	return this.orders;
     }
+    
+    public List<Allergies> getAllergies(){
+    	return this.allergies;
+    }
+    
+    public void addAllergy(Allergies allergy) {
+    	allergies.add(allergy);
+    }
+    
+    
 }

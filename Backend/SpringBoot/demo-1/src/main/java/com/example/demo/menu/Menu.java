@@ -50,6 +50,7 @@ public class Menu {
 	public Menu() {
 	
 	}
+	
 	public Menu(String title, String appetizer, String entree, String dessert, double cost, String desc, Users chef) {
 		
 		this.title = title;

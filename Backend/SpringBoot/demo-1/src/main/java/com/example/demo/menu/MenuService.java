@@ -24,8 +24,12 @@ public class MenuService {
 	public List<Menu> getAllMenusByChef(String username) {
 		List<Menu> menus = new ArrayList<>();
 		
-		menus = menuRepo.findByChef(username);
+		menus = menuRepo.findByChefUsername(username);
 		return menus;
+	}
+	
+	public Menu getMenuByTitle(String title) {
+		return menuRepo.findByTitle(title);
 	}
 	
 	public void addMenu(Menu menu) {
