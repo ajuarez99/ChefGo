@@ -72,6 +72,13 @@ public class UserService {
 		userRepo.delete(toDelete);
 	}
 	
+	public void updateUserType(String username, Integer type) {
+		Optional<Users> u = userRepo.findByUsername(username);
+		Users toUpdate = u.get();
+		toUpdate.setUserType(type);
+		userRepo.save(toUpdate);
+	}
+	
 //	public void addOrder(String username, OrderHistory order) {
 //		Optional<Users> u = userRepo.findByUsername(username);
 //		Users madeOrder = u.get();

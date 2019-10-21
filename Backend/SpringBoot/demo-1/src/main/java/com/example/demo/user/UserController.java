@@ -68,6 +68,11 @@ public class UserController {
 		users.updatePassword(username, password);
 	}
 	
+	@RequestMapping(method = RequestMethod.PUT, path = "/users/userType/{username}/{type}")
+	public void updateUserType(@PathVariable String username, @PathVariable Integer type) {
+		users.updateUserType(username, type);
+	}
+	
 	@RequestMapping(method = RequestMethod.PUT, path = "/users/{username}/address")
 	public void updateAddress(@PathVariable String username, @RequestBody String address, @RequestBody String state,
 			@RequestBody Integer zip) {
