@@ -7,8 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".ChefClient.ChefActiveMealsActivity">
 
-    <RecyclerView
-        android:id="@+id/recyclerview"
+    <ListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="600dp"
         android:layout_below="@id/title" />
@@ -26,7 +26,7 @@
         android:id="@+id/refreshButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/recyclerview"
+        android:layout_below="@id/listView"
         android:text="Refresh" />
 
 </RelativeLayout>

@@ -35,25 +35,17 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
     private TextView title;
     private Button refreshButton;
     private UsersDomain user;
+    private ListView listView;
 
     private String jsonResponse, URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory";
-
-    private RecyclerView rView;
-    private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chef_active_meals);
-        user = (UsersDomain) getIntent().getParcelableExtra("User");
+        user = getIntent().getParcelableExtra("User");
         title = findViewById(R.id.title);
-
-        rView = findViewById(R.id.recyclerview);
-        rView.setHasFixedSize(true);
-
-        layoutManager = new LinearLayoutManager(this);
-        rView.setLayoutManager(layoutManager);
+        listView = findViewById(R.id.listView);
 
         getJSONArrayRequest();
         refreshButton = findViewById(R.id.refreshButton);
@@ -94,10 +86,10 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
                                 String reviewDate = review.getString("date");
                                 String description = review.getString("description");*/
 
-                                String dish = order.getString("dish");
+                                String dish = order.getString("dish_name");
                                 String chef = order.getString("chef");
                                 //String customer = order.getString("customer");
-                                String date = order.getString("date");
+                                String date = order.getString("order_date");
 
                                 jsonResponse += ("Order id: " + oid + "\n");
                                 jsonResponse += ("Dish: " + dish + "\n");
@@ -105,13 +97,8 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
                                 jsonResponse += ("Date: " + date + "\n");
                                 arrayList.add(jsonResponse);
                             }
-                            String[] data = new String[arrayList.size()];
-                            for (int i = 0; i < arrayList.size(); i++){
-                                data[i] = arrayList.get(i);
-                            }
-                            adapter = new RViewAdapter(data);
-                            rView.setAdapter(adapter);
-
+                            ArrayAdapter arrayAdapter = new ArrayAdapter(ChefActiveMealsActivity.this, android.R.layout.simple_list_item_1, arrayList);
+                            listView.setAdapter(arrayAdapter);
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(),

@@ -79,8 +79,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     user.setUsername(response.getString("username"));
                     user.setEmail(response.getString("email"));
-                    user.setfName(response.getString("fName"));
-                    user.setLname(response.getString("lName"));
+                    user.setName(response.getString("name"));
                     user.setAddress(response.getString("address"));
                     user.setState(response.getString("state"));
                     user.setZip(response.getInt("zip"));

@@ -6,8 +6,7 @@ import android.os.Parcelable;
 public class UsersDomain implements Parcelable{
     private String username;
     private String email;
-    private String fName;
-    private String lname;
+    private String name;
     private String password;
     private Integer userType;
     private Double rating;
@@ -18,12 +17,11 @@ public class UsersDomain implements Parcelable{
     public UsersDomain(){
 
     }
-    public UsersDomain(String username, String email, String f, String l, String pass, String user, Double rating,
+    public UsersDomain(String username, String email, String name, String pass, String user, Double rating,
                  Integer type, String address, String state, Integer zip) {
         this.username = username;
         this.email = email;
-        this.fName= f;
-        this.lname = l;
+        this.name = name;
         this.password = pass;
         this.userType = type;
         this.rating = rating;
@@ -35,8 +33,7 @@ public class UsersDomain implements Parcelable{
     protected UsersDomain(Parcel in){
         this.username = in.readString();
         this.email = in.readString();
-        this.fName= in.readString();
-        this.lname = in.readString();
+        this.name = in.readString();
         this.password = in.readString();
         this.userType = in.readInt();
         this.rating = in.readDouble();
@@ -65,8 +62,7 @@ public class UsersDomain implements Parcelable{
     public void writeToParcel(Parcel in, int i) {
         in.writeString(this.username) ;
         in.writeString(this.email);
-        in.writeString(this.fName);
-        in.writeString(this.lname);
+        in.writeString(this.name);
         in.writeString(this.password);
         in.writeInt(this.userType);
         in.writeDouble(this.rating);
@@ -82,18 +78,10 @@ public class UsersDomain implements Parcelable{
         this.userType = user;
     }
 
-    public String getfName() {
-        return this.fName;
+    public String getName() {
+        return this.name;
     }
-    public void setfName(String name) {
-        this.fName = name;
-    }
-    public String getlName() {
-        return this.lname;
-    }
-    public void setLname(String name) {
-        this.lname= name;
-    }
+    public void setName(String name) { this.name= name; }
     public String getUsername() {
         return this.username;
     }
