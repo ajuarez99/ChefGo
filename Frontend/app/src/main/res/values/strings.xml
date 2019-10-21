@@ -11,4 +11,5 @@
     <string name="login_failed">"Login failed"</string>
     <string name="com_auth0_client_id">5HJZzxVy7patcjpM9Alhh70nZ7lUp8PM</string>
     <string name="com_auth0_domain">dev-0459bius.auth0.com</string>
+    <string name="title_activity_users">UsersActivity</string>
 </resources>
