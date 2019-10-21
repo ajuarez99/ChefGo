@@ -30,7 +30,7 @@ public class OrderHistory {
     @JoinColumn(name = "reviewID")
     private Reviews review;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "customerID")
     private Users customer;
 
@@ -51,19 +51,19 @@ public class OrderHistory {
     @Size(max = 50)
     private String dishName;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "chefID")
     private Users chef;
     
     @Column(name = "active")
-    private int isActive;
+    private Integer isActive;
     
     public OrderHistory() {
     }
     
 
 
-    public OrderHistory(Integer oid,Date orderDate, Double price, Users chef, String dishName, Users customer) {
+    public OrderHistory(Integer oid, Date orderDate, Double price, Users chef, String dishName, Users customer, Integer isActive) {
     	this.price = price;
     	this.oid = oid;
     	this.orderDate = orderDate;
@@ -120,11 +120,11 @@ public class OrderHistory {
 		this.customer = customer;
 	}
 	
-	public int isActive() {
+	public Integer isActive() {
 		return this.isActive;
 	}
 
-	public void setActive(int isActive) {
+	public void setActive(Integer isActive) {
 		this.isActive = isActive;
 	}
 
