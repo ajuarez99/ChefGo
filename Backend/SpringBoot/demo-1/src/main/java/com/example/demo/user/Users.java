@@ -37,8 +37,8 @@ public class Users {
     @Size(max = 30)
     private String name;
     
-    @OneToMany(mappedBy = "customer")
-    private List<OrderHistory> orders;
+//    @OneToMany(mappedBy = "customer")
+//    private List<OrderHistory> orders;
     
     @Column(name = "password")
     @Size(max = 30)
@@ -62,8 +62,8 @@ public class Users {
     @Column (name = "zip")
     private Integer zip;
     
-    @OneToMany(mappedBy = "user")
-    private List<Allergies> allergies;
+//    @OneToMany(mappedBy = "user")
+//    private List<Allergies> allergies;
     
     
     public Users() {
@@ -80,8 +80,6 @@ public class Users {
     	this.rating = rating;
     	this.address = address;
     	this.state = state;
-    	this.orders = new ArrayList<OrderHistory>();
-    	this.allergies = new ArrayList<Allergies>();
     	this.zip = zip;
     }
         
@@ -155,22 +153,22 @@ public class Users {
     	this.email = email;
     }
     
-    public void addOrder(OrderHistory order) {
-    	order.setCustomer(this);
-    	this.orders.add(order);
-    }
-    
-    public List<OrderHistory> getOrders(){
-    	return this.orders;
-    }
-    
-    public List<Allergies> getAllergies(){
-    	return this.allergies;
-    }
-    
-    public void addAllergy(Allergies allergy) {
-    	allergies.add(allergy);
-    }
+//    public void addOrder(OrderHistory order) {
+//    	order.setCustomer(this);
+//    	this.orders.add(order);
+//    }
+//    
+//    public List<OrderHistory> getOrders(){
+//    	return this.orders;
+//    }
+//    
+//    public List<Allergies> getAllergies(){
+//    	return this.allergies;
+//    }
+//    
+//    public void addAllergy(Allergies allergy) {
+//    	allergies.add(allergy);
+//    }
     
     
 }

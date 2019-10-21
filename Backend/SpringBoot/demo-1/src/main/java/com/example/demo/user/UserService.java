@@ -72,12 +72,12 @@ public class UserService {
 		userRepo.delete(toDelete);
 	}
 	
-	public void addOrder(String username, OrderHistory order) {
-		Optional<Users> u = userRepo.findByUsername(username);
-		Users madeOrder = u.get();
-		madeOrder.addOrder(order);
-		userRepo.save(madeOrder);
-	}
+//	public void addOrder(String username, OrderHistory order) {
+//		Optional<Users> u = userRepo.findByUsername(username);
+//		Users madeOrder = u.get();
+//		madeOrder.addOrder(order);
+//		userRepo.save(madeOrder);
+//	}
 
 	
 	

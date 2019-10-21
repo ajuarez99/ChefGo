@@ -45,10 +45,10 @@ public class UserController {
 		users.updateEmail(username, email);
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT, path = "/users/{username}/order")
-	public void updateUserEmail(@PathVariable String username, @RequestBody OrderHistory order) {
-		users.addOrder(username, order);
-	}
+//	@RequestMapping(method = RequestMethod.PUT, path = "/users/{username}/order")
+//	public void updateUserEmail(@PathVariable String username, @RequestBody OrderHistory order) {
+//		users.addOrder(username, order);
+//	}
 	
 	
 	@RequestMapping( path = "/user/{username}")
