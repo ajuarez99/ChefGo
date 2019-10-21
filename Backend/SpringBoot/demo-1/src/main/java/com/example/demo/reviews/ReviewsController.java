@@ -27,6 +27,11 @@ public class ReviewsController {
 		return review.getReviewById(id);
 	}
 	
+	@RequestMapping(method = RequestMethod.POST, path = "/reviews")
+	public void addReview(@RequestBody Reviews newReview) {
+		review.addReviews(newReview);
+	}
+	
 	@RequestMapping(method = RequestMethod.PUT, path = "/reviews/{rid}")
 	public void updateReview(@PathVariable Integer rid, @RequestBody Reviews newReview) {
 		review.updateReview(rid, newReview);
