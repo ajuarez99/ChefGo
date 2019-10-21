@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.user.Users;
+import com.example.demo.reviews.Reviews;
 
 
 @Service
@@ -24,8 +24,13 @@ public class OrderHistoryService {
 		return orders;
 	}
 	
+	public List<OrderHistory> getOrdersByIsActive(int isActive){
+		List<OrderHistory> u = orderHistoryRepo.findByIsActive(isActive);
+		return u;
+	}
+	
 	public List<OrderHistory> getOrderByChefName(String username) {
-		List<OrderHistory> u = orderHistoryRepo.findByChefName(username);
+		List<OrderHistory> u = orderHistoryRepo.findByChefUsername(username);
 		return u;
 	}
 	
@@ -36,6 +41,7 @@ public class OrderHistoryService {
 	}
 
 	public void addOrderToHistory(OrderHistory order) {
+		order.setActive(1);
 		orderHistoryRepo.save(order);
 	}
 	
@@ -45,6 +51,14 @@ public class OrderHistoryService {
 		update.setDish(dish);
 		orderHistoryRepo.save(update);	
 	}
+	
+	public void addReview(int id, Reviews review) {
+		Optional<OrderHistory> u = orderHistoryRepo.findById(id);
+		OrderHistory update = u.get();
+		update.setReview(review);
+		orderHistoryRepo.save(update);	
+	}
+	
 	public void deleteOrder(Integer oid) {
 		Optional<OrderHistory> u = orderHistoryRepo.findByOid(oid);
 		OrderHistory toDelete = u.get();

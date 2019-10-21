@@ -18,20 +18,20 @@ public class ReviewsController {
 	private ReviewsService review; 
 	
 	@RequestMapping("/reviews")
-	public List<Reviews> displayAllOrders() {
+	public List<Reviews> displayAllReviews() {
 		return review.getAllReviews();
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, path = "/reviews")
-	public void addOrder(@RequestBody Reviews order) {
-		review.addReviews(order);
-	}
-	
-	@RequestMapping("/reviews/{id}")
+	@RequestMapping("/reviews/{rid}")
 	public Reviews displayOrderById(@PathVariable int id) {
 		return review.getReviewById(id);
 	}
-
+	
+	@RequestMapping(method = RequestMethod.PUT, path = "/reviews/{rid}")
+	public void updateReview(@PathVariable Integer rid, @RequestBody Reviews newReview) {
+		review.updateReview(rid, newReview);
+	}
+	
 	@RequestMapping("/reviewee/{username}")
 	public List<Reviews> getReviewsByReviewee(@PathVariable String username) {
 		return review.getReviewsByReviewee(username);
