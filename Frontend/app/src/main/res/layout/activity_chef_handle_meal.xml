@@ -7,11 +7,12 @@
     tools:context=".ChefClient.ChefHandleMealActivity">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="53dp"
-        android:layout_height="14dp"
-        android:text="Accept or Decline"
-        android:textSize="100sp"
+        android:id="@+id/handleMealText"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:text="Accept or decline this meal"
+        android:textSize="15sp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,20 +23,13 @@
         android:id="@+id/buttonAccept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
         android:text="Accept"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonDecline"
-        app:layout_constraintHorizontal_bias="0.572"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/buttonDecline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="88dp"
-        android:text="Decline"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.006"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/handleMealText"
+        app:layout_constraintVertical_bias="0.299" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,27 +14,21 @@ public class ChefHandleMealActivity extends AppCompatActivity {
 
     String itemDescription;
     TextView description;
-    Button acceptButton, declineButton;
+    Button acceptButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chef_handle_meal);
         itemDescription = getIntent().getStringExtra("JSON_RESPONSE");
-        description = findViewById(R.id.textView);
+        description = findViewById(R.id.handleMealText);
         description.setText(itemDescription);
 
         acceptButton = findViewById(R.id.buttonAccept);
-        declineButton = findViewById(R.id.buttonDecline);
 
         acceptButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-
-            }
-        });
-        declineButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
+                //set chef object fields to user fields
 
             }
         });

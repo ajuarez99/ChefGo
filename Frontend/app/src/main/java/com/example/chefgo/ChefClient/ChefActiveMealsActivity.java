@@ -39,13 +39,14 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
     private UsersDomain user;
     private ListView listView;
 
-    private String jsonResponse, URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory/active";
+    private String jsonResponse, url = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory/active";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chef_active_meals);
         user = getIntent().getParcelableExtra("User");
+        //url += user.getUsername();
         title = findViewById(R.id.title);
         listView = findViewById(R.id.listView);
 
@@ -61,7 +62,7 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
 
     private void getJSONArrayRequest(){
 
-        JsonArrayRequest req = new JsonArrayRequest(URL,
+        JsonArrayRequest req = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -78,33 +79,28 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
                                 jsonResponse = "";
 
                                 String oid = order.getString("oid");
-                                //String price = order.getString("price");
-
-                                /*JSONObject review = order.getJSONObject("review");
-                                String rid = review.getString("rid");
-                                String rating = review.getString("rating");
-                                String reviewer = review.getString("reviewer");
-                                String reviewee = review.getString("reviewee");
-                                String reviewDate = review.getString("date");
-                                String description = review.getString("description");*/
-
+                                String price = order.getString("price");
                                 String dish = order.getString("dish");
                                 //String chef = order.getString("chef");
-                                //String customer = order.getString("customer");
-                                String date = order.getString("date");
+                                //JSONObject customer = order.getJSONObject("customer");
+                                String customerName = order.getString("customer");
+                                //String date = order.getString("date");
+
 
                                 jsonResponse += ("Order id: " + oid + "\n");
                                 jsonResponse += ("Dish: " + dish + "\n");
-                                jsonResponse += ("Date: " + date + "\n");
+                                jsonResponse += ("Price: " + price + "\n");
+                                jsonResponse += ("Customer name: " + customerName + "\n");
                                 arrayList.add(jsonResponse);
                             }
                             ArrayAdapter arrayAdapter = new ArrayAdapter(ChefActiveMealsActivity.this, android.R.layout.simple_list_item_1, arrayList);
                             listView.setAdapter(arrayAdapter);
+
                             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                   //launch new intent to accept or decline meal request
+                                    //launch new intent to accept or decline meal request
                                     Intent i = new Intent(ChefActiveMealsActivity.this, ChefHandleMealActivity.class);
                                     i.putExtra("JSON_RESPONSE", arrayList.get(position));
                                     startActivity(i);
@@ -123,8 +119,7 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
