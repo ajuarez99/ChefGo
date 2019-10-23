@@ -111,15 +111,15 @@ public class OrderHistory {
     public void setDate(Date date) {
     	this.orderDate = date;
     }
-    public String getChef() {
-    	return this.chef.getUsername();
+    public Users getChef() {
+    	return this.chef;
     }
     public void setChef(Users chef) {
     	this.chef = chef;
     }
 
-	public String getCustomer() {
-		return this.customer.getUsername();
+	public Users getCustomer() {
+		return this.customer;
 	}
 
 	public void setCustomer(Users customer) {
