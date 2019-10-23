@@ -5,5 +5,3 @@
 ### To lazy to make it?
 
 ### Well, CHEFGO order youself a cook!
-
-### GitLab Orange Heading {: .gitlab-orange}
