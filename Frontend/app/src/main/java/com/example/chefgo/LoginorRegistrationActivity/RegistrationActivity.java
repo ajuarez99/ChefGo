@@ -78,15 +78,11 @@ public class RegistrationActivity extends AppCompatActivity {
     private void submitRegistration() {
 
 
-
-        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-
-
-            if (!email.getText().toString().trim().matches(emailPattern)) {
+            if (!ValidationRegister.validateEmail(email.getText().toString())) {
                 Toast.makeText(getApplicationContext(),"Invalid email address", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if(!(password.getText().toString().equals(confirmPassword.getText().toString()))){
+            if(!ValidationRegister.validatePassword(password.getText().toString(), confirmPassword.getText().toString())){
                 Toast.makeText(getApplicationContext(),"Passwords dont match", Toast.LENGTH_SHORT).show();
                 return;
             }

@@ -6,8 +6,6 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.auth0.android.Auth0;
 import com.example.chefgo.DomainObjects.UsersDomain;
 
 public class MainActivity extends AppCompatActivity {
