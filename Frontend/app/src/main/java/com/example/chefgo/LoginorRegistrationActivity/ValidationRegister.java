@@ -11,6 +11,12 @@ public class ValidationRegister {
         }
 
         public static boolean validatePassword(String password, String confirmPassword){
-            return password.equals(confirmPassword) && password != null;
-        }
+            if (password != null) {
+
+                return password.equals(confirmPassword) ;
+            }
+            else{
+                return false;
+            }
+            }
 }

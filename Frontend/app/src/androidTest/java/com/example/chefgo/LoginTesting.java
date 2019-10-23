@@ -44,13 +44,13 @@ public class LoginTesting {
     }
     @Test
     public void passwordValidator_Match_returnTrue(){
-        assertFalse(ValidationRegister.validatePassword("pass","pass"));
+        assertTrue(ValidationRegister.validatePassword("pass","pass"));
     }
     @Test
     public void passwordValidator_null_returnFalse(){
-        assertFalse(ValidationRegister.validatePassword(null,null));
-    }
+        assertFalse(ValidationRegister.validatePassword(null,"pass"));
 
 
+}
 
 }
