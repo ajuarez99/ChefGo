@@ -6,5 +6,4 @@
 
 ### Well, CHEFGO order youself a cook!
 
-### GitLab Orange Heading
-{: .gitlab-orange}
+### GitLab Orange Heading {: .gitlab-orange}
