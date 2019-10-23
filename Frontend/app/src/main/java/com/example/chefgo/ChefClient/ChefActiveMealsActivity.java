@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -37,7 +39,7 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
     private UsersDomain user;
     private ListView listView;
 
-    private String jsonResponse, URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory";
+    private String jsonResponse, URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory/active";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +70,7 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
                         try {
                             // Parsing json array response
                             // loop through each json object
-                            ArrayList<String> arrayList = new ArrayList<>();
+                            final ArrayList<String> arrayList = new ArrayList<>();
 
                             for (int i = 0; i < response.length(); i++) {
 
@@ -86,19 +88,28 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
                                 String reviewDate = review.getString("date");
                                 String description = review.getString("description");*/
 
-                                String dish = order.getString("dish_name");
-                                String chef = order.getString("chef");
+                                String dish = order.getString("dish");
+                                //String chef = order.getString("chef");
                                 //String customer = order.getString("customer");
-                                String date = order.getString("order_date");
+                                String date = order.getString("date");
 
                                 jsonResponse += ("Order id: " + oid + "\n");
                                 jsonResponse += ("Dish: " + dish + "\n");
-                                jsonResponse += ("Chef: " + chef + "\n");
                                 jsonResponse += ("Date: " + date + "\n");
                                 arrayList.add(jsonResponse);
                             }
                             ArrayAdapter arrayAdapter = new ArrayAdapter(ChefActiveMealsActivity.this, android.R.layout.simple_list_item_1, arrayList);
                             listView.setAdapter(arrayAdapter);
+                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                   //launch new intent to accept or decline meal request
+                                    Intent i = new Intent(ChefActiveMealsActivity.this, ChefHandleMealActivity.class);
+                                    i.putExtra("JSON_RESPONSE", arrayList.get(position));
+                                    startActivity(i);
+                                }
+                            });
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(),
