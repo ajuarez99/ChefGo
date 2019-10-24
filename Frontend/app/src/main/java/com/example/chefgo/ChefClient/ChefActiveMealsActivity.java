@@ -154,15 +154,8 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
                         try {
                             // Parsing json array response
                             // loop through each json object
-                            ArrayList<String> arrayList = new ArrayList<>();
-
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject allergies = (JSONObject) response.get(i);
-                                /*
-                                jsonResponse = "";
-                                jsonResponse += allergies.getString("allergy");
-                                arrayList.add(jsonResponse);
-                                */
                                 allergy = allergies.getString("allergy");
                             }
                         } catch (JSONException e) {
