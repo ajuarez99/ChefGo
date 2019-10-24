@@ -23,7 +23,11 @@ public class OrderHistoryController {
 	
 	@RequestMapping("/orderHistory/active")
 	public List<OrderHistory> displayActiveOrders() {
+<<<<<<< HEAD
 		return orderHistory.getOrdersByIsActiveAndWithoutChef();
+=======
+		return orderHistory.getOrdersByIsActive(1);
+>>>>>>> 17-swipe-meals
 	}
 	
 	@RequestMapping("/orderHistory/activeChef/{username}")

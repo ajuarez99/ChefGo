@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+<<<<<<< HEAD
         <activity
             android:name=".AdminClient.UsersActivity"
             android:label="@string/title_activity_users"
@@ -24,6 +25,11 @@
         <activity android:name=".LoginorRegistrationActivity.RegistrationActivity"></activity>
         <activity android:name=".AdminClient.AdminActivity"></activity> 
 
+=======
+        <activity android:name=".ChefClient.ChefHandleMealActivity"></activity>
+        <activity android:name=".ChefClient.ChefActiveMealsActivity" />
+        <activity android:name=".AdminClient.AdminActivity" />
+>>>>>>> 17-swipe-meals
         <activity android:name=".ChefClient.ChefMainActivity" />
         <activity
             android:name=".LoginorRegistrationActivity.LoginActivity"
@@ -37,7 +43,7 @@
         <activity android:name=".CustomerOrderMealActivity" />
         <activity android:name=".CustomerOrderHistoryActivity" />
         <activity android:name=".CustomerProfileActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".CustomerMainActivity" />
         <activity android:name=".ViewMealRequests" />
     </application>
 
