@@ -44,8 +44,7 @@ public class OrderHistory {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "oid")
-    @NotNull 
+    @Column(name = "oid") 
     private Integer oid;
     
     @Column(name= "dishName")
