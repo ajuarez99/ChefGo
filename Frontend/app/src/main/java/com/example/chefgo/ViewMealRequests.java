@@ -54,7 +54,7 @@ public class ViewMealRequests extends AppCompatActivity {
         JsonArrayRequest req = new JsonArrayRequest(URL,
                 new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(JSONArray response){
                         Log.d(TAG, response.toString());
 
                         try {
@@ -101,4 +101,5 @@ public class ViewMealRequests extends AppCompatActivity {
         });
         AppController.getInstance().addToRequestQueue(req);
     }
+
 }

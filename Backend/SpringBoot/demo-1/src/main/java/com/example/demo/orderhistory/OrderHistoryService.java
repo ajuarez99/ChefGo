@@ -58,6 +58,10 @@ public class OrderHistoryService {
 		
 		return u.get();
 	}
+	
+	public List<OrderHistory> getMostRecentOrder(String username) {
+		return orderHistoryRepo.findTopByCustomerUsernameOrderByOrderDateDesc(username);
+	}
 
 	public void addOrderToHistory(OrderHistory order) {
 		order.setActive(1);
