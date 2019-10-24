@@ -69,12 +69,12 @@ public class ViewMealRequests extends AppCompatActivity {
 
                                 String oid = order.getString("oid");
                                 String dish = order.getString("dish");
-                                String customer = order.getString("customer");
+                                JSONObject customerObj = order.getJSONObject("customer");
+                                String customer = customerObj.getString("name");
                                 String date = order.getString("date");
 
                                 jsonResponse += ("Order id: " + oid + "\n");
                                 jsonResponse += ("Dish: " + dish + "\n");
-                                jsonResponse += ("Customer: " + customer + "\n");
                                 jsonResponse += ("Date: " + date + "\n");
                                 arrayList.add(jsonResponse);
                             }
