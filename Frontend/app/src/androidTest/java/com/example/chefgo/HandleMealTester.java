@@ -2,9 +2,15 @@ package com.example.chefgo;
 
 import com.example.chefgo.ChefClient.ChefHandleMealActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Assert;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -15,8 +21,10 @@ public class HandleMealTester {
     public static void main(String[] args){
         HandleMealTester tester = new HandleMealTester();
         tester.testSplitJSONResponse();
+        //tester.testJSONObjectBuild();
     }
 
+    @Test
     public void testSplitJSONResponse() {
 
         String[] expectedResponse;
@@ -53,4 +61,30 @@ public class HandleMealTester {
             System.out.println(ae);
         }
     }
+
+    /*
+    @Test
+    public void testJSONObjectBuild(){
+        Map<String, String> map = new HashMap<>();
+        map.put("username", "cwunsch");
+        map.put("password", "pass");
+        map.put("email", "cwunsch@iastate.edu");
+        map.put("name", "Carter Wunsch");
+        map.put("address", "10517 Stonecrest Drive");
+        JSONObject testObject = new JSONObject(map);
+
+        try {
+            Assert.assertEquals("cwunsch", testObject.getString("username"));
+            Assert.assertEquals("pass", testObject.getString("password"));
+            Assert.assertEquals("cwunsch@iastate.edu", testObject.getString("email"));
+
+            //testing for cap sensitivity
+            Assert.assertNotEquals("CARTER WUNSCH", testObject.getString("name"));
+            //testing for partial strings
+            Assert.assertNotEquals("10517", testObject.getString("address"));
+        } catch(JSONException e){
+            e.printStackTrace();
+        }
+    }
+    */
 }
