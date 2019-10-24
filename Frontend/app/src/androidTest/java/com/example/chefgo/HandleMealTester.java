@@ -4,10 +4,8 @@ import com.example.chefgo.ChefClient.ChefHandleMealActivity;
 
 import org.junit.Assert;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HandleMealTester {
@@ -16,12 +14,43 @@ public class HandleMealTester {
 
     public static void main(String[] args){
         HandleMealTester tester = new HandleMealTester();
-        ChefHandleMealActivity obj = new ChefHandleMealActivity();
+        tester.testSplitJSONResponse();
     }
 
-    public void testSplitJSONResponse1(ChefHandleMealActivity obj) {
+    public void testSplitJSONResponse() {
+
+        String[] expectedResponse = {};
+        String[] falseResponse = {};
+        String[] actualResponse = {};
+
         jsonResponse = "This" + "\n" + "is" + "\n" + "a" + "\n" + "test";
-        String[] expectedResponse = {"This", "is", "a", "test"};
-        Assert.assertArrayEquals(obj.splitJSONResponse(jsonResponse), expectedResponse);
+        try {
+            expectedResponse = new String[]{"This", "is", "a", "test"};
+            falseResponse = new String[]{"This", "is", "bad", "data"};
+            actualResponse = ChefHandleMealActivity.splitJSONResponse(jsonResponse);
+
+            Assert.assertArrayEquals(actualResponse, expectedResponse);
+            Assert.assertNotEquals(actualResponse, falseResponse);
+            Assert.assertEquals(actualResponse[0], "This");
+            Assert.assertNotEquals(actualResponse[3], falseResponse[3]);
+            Assert.assertEquals(actualResponse.length, 4);
+        } catch(AssertionError ae){
+            System.out.println(ae);
+        }
+
+        jsonResponse = "Testing" + "\n" + "with" + "\n" + "a" + "\n" + "newline" + "\n" + "char" + "\n" + "at" + "\n" + "end" + "\n";
+        try {
+            expectedResponse = new String[]{"Testing", "with", "a", "newline", "char", "at", "end"};
+            falseResponse = new String[]{"This", "is", "a", "false", "response"};
+            actualResponse = ChefHandleMealActivity.splitJSONResponse(jsonResponse);
+
+            Assert.assertArrayEquals(actualResponse, expectedResponse);
+            Assert.assertNotEquals(actualResponse, falseResponse);
+            Assert.assertEquals(actualResponse[0], "Testing");
+            Assert.assertNotEquals(actualResponse[3], falseResponse[3]);
+            Assert.assertEquals(actualResponse.length, 7);
+        } catch(AssertionError ae){
+            System.out.println(ae);
+        }
     }
 }
