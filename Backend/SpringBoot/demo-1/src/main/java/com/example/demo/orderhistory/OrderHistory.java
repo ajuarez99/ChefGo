@@ -80,10 +80,9 @@ public class OrderHistory {
     }
     
 
-    public int getReview() {
-    	if(this.review != null)
-    	return this.review.getrid();
-    	else return -1;
+    public Reviews getReview() {
+    	if(this.review != null) return this.review;
+    	else return null;
     }
     public void setReview(Reviews review) {
     	this.review = review;
