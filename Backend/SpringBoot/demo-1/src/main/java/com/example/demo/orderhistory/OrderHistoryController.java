@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.reviews.Reviews;
+import com.example.demo.user.Users;
 
 @RestController
 public class OrderHistoryController {
@@ -21,13 +22,17 @@ public class OrderHistoryController {
 		return orderHistory.getAllOrders();
 	}
 	
+	@RequestMapping(method = RequestMethod.PUT, path = "/orderHistory/updateChef/{oid}")
+	public void updateOrderChef(@RequestBody Users chef, @PathVariable int oid) {
+		OrderHistory order = orderHistory.getOrderByOid(oid);
+		order.setChef(chef);
+		orderHistory.addOrderToHistory(order);
+	}
+	
 	@RequestMapping("/orderHistory/active")
 	public List<OrderHistory> displayActiveOrders() {
-<<<<<<< HEAD
 		return orderHistory.getOrdersByIsActiveAndWithoutChef();
-=======
-		return orderHistory.getOrdersByIsActive(1);
->>>>>>> 17-swipe-meals
+
 	}
 	
 	@RequestMapping("/orderHistory/activeChef/{username}")

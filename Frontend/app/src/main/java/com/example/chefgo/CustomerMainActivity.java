@@ -16,7 +16,7 @@ public class CustomerMainActivity extends AppCompatActivity {
     private UsersDomain  user;
 
 
-    Button activeMealsButton;
+    Button activeMealsButton, allergiesButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +62,7 @@ public class CustomerMainActivity extends AppCompatActivity {
                 startActivity(activeMealsIntent);
             }
         });
+        allergiesButton = findViewById(R.id.allergies);
 
     }
 }

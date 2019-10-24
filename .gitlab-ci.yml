@@ -4,10 +4,40 @@ stages:
   - mavenbuild
   - maventest
   - autodeploy
+  - androidbuild
+  - androidtest
 
 
 # tags: "shell" should match with the tag name provided to runner, for spring runner should execute in shell.
 # Notice that in petclinic project, the spring project is in root of master, if yours is in folder then cd to that folder.
+android-build:
+  image: javiersantos/android-ci:latest
+  stage: androidbuild
+  before_script:
+    - export GRADLE_USER_HOME=`pwd`/.gradle
+    - chmod +x ./Android_test/gradlew
+  tags:
+   - android_tag
+  script:
+    - cd Android_test
+    - ./gradlew assemble
+  artifacts:
+    paths:
+    - Android_test/app/build/outputs/
+
+unitTests:
+  image: javiersantos/android-ci:latest
+  stage: androidtest
+  before_script:
+    - export GRADLE_USER_HOME=`pwd`/.gradle
+    - chmod +x ./Android_test/gradlew
+  tags:
+   - android_tag
+  script:
+    - cd Android_test
+    - ./gradlew test
+
+
 maven-build:
   stage: mavenbuild
   tags:

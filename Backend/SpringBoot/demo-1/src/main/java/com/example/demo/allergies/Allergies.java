@@ -56,14 +56,10 @@ public class Allergies {
 	public void setAllergy(String allergy) {
 		this.allergy = allergy;
 	}
-<<<<<<< HEAD
+
 	public Users getUser() {
 		return this.user;
-=======
-	public String getUser() {
-		return this.user.getUsername();
->>>>>>> 17-swipe-meals
-	}
+}
 	public void setUser(Users user) {
 		this.user = user;
 	}
