@@ -30,7 +30,11 @@ public class OrderHistory {
     @JoinColumn(name = "reviewID")
     private Reviews review;
     
+<<<<<<< HEAD
     @ManyToOne(cascade = CascadeType.ALL)
+=======
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+>>>>>>> 17-swipe-meals
     @JoinColumn(name = "customerID")
     private Users customer;
 
@@ -54,7 +58,11 @@ public class OrderHistory {
     @Column(name = "active")
     private Integer isActive;
     
+<<<<<<< HEAD
     @ManyToOne(cascade = CascadeType.ALL)
+=======
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+>>>>>>> 17-swipe-meals
     @JoinColumn(name = "chefID")
     private Users chef;
     
@@ -112,16 +120,24 @@ public class OrderHistory {
     	this.orderDate = date;
     }
     public Users getChef() {
+<<<<<<< HEAD
     	if(this.chef != null) return this.chef;
     	else return null;
+=======
+    	return this.chef;
+>>>>>>> 17-swipe-meals
     }
     public void setChef(Users chef) {
     	this.chef = chef;
     }
 
 	public Users getCustomer() {
+<<<<<<< HEAD
     	if(this.customer != null) return this.customer;
     	else return null;
+=======
+		return this.customer;
+>>>>>>> 17-swipe-meals
 	}
 
 	public void setCustomer(Users customer) {
