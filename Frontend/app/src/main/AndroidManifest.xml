@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".CustomerMealAccepted"></activity>
         <activity android:name=".AllergiesActivity"></activity>
         <activity android:name=".AdminClient.UsersActivity" />
         <activity android:name=".ChefClient.ChefProfile" />
