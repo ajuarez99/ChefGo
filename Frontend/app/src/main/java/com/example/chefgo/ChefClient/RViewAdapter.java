@@ -35,12 +35,9 @@ public class RViewAdapter extends RecyclerView.Adapter<RViewAdapter.RViewHolder>
 
     @Override
     public void onBindViewHolder(RViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
         holder.textView.setText(data[position]);
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return data.length;

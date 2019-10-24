@@ -37,9 +37,9 @@ public class CustomerOrderMealActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_order_meal);
 
-        inputDish = findViewById(R.id.inputDish);
+        inputDish = findViewById(R.id.inputAllergy);
         inputPrice = findViewById(R.id.inputPrice);
-        confirmButton = findViewById(R.id.confirmDish);
+        confirmButton = findViewById(R.id.confirmAllergy);
         user = getIntent().getParcelableExtra("User");
         confirmButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -59,11 +59,12 @@ public class CustomerOrderMealActivity extends AppCompatActivity {
         String date = Instant.now().toString();
 
         Map<String, String> map = new HashMap<>();
+        map.put("isActive", "1");
         map.put("oid", "12");
         map.put("price", price);
         map.put("dish", meal);
-        map.put("chef", "TBD");
-        map.put("customer", user.getUsername());
+        map.put("chef", null);
+        map.put("customer", null);
         map.put("date", date);
         map.put("review", null);
 

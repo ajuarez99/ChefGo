@@ -39,33 +39,34 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
     private UsersDomain user;
     private ListView listView;
 
-    private String jsonResponse, url = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory/active";
+    private String jsonResponse, URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory/active";
+    String allergy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chef_active_meals);
         user = getIntent().getParcelableExtra("User");
-        //url += user.getUsername();
+
         title = findViewById(R.id.title);
         listView = findViewById(R.id.listView);
 
-        getJSONArrayRequest();
+        getActiveMeals();
         refreshButton = findViewById(R.id.refreshButton);
         refreshButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                getJSONArrayRequest();
+                getActiveMeals();
             }
         });
     }
 
-    private void getJSONArrayRequest(){
+    private void getActiveMeals(){
 
-        JsonArrayRequest req = new JsonArrayRequest(url,
+        JsonArrayRequest req = new JsonArrayRequest(URL,
                 new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(final JSONArray response) {
                         Log.d(TAG, response.toString());
 
                         try {
@@ -82,15 +83,20 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
                                 String price = order.getString("price");
                                 String dish = order.getString("dish");
                                 //String chef = order.getString("chef");
-                                //JSONObject customer = order.getJSONObject("customer");
-                                String customerName = order.getString("customer");
+                                JSONObject customer = order.getJSONObject("customer");
+                                String customerName = customer.getString("name");
                                 //String date = order.getString("date");
+                                getUserAllergies(customer.getString("username"));
 
-
-                                jsonResponse += ("Order id: " + oid + "\n");
+                                jsonResponse += (oid + "\n");
                                 jsonResponse += ("Dish: " + dish + "\n");
                                 jsonResponse += ("Price: " + price + "\n");
                                 jsonResponse += ("Customer name: " + customerName + "\n");
+
+                                if (allergy != null)
+                                    jsonResponse += ("Allergies: " + allergy);
+                                else
+                                    jsonResponse += ("Allergies: none");
                                 arrayList.add(jsonResponse);
                             }
                             ArrayAdapter arrayAdapter = new ArrayAdapter(ChefActiveMealsActivity.this, android.R.layout.simple_list_item_1, arrayList);
@@ -102,7 +108,16 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                     //launch new intent to accept or decline meal request
                                     Intent i = new Intent(ChefActiveMealsActivity.this, ChefHandleMealActivity.class);
+                                    i.putExtra("User", user);
                                     i.putExtra("JSON_RESPONSE", arrayList.get(position));
+                                    try {
+                                        i.putExtra("JSON_OBJECT", response.get(position).toString());
+                                    } catch(JSONException e){
+                                        e.printStackTrace();
+                                        Toast.makeText(getApplicationContext(),
+                                                "Error: " + e.getMessage(),
+                                                Toast.LENGTH_LONG).show();
+                                    }
                                     startActivity(i);
                                 }
                             });
@@ -126,5 +141,39 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(req);
     }
 
+    private void getUserAllergies(String uid){
+
+        String allergyURL = "http://coms-309-sb-3.misc.iastate.edu:8080/allergies/" + uid;
+
+        JsonArrayRequest req = new JsonArrayRequest(allergyURL,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(final JSONArray response) {
+                        Log.d(TAG, response.toString());
+
+                        try {
+                            // Parsing json array response
+                            // loop through each json object
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject allergies = (JSONObject) response.get(i);
+                                allergy = allergies.getString("allergy");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(),
+                                    "Error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        AppController.getInstance().addToRequestQueue(req);
+    }
 
 }
