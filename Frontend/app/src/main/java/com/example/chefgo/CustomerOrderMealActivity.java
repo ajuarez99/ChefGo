@@ -37,9 +37,9 @@ public class CustomerOrderMealActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_order_meal);
 
-        inputDish = findViewById(R.id.inputDish);
+        inputDish = findViewById(R.id.inputAllergy);
         inputPrice = findViewById(R.id.inputPrice);
-        confirmButton = findViewById(R.id.confirmDish);
+        confirmButton = findViewById(R.id.confirmAllergy);
         user = getIntent().getParcelableExtra("User");
         confirmButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
