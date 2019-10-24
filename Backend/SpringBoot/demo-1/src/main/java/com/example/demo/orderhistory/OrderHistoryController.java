@@ -50,6 +50,11 @@ public class OrderHistoryController {
 		orderHistory.addOrderToHistory(order);
 	}
 	
+	@RequestMapping("/orderHistory/recent/{username}")
+	public OrderHistory getMostRecentOrder(@PathVariable String username) {
+		return orderHistory.getMostRecentOrder(username);
+	}
+	
 	@RequestMapping(method = RequestMethod.PUT, path = "/orderHistory/review/{oid}")
 	public void addReview(@RequestBody Reviews review, @PathVariable Integer oid) {
 		orderHistory.addReview(oid, review);
