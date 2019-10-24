@@ -39,14 +39,14 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
     private UsersDomain user;
     private ListView listView;
 
-    private String jsonResponse, url = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory/active";
+    private String jsonResponse, URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory/active";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chef_active_meals);
         user = getIntent().getParcelableExtra("User");
-        //url += user.getUsername();
+
         title = findViewById(R.id.title);
         listView = findViewById(R.id.listView);
 
@@ -62,10 +62,10 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
 
     private void getJSONArrayRequest(){
 
-        JsonArrayRequest req = new JsonArrayRequest(url,
+        JsonArrayRequest req = new JsonArrayRequest(URL,
                 new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(final JSONArray response) {
                         Log.d(TAG, response.toString());
 
                         try {
@@ -82,15 +82,15 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
                                 String price = order.getString("price");
                                 String dish = order.getString("dish");
                                 //String chef = order.getString("chef");
-                                //JSONObject customer = order.getJSONObject("customer");
-                                String customerName = order.getString("customer");
+                                JSONObject customer = order.getJSONObject("customer");
+                                String customerName = customer.getString("name");
                                 //String date = order.getString("date");
 
 
-                                jsonResponse += ("Order id: " + oid + "\n");
+                                jsonResponse += (oid + "\n");
                                 jsonResponse += ("Dish: " + dish + "\n");
                                 jsonResponse += ("Price: " + price + "\n");
-                                jsonResponse += ("Customer name: " + customerName + "\n");
+                                jsonResponse += ("Customer name: " + customerName);
                                 arrayList.add(jsonResponse);
                             }
                             ArrayAdapter arrayAdapter = new ArrayAdapter(ChefActiveMealsActivity.this, android.R.layout.simple_list_item_1, arrayList);
@@ -102,7 +102,16 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                     //launch new intent to accept or decline meal request
                                     Intent i = new Intent(ChefActiveMealsActivity.this, ChefHandleMealActivity.class);
+                                    i.putExtra("User", user);
                                     i.putExtra("JSON_RESPONSE", arrayList.get(position));
+                                    try {
+                                        i.putExtra("JSON_OBJECT", response.get(position).toString());
+                                    } catch(JSONException e){
+                                        e.printStackTrace();
+                                        Toast.makeText(getApplicationContext(),
+                                                "Error: " + e.getMessage(),
+                                                Toast.LENGTH_LONG).show();
+                                    }
                                     startActivity(i);
                                 }
                             });
