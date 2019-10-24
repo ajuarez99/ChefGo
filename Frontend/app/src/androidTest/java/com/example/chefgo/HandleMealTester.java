@@ -19,9 +19,9 @@ public class HandleMealTester {
 
     public void testSplitJSONResponse() {
 
-        String[] expectedResponse = {};
-        String[] falseResponse = {};
-        String[] actualResponse = {};
+        String[] expectedResponse;
+        String[] falseResponse;
+        String[] actualResponse;
 
         jsonResponse = "This" + "\n" + "is" + "\n" + "a" + "\n" + "test";
         try {
