@@ -11,8 +11,9 @@ import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.R;
 
 public class ChefMainActivity extends AppCompatActivity {
-    Button profileButton;
+
     private UsersDomain user;
+    Button profileButton;
     Button activeMealsButton;
 
     @Override
@@ -22,22 +23,24 @@ public class ChefMainActivity extends AppCompatActivity {
         user =  getIntent().getParcelableExtra("User");
 
         profileButton = findViewById(R.id.profileButton);
+        activeMealsButton = findViewById(R.id.buttonActiveMeals);
+
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent profile = new Intent(ChefMainActivity.this, ChefProfile.class);
                 profile.putExtra("User", user);
                 startActivity(profile);
-                activeMealsButton = findViewById(R.id.buttonActiveMeals);
-                activeMealsButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent activeMealsIntent = new Intent(ChefMainActivity.this, ChefActiveMealsActivity.class);
-                        activeMealsIntent.putExtra("User", user);
-                        startActivity(activeMealsIntent);
-                    }
-                });
             }
         });
+        activeMealsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent activeMealsIntent = new Intent(ChefMainActivity.this, ChefActiveMealsActivity.class);
+                activeMealsIntent.putExtra("User", user);
+                startActivity(activeMealsIntent);
+            }
+        });
+
     }
 }

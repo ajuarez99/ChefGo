@@ -97,7 +97,6 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d(TAG, response.toString());
 
                 try {
-
                     user.setUsername(response.getString("username"));
                     user.setEmail(response.getString("email"));
                     user.setName(response.getString("name"));
