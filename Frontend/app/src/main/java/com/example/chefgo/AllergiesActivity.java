@@ -56,7 +56,7 @@ public class AllergiesActivity extends AppCompatActivity {
             allergyObject.put("allergy", allergy.getText().toString());
             allergyObject.put("user", customer);
         }catch (JSONException e){
-
+            e.printStackTrace();
         }
 
 
