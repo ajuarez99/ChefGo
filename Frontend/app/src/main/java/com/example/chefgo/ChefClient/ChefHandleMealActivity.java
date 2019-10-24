@@ -112,7 +112,7 @@ public class ChefHandleMealActivity extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(jsonObjReq);
     }
 
-    private String[] splitJSONResponse(String response){
+    public String[] splitJSONResponse(String response){
         return response.split("\n");
     }
 }
