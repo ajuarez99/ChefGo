@@ -2,17 +2,22 @@ package com.example.demo.menu;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.orderhistory.OrderHistory;
+import com.example.demo.user.UserRepo;
+import com.example.demo.user.Users;
 
 @Service
 public class MenuService {
 	
 	@Autowired
 	private MenuRepo menuRepo;
+	
+	@Autowired
+	private UserRepo userRepo;
 	
 	public List<Menu> getAllMenus() {
 		List<Menu> menus = new ArrayList<>();
