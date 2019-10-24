@@ -16,14 +16,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ChefClient.AddChefMenu"></activity>
         <activity
             android:name=".AdminClient.UsersActivity"
             android:label="@string/title_activity_users"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".ChefClient.ChefProfile"></activity>
-        <activity android:name=".LoginorRegistrationActivity.RegistrationActivity"></activity>
-        <activity android:name=".AdminClient.AdminActivity"></activity> 
-
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ChefClient.ChefProfile" />
+        <activity android:name=".LoginorRegistrationActivity.RegistrationActivity" />
+        <activity android:name=".AdminClient.AdminActivity" />
         <activity android:name=".ChefClient.ChefMainActivity" />
         <activity
             android:name=".LoginorRegistrationActivity.LoginActivity"
