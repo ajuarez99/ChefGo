@@ -12,6 +12,7 @@ public class CustomerMainActivity extends AppCompatActivity {
     Button customerProfileButton;
     Button customerOrderHistoryButton;
     Button customerOrderMeal;
+    Button acceptedMealButton;
 
     private UsersDomain  user;
 
@@ -63,6 +64,15 @@ public class CustomerMainActivity extends AppCompatActivity {
             }
         });
         allergiesButton = findViewById(R.id.allergies);
+        acceptedMealButton = findViewById(R.id.accpetedMealButton);
+        acceptedMealButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent accepted = new Intent(CustomerMainActivity.this, CustomerMealAccepted.class);
+                accepted.putExtra("User", user);
+                startActivity(accepted);
+            }
+        });
 
     }
 }

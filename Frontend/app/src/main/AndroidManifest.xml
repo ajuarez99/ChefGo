@@ -16,12 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".AdminClient.UsersActivity"></activity>
-        <activity android:name=".ChefClient.ChefProfile"></activity>
-        <activity android:name=".LoginorRegistrationActivity.RegistrationActivity"></activity>
-        <activity android:name=".AdminClient.AdminActivity"></activity>
-        <activity android:name=".ChefClient.ChefHandleMealActivity"></activity>
+        <activity android:name=".CustomerMealAccepted"></activity>
+        <activity android:name=".AdminClient.UsersActivity" />
+        <activity android:name=".ChefClient.ChefProfile" />
+        <activity android:name=".LoginorRegistrationActivity.RegistrationActivity" />
+        <activity android:name=".AdminClient.AdminActivity" />
+        <activity android:name=".ChefClient.ChefHandleMealActivity" />
         <activity android:name=".ChefClient.ChefActiveMealsActivity" />
         <activity android:name=".ChefClient.ChefMainActivity" />
         <activity
