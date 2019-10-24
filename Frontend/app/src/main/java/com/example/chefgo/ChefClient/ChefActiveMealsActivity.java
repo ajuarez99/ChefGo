@@ -40,6 +40,7 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
     private ListView listView;
 
     private String jsonResponse, URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory/active";
+    String allergy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,17 +51,17 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
         title = findViewById(R.id.title);
         listView = findViewById(R.id.listView);
 
-        getJSONArrayRequest();
+        getActiveMeals();
         refreshButton = findViewById(R.id.refreshButton);
         refreshButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                getJSONArrayRequest();
+                getActiveMeals();
             }
         });
     }
 
-    private void getJSONArrayRequest(){
+    private void getActiveMeals(){
 
         JsonArrayRequest req = new JsonArrayRequest(URL,
                 new Response.Listener<JSONArray>() {
@@ -85,12 +86,17 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
                                 JSONObject customer = order.getJSONObject("customer");
                                 String customerName = customer.getString("name");
                                 //String date = order.getString("date");
-
+                                getUserAllergies(customer.getString("username"));
 
                                 jsonResponse += (oid + "\n");
                                 jsonResponse += ("Dish: " + dish + "\n");
                                 jsonResponse += ("Price: " + price + "\n");
-                                jsonResponse += ("Customer name: " + customerName);
+                                jsonResponse += ("Customer name: " + customerName + "\n");
+
+                                if (allergy != null)
+                                    jsonResponse += ("Allergies: " + allergy);
+                                else
+                                    jsonResponse += ("Allergies: none");
                                 arrayList.add(jsonResponse);
                             }
                             ArrayAdapter arrayAdapter = new ArrayAdapter(ChefActiveMealsActivity.this, android.R.layout.simple_list_item_1, arrayList);
@@ -135,5 +141,46 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(req);
     }
 
+    private void getUserAllergies(String uid){
+
+        String allergyURL = "http://coms-309-sb-3.misc.iastate.edu:8080/allergies/" + uid;
+
+        JsonArrayRequest req = new JsonArrayRequest(allergyURL,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(final JSONArray response) {
+                        Log.d(TAG, response.toString());
+
+                        try {
+                            // Parsing json array response
+                            // loop through each json object
+                            ArrayList<String> arrayList = new ArrayList<>();
+
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject allergies = (JSONObject) response.get(i);
+                                /*
+                                jsonResponse = "";
+                                jsonResponse += allergies.getString("allergy");
+                                arrayList.add(jsonResponse);
+                                */
+                                allergy = allergies.getString("allergy");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(),
+                                    "Error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        AppController.getInstance().addToRequestQueue(req);
+    }
 
 }

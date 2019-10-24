@@ -54,7 +54,6 @@ public class ChefHandleMealActivity extends AppCompatActivity {
 
         try {
             order = new JSONObject(jsonString);
-            Toast.makeText(getApplicationContext(), order.getString("oid"), Toast.LENGTH_LONG).show();
         } catch(JSONException e){
             e.printStackTrace();
             Toast.makeText(getApplicationContext(),
