@@ -8,7 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.chefgo.DomainObjects.UsersDomain;
 
-public class MainActivity extends AppCompatActivity {
+public class CustomerMainActivity extends AppCompatActivity {
     Button customerProfileButton;
     Button customerOrderHistoryButton;
     Button customerOrderMeal;
@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private UsersDomain  user;
 
 
-    Button activeMealsButton;
+    Button activeMealsButton, allergiesButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         customerProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent customerProfileIntent = new Intent(MainActivity.this, CustomerProfileActivity.class);
+                Intent customerProfileIntent = new Intent(CustomerMainActivity.this, CustomerProfileActivity.class);
                 customerProfileIntent.putExtra("User", user);
                 startActivity(customerProfileIntent);
             }
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         customerOrderHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent orderHistoryIntent = new Intent(MainActivity.this, CustomerOrderHistoryActivity.class);
+                Intent orderHistoryIntent = new Intent(CustomerMainActivity.this, CustomerOrderHistoryActivity.class);
                 startActivity(orderHistoryIntent);
             }
         });
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         customerOrderMeal.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent orderMealIntent = new Intent(MainActivity.this, CustomerOrderMealActivity.class);
+                Intent orderMealIntent = new Intent(CustomerMainActivity.this, CustomerOrderMealActivity.class);
                 orderMealIntent.putExtra("User", user);
                 startActivity(orderMealIntent);
             }
@@ -58,10 +58,11 @@ public class MainActivity extends AppCompatActivity {
         activeMealsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent activeMealsIntent = new Intent(MainActivity.this, ViewMealRequests.class);
+                Intent activeMealsIntent = new Intent(CustomerMainActivity.this, ViewMealRequests.class);
                 startActivity(activeMealsIntent);
             }
         });
+        allergiesButton = findViewById(R.id.allergies);
 
     }
 }

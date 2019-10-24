@@ -56,9 +56,10 @@ public class Allergies {
 	public void setAllergy(String allergy) {
 		this.allergy = allergy;
 	}
+
 	public Users getUser() {
 		return this.user;
-	}
+}
 	public void setUser(Users user) {
 		this.user = user;
 	}

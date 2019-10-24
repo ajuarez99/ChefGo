@@ -39,9 +39,11 @@ dependencies {
     implementation 'com.auth0.android:auth0:1.+'
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'com.google.android.material:material:1.0.0'
+
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
+<<<<<<< HEAD
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.6.3'
 
@@ -52,5 +54,10 @@ dependencies {
     androidTestImplementation 'com.crittercism.dexmaker:dexmaker-dx:1.4'
     androidTestImplementation 'com.crittercism.dexmaker:dexmaker-mockito:1.4'
 
+=======
+
+    implementation 'io.jsonwebtoken:jjwt:0.9.0'
+    implementation "javax.xml.bind:jaxb-api:2.2.11"
+>>>>>>> 81c49e3029724a76a14a96cdce87f68fe77bdbd1
 
 }

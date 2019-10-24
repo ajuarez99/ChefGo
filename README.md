@@ -5,3 +5,5 @@
 ### To lazy to make it?
 
 ### Well, CHEFGO order youself a cook!
+
+### open with android device

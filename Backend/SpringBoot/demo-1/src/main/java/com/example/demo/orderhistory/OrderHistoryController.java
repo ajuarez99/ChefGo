@@ -24,6 +24,7 @@ public class OrderHistoryController {
 	@RequestMapping("/orderHistory/active")
 	public List<OrderHistory> displayActiveOrders() {
 		return orderHistory.getOrdersByIsActiveAndWithoutChef();
+
 	}
 	
 	@RequestMapping("/orderHistory/activeChef/{username}")

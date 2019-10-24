@@ -28,12 +28,12 @@ public class UsersDomain implements Parcelable{
         this.address = address;
         this.state = state;
         this.zip = zip;
-
     }
     protected UsersDomain(Parcel in){
         this.username = in.readString();
         this.email = in.readString();
         this.name= in.readString();
+        this.name = in.readString();
         this.password = in.readString();
         this.userType = in.readInt();
         this.rating = in.readDouble();

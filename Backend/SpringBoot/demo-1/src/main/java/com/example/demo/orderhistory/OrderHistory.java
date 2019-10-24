@@ -30,6 +30,7 @@ public class OrderHistory {
     @JoinColumn(name = "reviewID")
     private Reviews review;
     
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customerID")
     private Users customer;
@@ -54,6 +55,7 @@ public class OrderHistory {
     @Column(name = "active")
     private Integer isActive;
     
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "chefID")
     private Users chef;
@@ -78,10 +80,9 @@ public class OrderHistory {
     }
     
 
-    public int getReview() {
-    	if(this.review != null)
-    	return this.review.getrid();
-    	else return -1;
+    public Reviews getReview() {
+    	if(this.review != null) return this.review;
+    	else return null;
     }
     public void setReview(Reviews review) {
     	this.review = review;
@@ -122,6 +123,7 @@ public class OrderHistory {
 	public Users getCustomer() {
     	if(this.customer != null) return this.customer;
     	else return null;
+
 	}
 
 	public void setCustomer(Users customer) {
