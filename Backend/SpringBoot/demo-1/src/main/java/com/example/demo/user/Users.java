@@ -70,7 +70,7 @@ public class Users {
     	
     }
     
-    public Users(String username, String email, String name, String pass, String user, Double rating,
+    public Users(String username, String email, String name, String pass, Double rating,
     		Integer type, String address, String state, Integer zip) {
     	this.username = username;
     	this.email = email;
