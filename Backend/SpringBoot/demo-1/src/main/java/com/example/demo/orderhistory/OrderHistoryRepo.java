@@ -13,7 +13,10 @@ import com.example.demo.user.Users;
 public interface OrderHistoryRepo extends JpaRepository<OrderHistory, Integer> {
 
 	public List<OrderHistory> findByChefUsername(String username);
+<<<<<<< HEAD
 	public List<OrderHistory> findByIsActiveAndChef(int isActive, Users user);
+=======
+>>>>>>> 17-swipe-meals
 	public Optional<OrderHistory> findByOid(int oid);
 	public List<OrderHistory> findByIsActive(int isActive);
 	public List<OrderHistory> findByIsActiveAndChefUsername(int isActive, String username);

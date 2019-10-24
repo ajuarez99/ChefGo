@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.reviews.Reviews;
+<<<<<<< HEAD
 import com.example.demo.user.Users;
+=======
+>>>>>>> 17-swipe-meals
 
 
 @Service
@@ -32,6 +35,7 @@ public class OrderHistoryService {
 	
 	public List<OrderHistory> getOrderByChefName(String username) {
 		List<OrderHistory> u = orderHistoryRepo.findByChefUsername(username);
+<<<<<<< HEAD
 		return u;
 	}
 	
@@ -46,6 +50,17 @@ public class OrderHistoryService {
 		return u;
 	}
 	
+=======
+		return u;
+	}
+	
+	
+	public List<OrderHistory> getOrderByIsActiveAndChefName(String username) {
+		List<OrderHistory> u = orderHistoryRepo.findByIsActiveAndChefUsername(1,username);
+		return u;
+	}
+	
+>>>>>>> 17-swipe-meals
 	public List<OrderHistory> getOrderByIsActiveAndCustomerName(String username) {
 		List<OrderHistory> u = orderHistoryRepo.findByIsActiveAndCustomerUsername(1,username);
 		return u;
