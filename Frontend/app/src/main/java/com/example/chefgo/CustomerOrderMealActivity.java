@@ -18,6 +18,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.app.AppController;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.time.Instant;
@@ -58,17 +59,36 @@ public class CustomerOrderMealActivity extends AppCompatActivity {
 
         String date = Instant.now().toString();
 
-        Map<String, String> map = new HashMap<>();
-        map.put("isActive", "1");
-        map.put("oid", "12");
-        map.put("price", price);
-        map.put("dish", meal);
-        map.put("chef", null);
-        map.put("customer", null);
-        map.put("date", date);
-        map.put("review", null);
+        Map<String, String> customerMap = new HashMap<>();
+        customerMap.put("username", user.getUsername());
+        customerMap.put("email", user.getEmail());
+        customerMap.put("name", user.getName());
+        customerMap.put("password", user.getPassword());
+        customerMap.put("userType", user.getUserType().toString());
+        customerMap.put("rating", user.getRating().toString());
+        customerMap.put("address", user.getAddress());
+        customerMap.put("state", user.getState());
+        customerMap.put("zip", user.getZip().toString());
+        JSONObject customerObject = new JSONObject(customerMap);
 
-        JSONObject orderObject = new JSONObject(map);
+        Map<String, String> orderMap = new HashMap<>();
+        orderMap.put("isActive", "1");
+        orderMap.put("oid", "12");
+        orderMap.put("price", price);
+        orderMap.put("dish", meal);
+        orderMap.put("chef", null);
+        orderMap.put("customer", null);
+        orderMap.put("date", date);
+        orderMap.put("review", null);
+        JSONObject orderObject = new JSONObject(orderMap);
+        try {
+            orderObject.put("customer", customerObject);
+        } catch(JSONException e){
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(),
+                    "Error: " + e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
         //JSONObject reviewObject = new JSONObject();
 
         /*
