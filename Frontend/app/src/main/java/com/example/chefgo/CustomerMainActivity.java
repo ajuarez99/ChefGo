@@ -63,6 +63,14 @@ public class CustomerMainActivity extends AppCompatActivity {
             }
         });
         allergiesButton = findViewById(R.id.allergies);
+        allergiesButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent allergiesIntent = new Intent(CustomerMainActivity.this, AllergiesActivity.class);
+                allergiesIntent.putExtra("User", user);
+                startActivity(allergiesIntent);
+            }
+        });
 
     }
 }
