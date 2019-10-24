@@ -3,6 +3,12 @@ package com.example.chefgo.DomainObjects;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class UsersDomain implements Parcelable{
     private String username;
     private String email;
@@ -33,7 +39,6 @@ public class UsersDomain implements Parcelable{
         this.username = in.readString();
         this.email = in.readString();
         this.name= in.readString();
-        this.name = in.readString();
         this.password = in.readString();
         this.userType = in.readInt();
         this.rating = in.readDouble();
@@ -129,6 +134,20 @@ public class UsersDomain implements Parcelable{
         this.email = email;
     }
 
+    public Map<String, String> toJSON(){
+        Map<String, String> map = new HashMap<>();
+            map.put("zip",getZip().toString());
+            map.put("state",getState());
+            map.put("address",getAddress());
+            map.put("rating", getRating().toString());
+            map.put("userType",getUserType().toString());
+            map.put("password", getPassword());
+            map.put("name", getName());
+            map.put("email", getEmail());
+            map.put("username", getUsername());
 
+
+        return map;
+    }
 }
 

@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/inputDish"
+        android:id="@+id/inputAllergy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -39,7 +39,7 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <Button
-        android:id="@+id/confirmDish"
+        android:id="@+id/confirmAllergy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Confirm"
@@ -47,7 +47,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputDish"
+        app:layout_constraintTop_toBottomOf="@+id/inputAllergy"
         app:layout_constraintVertical_bias="0.54" />
 
     <TextView
