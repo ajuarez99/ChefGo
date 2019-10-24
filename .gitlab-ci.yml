@@ -4,8 +4,8 @@ stages:
   - mavenbuild
   - maventest
   - autodeploy
-  -androidbuild
-  -androidtest
+  - androidbuild
+  - androidtest
 
 
 # tags: "shell" should match with the tag name provided to runner, for spring runner should execute in shell.
