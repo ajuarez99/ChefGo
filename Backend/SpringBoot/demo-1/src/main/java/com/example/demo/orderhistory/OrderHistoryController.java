@@ -51,7 +51,7 @@ public class OrderHistoryController {
 	}
 	
 	@RequestMapping("/orderHistory/recent/{username}")
-	public OrderHistory getMostRecentOrder(@PathVariable String username) {
+	public List<OrderHistory> getMostRecentOrder(@PathVariable String username) {
 		return orderHistory.getMostRecentOrder(username);
 	}
 	

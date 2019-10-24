@@ -59,7 +59,7 @@ public class OrderHistoryService {
 		return u.get();
 	}
 	
-	public OrderHistory getMostRecentOrder(String username) {
+	public List<OrderHistory> getMostRecentOrder(String username) {
 		return orderHistoryRepo.findTopByCustomerUsernameOrderByOrderDateDesc(username);
 	}
 
