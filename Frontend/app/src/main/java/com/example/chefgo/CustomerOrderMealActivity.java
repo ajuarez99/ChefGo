@@ -89,31 +89,6 @@ public class CustomerOrderMealActivity extends AppCompatActivity {
                     "Error: " + e.getMessage(),
                     Toast.LENGTH_LONG).show();
         }
-        //JSONObject reviewObject = new JSONObject();
-
-        /*
-        try {
-
-            reviewObject.put("rid", 4);
-            reviewObject.put("rating", 5.0);
-            reviewObject.put("reviewer", "Joe");
-            reviewObject.put("reviewee", "Karthik");
-            reviewObject.put("date", "06-16-1999");
-            reviewObject.put("description", "Allan is beautiful");
-            JSONArray reviewArray = new JSONArray();
-            reviewArray.put(reviewObject);
-
-            orderObject.put("oid", "4");
-            orderObject.put("price", "5");
-            //orderObject.put("review", reviewArray);
-            orderObject.put("dish", meal);
-            orderObject.put("chef", "Carter");
-            orderObject.put("customer", "Allan");
-            orderObject.put("date", "06-16-1999");
-        } catch (JSONException e){
-
-        }
-        */
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, URL, orderObject,
                 new Response.Listener<JSONObject>() {
