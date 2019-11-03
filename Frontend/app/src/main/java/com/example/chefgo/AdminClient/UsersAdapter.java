@@ -38,6 +38,10 @@ public class UsersAdapter  extends BaseAdapter implements ListAdapter {
         this.context = context;
     }
 
+    /**
+     *
+     * @return size of list
+     */
     @Override
     public int getCount() {
         return list.size();
