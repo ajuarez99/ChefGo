@@ -78,61 +78,119 @@ public class OrderHistory {
     	this.review = new Reviews();
     }
     
-
+    /**
+     * get review of order
+     * @return review of order
+     */
     public Reviews getReview() {
     	if(this.review != null) return this.review;
     	else return null;
     }
+    /**
+     * sets review of order
+     * @param review review of order
+     */
     public void setReview(Reviews review) {
     	this.review = review;
     }
+    /**
+     * gets id of order
+     * @return id of order
+     */
    public Integer getoid() {
     	return this.oid;
     }
+   /**
+    * sets id of order
+    * @param oid id of order
+    */
     public void setOid(Integer oid) {
     	this.oid = oid;
     }
-    
+    /**
+     * gets price of order
+     * @return price of order
+     */
     public Double getPrice() {
     	return this.price;
     }
+    /**
+     * sets price of order
+     * @param price new price of order
+     */
     public void setPrice(Double price) {
     	this.price = price;
     }
+    /**
+     * gets dish name of order
+     * @return dish name of order
+     */
     public String getDish() {
     	return this.dishName;
     }
+    /**
+     * sets new dish name to dish
+     * @param dish new dish name 
+     */
     public void setDish(String dish) {
     	this.dishName= dish;
     }
+    /**
+     * gets date of order
+     * @return date of order
+     */
     public Date getDate() {
     	return this.orderDate;
     }
+    /**
+     * sets date of order
+     * @param date date of order
+     */
     public void setDate(Date date) {
     	this.orderDate = date;
     }
+    /**
+     * gets chef user 
+     * @return user
+     */
     public Users getChef() {
     	if(this.chef != null) return this.chef;
     	else return null;
     }
+    /**
+     * sets orders chef 
+     * @param chef user waiting to be assigned
+     */
     public void setChef(Users chef) {
     	this.chef = chef;
     }
-
+    /**
+     * gets orders customer
+     * @return customer
+     */
 	public Users getCustomer() {
     	if(this.customer != null) return this.customer;
     	else return null;
 
 	}
-
+	/**
+	 * sets orders customer field
+	 * @param customer user 
+	 */
 	public void setCustomer(Users customer) {
 		this.customer = customer;
 	}
-	
+	/**
+	 * gets status of order
+	 * @return status  1 being active 0 being inactive
+	 */
 	public Integer getIsActive() {
 		return this.isActive;
 	}
-
+	/**
+	 * sets status of order
+	 * @param isActive status of order 1 being active 0 being inactive
+	 */
 	public void setActive(Integer isActive) {
 		this.isActive = isActive;
 	}
