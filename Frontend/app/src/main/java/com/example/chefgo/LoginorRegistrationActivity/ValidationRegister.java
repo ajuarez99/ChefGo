@@ -1,4 +1,8 @@
 package com.example.chefgo.LoginorRegistrationActivity;
+/**
+ * @author SB_3
+ *
+ */
 
 import android.widget.Toast;
 

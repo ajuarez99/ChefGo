@@ -1,4 +1,8 @@
 package com.example.chefgo.ChefClient;
+/**
+ * @author SB_3
+ *
+ */
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;

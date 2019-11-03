@@ -1,4 +1,8 @@
 package com.example.chefgo;
+/**
+ * @author SB_3
+ *
+ */
 
 import android.os.Bundle;
 import android.util.Log;

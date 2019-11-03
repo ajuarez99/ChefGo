@@ -19,6 +19,10 @@ public class CustomerMainActivity extends AppCompatActivity {
 
     Button activeMealsButton, allergiesButton;
 
+    /**
+     * view of the customer to interact with the app
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

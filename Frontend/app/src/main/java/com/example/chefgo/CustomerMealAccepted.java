@@ -19,6 +19,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import static com.example.chefgo.app.AppController.TAG;
+/**
+ * @author SB_3
+ *
+ */
 
 public class CustomerMealAccepted extends AppCompatActivity {
 

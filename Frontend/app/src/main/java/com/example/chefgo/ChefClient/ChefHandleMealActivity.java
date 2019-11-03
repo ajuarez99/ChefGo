@@ -1,4 +1,8 @@
 package com.example.chefgo.ChefClient;
+/**
+ * @author SB_3
+ *
+ */
 
 import androidx.appcompat.app.AppCompatActivity;
 

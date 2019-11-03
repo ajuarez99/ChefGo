@@ -1,6 +1,10 @@
 package com.example.chefgo;
 
 import androidx.appcompat.app.AppCompatActivity;
+/**
+ * @author SB_3
+ *
+ */
 
 import android.os.Bundle;
 import android.util.Log;

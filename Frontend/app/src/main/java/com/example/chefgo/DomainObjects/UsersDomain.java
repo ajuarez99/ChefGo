@@ -1,4 +1,8 @@
 package com.example.chefgo.DomainObjects;
+/**
+ * @author SB_3
+ *
+ */
 
 import android.os.Parcel;
 import android.os.Parcelable;

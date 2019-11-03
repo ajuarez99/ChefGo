@@ -34,6 +34,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.example.chefgo.app.AppController.TAG;
+/**
+ * @author SB_3
+ *
+ */
 
 public class CustomerProfileActivity extends AppCompatActivity {
 

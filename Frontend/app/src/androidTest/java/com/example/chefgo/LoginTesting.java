@@ -23,7 +23,11 @@ import static org.mockito.Mockito.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
+import org.mockito.Mock;/**
+ * @author SB_3
+ *
+ */
+
 @RunWith(AndroidJUnit4.class)
 public class LoginTesting {
     @Test
