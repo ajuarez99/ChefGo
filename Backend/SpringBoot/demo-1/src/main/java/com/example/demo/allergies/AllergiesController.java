@@ -10,23 +10,35 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.user.Users;
-
+/**
+ * @author SB_3
+ */
 @RestController
 public class AllergiesController {
 	
 	@Autowired
 	private AllergiesService allergies;
-	
+	/**
+	 * queries a list of all allergies
+	 * @return
+	 */
 	@RequestMapping("/allergies")
 	public List<Allergies> displayAllAllergies() {
 		return allergies.getAllAllergies();
 	}
-	
+	/**
+	 * queries a list of allergies by username
+	 * @param username
+	 * @return list of allergies
+	 */
 	@RequestMapping("/allergies/{username}")
 	public List<Allergies> displayUserAllergies(@PathVariable String username){
 		return allergies.getUserAllergies(username);
 	}
-	
+	/**
+	 * adds an allergy to the table 
+	 * @param allergy
+	 */
 	@RequestMapping(method = RequestMethod.POST, path = "/allergies")
 	public void addAllergy(@RequestBody Allergies allergy) {
 		allergies.addAllergy(allergy);

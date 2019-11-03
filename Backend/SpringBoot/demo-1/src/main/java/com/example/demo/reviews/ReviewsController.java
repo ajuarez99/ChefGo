@@ -20,7 +20,7 @@ public class ReviewsController {
 	private ReviewsService review; 
 	/**
 	 * returns all reviews
-	 * @return
+	 * @return list of reviews
 	 */
 	@RequestMapping("/reviews")
 	public List<Reviews> displayAllReviews() {
@@ -28,8 +28,8 @@ public class ReviewsController {
 	}
 	/**
 	 * returns a certain review by Id
-	 * @param id
-	 * @return
+	 * @param id identifier of review
+	 * @return specfic review
 	 */
 	@RequestMapping("/reviews/{rid}")
 	public Reviews displayOrderById(@PathVariable int id) {
@@ -54,17 +54,17 @@ public class ReviewsController {
 	}
 	/**
 	 * get all reviews by a certain reviewee name
-	 * @param username
-	 * @return
+	 * @param username name of reviewee
+	 * @return list of reviews
 	 */
 	@RequestMapping("/reviewee/{username}")
 	public List<Reviews> getReviewsByReviewee(@PathVariable String username) {
 		return review.getReviewsByReviewee(username);
 	}
 	/**
-	 * gets all erviews by a certain reviewer name
-	 * @param username
-	 * @return
+	 * gets all reviews by a certain reviewer name
+	 * @param username name of reviewer
+	 * @return list of reviews of reviewer
 	 */
 	@RequestMapping("/reviewer/{username}")
 	public List<Reviews> getReviewsByReviewer(@PathVariable String username) {
