@@ -45,18 +45,17 @@ public class UsersDomain implements Parcelable{
 
     /**
      *
-     * @param username
-     * @param email
-     * @param n
-     * @param pass
-     * @param user
-     * @param rating
-     * @param type
-     * @param address
-     * @param state
-     * @param zip
+     * @param username username of user
+     * @param email email of user
+     * @param n name of user
+     * @param pass password of user
+     * @param rating rating of user
+     * @param type tpye of user
+     * @param address address of user
+     * @param state state of user
+     * @param zip zip of user
      */
-    public UsersDomain(String username, String email, String n, String pass, String user, Double rating,
+    public UsersDomain(String username, String email, String n, String pass,  Double rating,
                  Integer type, String address, String state, Integer zip) {
         this.username = username;
         this.email = email;
@@ -111,7 +110,7 @@ public class UsersDomain implements Parcelable{
 
     /**
      *
-     * @return usertype
+     * @return  usertype of user 0 = admin 1 = customer 2 = cheg
      */
     public Integer getUserType() {
         return this.userType;
