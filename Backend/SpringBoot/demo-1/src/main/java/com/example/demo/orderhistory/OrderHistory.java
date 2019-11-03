@@ -1,6 +1,5 @@
 package com.example.demo.orderhistory;
 
-
 import java.sql.Date;
 
 import javax.persistence.CascadeType;
@@ -19,7 +18,11 @@ import javax.validation.constraints.Size;
 
 import com.example.demo.reviews.Reviews;
 import com.example.demo.user.Users;
-
+/**
+ * 
+ * @author SB_3
+ *
+ */
 @Entity
 @Table(name = "Order_History")
 public class OrderHistory {
