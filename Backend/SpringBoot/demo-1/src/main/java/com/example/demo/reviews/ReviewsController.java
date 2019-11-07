@@ -36,8 +36,8 @@ public class ReviewsController {
 		return review.getReviewById(id);
 	}
 	/**
-	 * adds a review to the table
-	 * @param newReview
+	 * Endpoint to add a review to the table
+	 * @param newReview Review object to be added to DB
 	 */
 	@RequestMapping(method = RequestMethod.POST, path = "/reviews")
 	public void addReview(@RequestBody Reviews newReview) {
@@ -45,8 +45,8 @@ public class ReviewsController {
 	}
 	/**
 	 * updates a review 
-	 * @param rid
-	 * @param newReview
+	 * @param rid Unique id of Review to be updated
+	 * @param newReview New Review object that will replace current
 	 */
 	@RequestMapping(method = RequestMethod.PUT, path = "/reviews/{rid}")
 	public void updateReview(@PathVariable Integer rid, @RequestBody Reviews newReview) {
@@ -55,7 +55,7 @@ public class ReviewsController {
 	/**
 	 * get all reviews by a certain reviewee name
 	 * @param username name of reviewee
-	 * @return list of reviews
+	 * @return list of reviews for specified reviewee
 	 */
 	@RequestMapping("/reviewee/{username}")
 	public List<Reviews> getReviewsByReviewee(@PathVariable String username) {

@@ -213,7 +213,7 @@ public class Users {
     }
     /**
      * Sets the street address for User
-     * @param Street address for User 
+     * @param address Street address for User 
      */
     public void setAddress(String address) {
     	this.address = address;

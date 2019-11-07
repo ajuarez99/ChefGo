@@ -18,7 +18,7 @@ public class AllergiesService {
 	
 	/**
 	 * gets all allergies
-	 * @return all allergies
+	 * @return List of all allergies
 	 */
 	public List<Allergies> getAllAllergies() {
 		List<Allergies> allergies = new ArrayList<Allergies>();
@@ -28,7 +28,7 @@ public class AllergiesService {
 	}
 	/**
 	 * gets all allergies by a username
-	 * @param username
+	 * @param username Username of User
 	 * @return all allergies of the user
 	 */
 	public List<Allergies> getUserAllergies(String username){
@@ -40,15 +40,15 @@ public class AllergiesService {
 	
 	/**
 	 * adds an allergy
-	 * @param allergy
+	 * @param allergy Allergy to be added to DB
 	 */
 	public void addAllergy(Allergies allergy) {
 		allergiesRepo.save(allergy);
 	}
 	/**
 	 * assigns user to allergy
-	 * @param allergy
-	 * @param user
+	 * @param allergy Allergy object  to have User assigned
+	 * @param user User object to be assigned to Allergy
 	 */
 	public void assignUserToAllergy(Allergies allergy, Users user) {
 		allergy.setUser(user);
