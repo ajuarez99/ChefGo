@@ -1,12 +1,19 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.JsonReader;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -17,7 +24,8 @@ import okio.ByteString;
 
 public class WebSocketExperiment extends AppCompatActivity {
 
-    private String message;
+    private String username, userData;
+    private static final String URL = "ws://coms-309-sb-3.misc.iastate.edu:8080/getUser/";
     private Button start;
     private TextView output;
     private EditText input;
@@ -27,16 +35,28 @@ public class WebSocketExperiment extends AppCompatActivity {
         private static final int NORMAL_CLOSURE_STATUS = 1000;
         @Override
         public void onOpen(WebSocket webSocket, Response response) {
-            webSocket.send(message);
-            webSocket.close(NORMAL_CLOSURE_STATUS, "Exit success");
+            webSocket.send("");
+            //webSocket.close(NORMAL_CLOSURE_STATUS, "Exit success");
         }
         @Override
         public void onMessage(WebSocket webSocket, String text) {
-            output("Receiving: " + text);
-        }
-        @Override
-        public void onMessage(WebSocket webSocket, ByteString bytes) {
-            output("Receiving bytes: " + bytes.hex());
+            userData = "";
+            try {
+                JSONObject obj = new JSONObject(text);
+                userData += ("Name: " + obj.getString("name") + "\n");
+                userData += ("Username: " + obj.getString("username") + "\n");
+                userData += ("Password: " + obj.getString("password") + "\n");
+                userData += ("Email: " + obj.getString("email") + "\n");
+                userData += ("User type: " + obj.getString("userType") + "\n");
+                userData += ("Rating: " + obj.getString("rating") + "\n");
+                userData += ("Address: " + obj.getString("address") + "\n");
+                userData += ("State: " + obj.getString("state") + "\n");
+                userData += ("Zip code: " + obj.getString("zip") + "\n");
+                output(userData);
+            } catch (JSONException e){
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
+            }
+            //output("Receiving: " + text);
         }
         @Override
         public void onClosing(WebSocket webSocket, int code, String reason) {
@@ -61,14 +81,14 @@ public class WebSocketExperiment extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                message = input.getText().toString();
+                username = input.getText().toString();
                 input.setText("");
                 start();
             }
         });
     }
     private void start() {
-        Request request = new Request.Builder().url("ws://echo.websocket.org").build();
+        Request request = new Request.Builder().url(URL + username).build();
         EchoWebSocketListener listener = new EchoWebSocketListener();
         WebSocket ws = client.newWebSocket(request, listener);
         client.dispatcher().executorService().shutdown();
