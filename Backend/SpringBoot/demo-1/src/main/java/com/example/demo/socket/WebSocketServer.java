@@ -28,7 +28,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class WebSocketServer {
 
 	// Store all socket session and their corresponding username.
-	private static Map<Session, String> sessionUsernameMap = new HashMap<>();
 	private static Map<String, Session> usernameSessionMap = new HashMap<>();
 	private final Logger logger = LoggerFactory.getLogger(WebSocketServer.class);
 	
