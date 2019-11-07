@@ -42,7 +42,7 @@ public class OrderHistoryService {
 	}
 	/**
 	 * gets a list of orders by chef name
-	 * @param usernam name of chef
+	 * @param username name of chef
 	 * @return list of orders by chef name
 	 */
 	public List<OrderHistory> getOrderByChefName(String username) {
@@ -99,7 +99,7 @@ public class OrderHistoryService {
 	}
 	/**
 	 * adds order to order table
-	 * @param order 
+	 * @param order Order object to be added to DB
 	 */
 	public void addOrderToHistory(OrderHistory order) {
 		order.setActive(1);

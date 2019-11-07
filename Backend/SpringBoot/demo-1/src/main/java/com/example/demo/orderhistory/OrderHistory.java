@@ -28,36 +28,55 @@ import com.example.demo.user.Users;
 public class OrderHistory {
 
 
-	
+	/**
+	 * Review object for Order
+	 */
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "reviewID")
     private Reviews review;
     
-
+    /**
+     * User object for Customer of ORder
+     */
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customerID")
     private Users customer;
 
+    /**
+     * Price for Order
+     */
     @Column(name = "price")
     private Double price;
 
-
+    /**
+     * Date of Order
+     */
     @Column(name = "orderDate")
     private Date orderDate;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "oid") 
+    @Column(name = "oid")
+    /**
+     * Unique identifier for Object
+     */
     private Integer oid;
     
     @Column(name= "dishName")
     @Size(max = 50)
+    /**
+     * Name of dish served
+     */
     private String dishName;
-    
+    /**
+     * Tells if Order is completed or not
+     */
     @Column(name = "active")
     private Integer isActive;
     
-
+    /**
+     * User object that will cook the Order
+     */
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "chefID")
     private Users chef;

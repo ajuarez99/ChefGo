@@ -20,7 +20,7 @@ public class AllergiesController {
 	private AllergiesService allergies;
 	/**
 	 * queries a list of all allergies
-	 * @return
+	 * @return List of all Allergy objects
 	 */
 	@RequestMapping("/allergies")
 	public List<Allergies> displayAllAllergies() {
@@ -28,8 +28,8 @@ public class AllergiesController {
 	}
 	/**
 	 * queries a list of allergies by username
-	 * @param username
-	 * @return list of allergies
+	 * @param username Username of User that has allergies
+	 * @return List of allergies for specified User
 	 */
 	@RequestMapping("/allergies/{username}")
 	public List<Allergies> displayUserAllergies(@PathVariable String username){
@@ -37,7 +37,7 @@ public class AllergiesController {
 	}
 	/**
 	 * adds an allergy to the table 
-	 * @param allergy
+	 * @param allergy Allergy to be added to DB
 	 */
 	@RequestMapping(method = RequestMethod.POST, path = "/allergies")
 	public void addAllergy(@RequestBody Allergies allergy) {
