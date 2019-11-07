@@ -95,6 +95,10 @@ public class Game extends AppCompatActivity {
         });
 
     }
+
+
+
+
     public void Outcome(){
         TextView userPick = findViewById(R.id.userPick);
         TextView computerPick = findViewById(R.id.computerPick);
