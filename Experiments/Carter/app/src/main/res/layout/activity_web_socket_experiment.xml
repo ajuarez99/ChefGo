@@ -17,8 +17,19 @@
         android:id="@+id/output"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/start"
+        android:layout_below="@id/input"
         android:layout_centerHorizontal="true"
         android:textSize="16sp"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="30dp"
+        android:paddingTop="20dp"/>
+    <EditText
+        android:id="@+id/input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="250dp"
+        android:hint="Enter input here"
+        android:gravity="center"
+        android:layout_below="@id/start"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="20dp"/>
 </RelativeLayout>
