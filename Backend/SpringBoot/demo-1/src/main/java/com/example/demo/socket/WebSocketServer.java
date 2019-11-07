@@ -69,7 +69,7 @@ public class WebSocketServer {
 			toSend = userService.getUserByUsername(destUsername);
 		}
 		try {
-			usernameSessionMap.get(username).getBasicRemote().sendText(toJson.writeValueAsString(toSend));
+			usernameSessionMap.get(username).getBasicRemote().sendText(toJson.writeValueAsString(toSend + "Hey dawg"));
 			//usernameSessionMap.get(username).getBasicRemote().sendText("Hi, " + username);
 		} catch (IllegalArgumentException e) {
 			logger.info("Exception: " + e.getMessage().toString());
