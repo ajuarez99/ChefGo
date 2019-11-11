@@ -36,7 +36,6 @@ import static com.example.chefgo.app.AppController.TAG;
 public class CustomerOrderHistoryActivity extends AppCompatActivity {
 
     ListView listView;
-    Button refresh;
     UsersDomain user;
     private String  URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory", jsonResponse;
 
@@ -46,16 +45,9 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_customer_order_history);
         user = new UsersDomain();
         user = getIntent().getParcelableExtra("User");
-
-        refresh = findViewById(R.id.refresh);
         listView = findViewById(R.id.listview);
+
         getJSONArrayRequest();
-        refresh.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                getJSONArrayRequest();
-            }
-        });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -97,16 +89,7 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
                                     chefName = order.getJSONObject("chef").getString("name");
                                 }
 
-
-                                /*JSONObject review = order.getJSONObject("review");
-                                String rid = review.getString("rid");
-                                String rating = review.getString("rating");
-                                String reviewer = review.getString("reviewer");
-                                String reviewee = review.getString("reviewee");
-                                String reviewDate = review.getString("date");
-                                String description = review.getString("description");*/
-
-                                if (customerUsername == user.getUsername()) {
+                                if (customerUsername.equals(user.getUsername())) {
                                     jsonResponse += ("Dish: " + dish + "\n");
                                     jsonResponse += ("Chef: " + chefName + "\n");
                                     jsonResponse += ("Price: " + price + "\n");
