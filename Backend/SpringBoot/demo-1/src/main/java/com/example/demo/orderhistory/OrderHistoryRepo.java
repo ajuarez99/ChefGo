@@ -19,5 +19,6 @@ public interface OrderHistoryRepo extends JpaRepository<OrderHistory, Integer> {
 	public List<OrderHistory> findByIsActive(int isActive);
 	public List<OrderHistory> findByIsActiveAndChefUsername(int isActive, String username);
 	public List<OrderHistory> findByIsActiveAndCustomerUsername(int isActive, String username);
+	public List<OrderHistory> findByCustomerUsername(String username);
 }
 
