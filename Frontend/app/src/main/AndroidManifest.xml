@@ -16,7 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".WebSocketExperiment"></activity>
         <activity android:name=".CustomerMealAccepted" />
         <activity android:name=".AllergiesActivity" />
         <activity android:name=".AdminClient.UsersActivity" />
