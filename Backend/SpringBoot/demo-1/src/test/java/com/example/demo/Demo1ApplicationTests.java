@@ -21,8 +21,7 @@ import com.example.demo.orderhistory.OrderHistoryService;
 import com.example.demo.user.Users;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
-@ComponentScan(basePackages = "com.example.demo.socket")
+@SpringBootTest(classes=Demo1Application.class,webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class Demo1ApplicationTests {
 
 	

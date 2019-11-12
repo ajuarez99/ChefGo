@@ -49,7 +49,11 @@ public class OrderHistoryService {
 		List<OrderHistory> u = orderHistoryRepo.findByChefUsername(username);
 		return u;
 	}
-	
+
+	public List<OrderHistory> getOrderByCustName(String username) {
+		List<OrderHistory> u = orderHistoryRepo.findByCustomerUsername(username);
+		return u;
+	}
 	/**
 	 * get active orders by a certain chef
 	 * @param username name of chef

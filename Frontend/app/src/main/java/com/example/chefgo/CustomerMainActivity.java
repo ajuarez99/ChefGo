@@ -45,6 +45,7 @@ public class CustomerMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent orderHistoryIntent = new Intent(CustomerMainActivity.this, CustomerOrderHistoryActivity.class);
+                orderHistoryIntent.putExtra("User", user);
                 startActivity(orderHistoryIntent);
             }
         });
