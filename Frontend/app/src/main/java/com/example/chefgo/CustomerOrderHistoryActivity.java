@@ -76,11 +76,12 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
                                 JSONObject order = (JSONObject) response.get(i);
                                 jsonResponse = "";
 
-                                //String oid = order.getString("oid");
                                 String price = order.getString("price");
                                 String dish = order.getString("dish");
                                 String date = order.getString("date");
                                 String customerUsername = order.getJSONObject("customer").getString("username");
+                                String active = order.getInt("isActive") == 1 ? "Yes" : "No";
+
                                 String chefName;
                                 if (order.has("chef") && order.isNull("chef")){
                                     chefName = "TBD";
@@ -94,6 +95,7 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
                                     jsonResponse += ("Chef: " + chefName + "\n");
                                     jsonResponse += ("Price: " + price + "\n");
                                     jsonResponse += ("Date: " + date + "\n");
+                                    jsonResponse += ("Active: " + active + "\n");
                                     arrayList.add(jsonResponse);
                                 }
 
