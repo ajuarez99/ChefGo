@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                  * computer, and change the ip address to that of your computer.
                  * If running on the emulator, you can use localhost.
                  */
-                String w = "ws://echo.websocket.org";
+                String w = "ws://coms-309-sb-3.misc.iastate.edu:8080/getUser/ajuare";
 
                 try {
                     Log.d("Socket:", "Trying socket");

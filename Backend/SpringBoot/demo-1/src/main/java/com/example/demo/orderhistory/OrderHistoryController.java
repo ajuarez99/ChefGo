@@ -102,6 +102,11 @@ public class OrderHistoryController {
 	public List<OrderHistory> getOrderByChef(@PathVariable String username) {
 		return orderHistory.getOrderByChefName(username);
 	}
+	
+	@RequestMapping("/orderHistory/cust/{username}")
+	public List<OrderHistory> getAllOrdersByCust(@PathVariable String username) {
+		return orderHistory.getOrderByCustName(username);
+	}
 	/**
 	 * Endpoint for returning a specific Order object
 	 * @param id Id of Order that is desired
