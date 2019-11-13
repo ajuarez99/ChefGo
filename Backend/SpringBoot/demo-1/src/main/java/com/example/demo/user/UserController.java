@@ -73,6 +73,22 @@ public class UserController {
 		return users.getUserByUsername(username);
 		
 	}
+	/**
+	 * Returns if user is in the database
+	 * @param username username of User
+	 * @return yes if user is in database no if user is not in database
+	 */
+	@RequestMapping( path = "/user/check/{username}")
+	public String checkIfUserIsInDataBase(@PathVariable String username) {
+		Users user =  users.getUserByUsername(username);
+		
+		if(user != null) {
+			return "yes";
+		}
+		else {
+			return "no";
+		}
+	}
 	
 	/**
 	 * Endpoint for updating name of User
