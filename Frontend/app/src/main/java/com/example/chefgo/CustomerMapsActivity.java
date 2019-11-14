@@ -20,6 +20,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -46,14 +47,14 @@ public class CustomerMapsActivity extends FragmentActivity implements OnMapReady
         setContentView(R.layout.activity_customer_maps);
         chefs = new ArrayList<UsersDomain>();
         user = getIntent().getParcelableExtra("User");
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
         URL += user.getZip();
-        getJSONArrayRequest();
+        getJSONArrayRequest(mapFragment, this);
 
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-//        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-//                .findFragmentById(R.id.map);
-//        mapFragment.getMapAsync(this);
+
+
     }
 
 
@@ -71,13 +72,17 @@ public class CustomerMapsActivity extends FragmentActivity implements OnMapReady
         mMap = googleMap;
         geocode = new CustomerGeoCode();
         LatLng currentUserLocation = geocode.getLocationFromAddress(this, user.getAddress()+ ", " +user.getState() );
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(currentUserLocation).title("Marker in home"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentUserLocation,15));
+
+        mMap.addMarker(new MarkerOptions().position(currentUserLocation).title("Marker in home").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentUserLocation,17));
+
+        for(int i =0;i<chefs.size();i++){
+            LatLng chefHomeLocation = geocode.getLocationFromAddress(this, chefs.get(i).getAddress() + ", " + chefs.get(i).getState());
+            mMap.addMarker((new MarkerOptions().position(chefHomeLocation).title(""+chefs.get(i).getName())));
+        }
     }
 
-    private void getJSONArrayRequest(){
+    private void getJSONArrayRequest(final SupportMapFragment map , final OnMapReadyCallback ready){
 
         JsonArrayRequest req = new JsonArrayRequest(URL,
                 new Response.Listener<JSONArray>() {
@@ -96,6 +101,7 @@ public class CustomerMapsActivity extends FragmentActivity implements OnMapReady
 
 
                                  chef.setUsername(order.getString("username"));
+                                 chef.setName(order.getString("name"));
                                  chef.setAddress((order.getString("address")));
                                  chef.setState(order.getString("state"));
 
@@ -104,6 +110,7 @@ public class CustomerMapsActivity extends FragmentActivity implements OnMapReady
                                 chefs.add(chef);
 
                             }
+                            map.getMapAsync(ready);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
