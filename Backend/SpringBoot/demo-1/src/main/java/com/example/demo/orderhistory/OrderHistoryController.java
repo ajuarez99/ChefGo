@@ -103,6 +103,11 @@ public class OrderHistoryController {
 		return orderHistory.getOrderByChefName(username);
 	}
 	
+	/**
+	 * Endpoint for getting all Order objects for a specific Customer
+	 * @param username Username of user
+	 * @return	List of all Order objects where specified user is assigned to Customer
+	 */
 	@RequestMapping("/orderHistory/cust/{username}")
 	public List<OrderHistory> getAllOrdersByCust(@PathVariable String username) {
 		return orderHistory.getOrderByCustName(username);
