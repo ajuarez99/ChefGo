@@ -24,7 +24,6 @@ public class AppController extends Application {
     public static final String TAG = AppController.class
             .getSimpleName();
     public static final String CHANNEL_1_ID = "ChefGo";
-    private NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     private static AppController mInstance;
