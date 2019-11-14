@@ -1,16 +1,15 @@
 package com.example.chefgo.ChefClient;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -68,9 +67,9 @@ public class AddChefMenu extends AppCompatActivity {
                         descText.getText().toString(),
                         costText.getText().toString(),
                         user);
-//                Intent chefProfile = new Intent(AddChefMenu.this, ChefProfile.class);
-//                chefProfile.putExtra("User", user);
-//                startActivity(chefProfile);
+                Intent chefProfile = new Intent(AddChefMenu.this, ChefProfile.class);
+                chefProfile.putExtra("User", user);
+                startActivity(chefProfile);
             }
         });
 
@@ -88,40 +87,38 @@ public class AddChefMenu extends AppCompatActivity {
         inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
         //Construct the user object for the menu object
-        JSONObject userParams = new JSONObject();
-        try {
-            userParams.put("username", theUser.getUsername());
-            userParams.put("name", theUser.getName());
-            userParams.put("password", theUser.getPassword());
-            userParams.put("userType", theUser.getUserType().toString());
-            userParams.put("rating", theUser.getRating().toString());
-            userParams.put("address", theUser.getAddress());
-            userParams.put("state", theUser.getState());
-            userParams.put("zip", theUser.getZip().toString());
-        }catch (JSONException e){
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-
-//        JSONObject userJSON = new JSONObject(userParams);
-//        String userStr = userJSON.toString();
+        Map<String, String> userMap = new HashMap<>();
+        userMap.put("username", theUser.getUsername());
+        userMap.put("email", theUser.getEmail());
+        userMap.put("name", theUser.getName());
+        userMap.put("password", theUser.getPassword());
+        userMap.put("userType", theUser.getUserType().toString());
+        userMap.put("rating", theUser.getRating().toString());
+        userMap.put("address", theUser.getAddress());
+        userMap.put("state", theUser.getState());
+        userMap.put("zip", theUser.getZip().toString());
+        JSONObject userObject = new JSONObject(userMap);
 
         //construct the menu object to be posted
-        JSONObject params = new JSONObject();
-        try {
-            params.put("title", title);
-            params.put("appetizer", apps);
-            params.put("entree", entree);
-            params.put("dessert", dessert);
-            params.put("description", desc);
-            params.put("cost", cost);
-            params.put("chef", userParams);
-        }catch (JSONException e){
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        Map<String, String> menuMap = new HashMap<>();
+        menuMap.put("title", title);
+        menuMap.put("appetizer", apps);
+        menuMap.put("entree", entree);
+        menuMap.put("dessert", dessert);
+        menuMap.put("description", desc);
+        menuMap.put("cost", cost);
+        JSONObject menuObject = new JSONObject(menuMap);
+
+        try{
+            menuObject.put("chef", userObject);
+        }catch(JSONException e){
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(),
+                    "Error: " + e.getMessage(),
+                    Toast.LENGTH_LONG).show();
         }
 
-//        JSONObject parameters = new JSONObject(params);
-
-        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, URL, params, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, URL, menuObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 System.out.println(response.toString());
