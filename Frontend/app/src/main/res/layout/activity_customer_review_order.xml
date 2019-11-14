@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textSize="50dp"
+        android:textSize="50sp"
         android:text="Review Order" />
 
     <TextView
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/reviewOrderTitle"
         android:layout_centerHorizontal="true"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:text="Order description"/>
 
     <TextView
@@ -29,6 +29,27 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/orderDescriptionTitle"
         android:layout_centerHorizontal="true"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
+
+
+    <EditText
+        android:id="@+id/reviewBox"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/orderDescription"
+        android:hint="Write review here..."
+        android:layout_centerHorizontal="true"
+        android:inputType="textMultiLine"
+        android:lines="4"
+        android:gravity="top|left"
+        android:scrollbars="vertical" />
+
+    <Button
+        android:id="@+id/submitReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/reviewBox"
+        android:text="Submit"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
