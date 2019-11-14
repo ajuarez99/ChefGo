@@ -3,6 +3,8 @@ package com.example.chefgo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.ColorSpace;
 import android.graphics.Paint;
 import android.os.Build;
@@ -29,9 +31,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static com.example.chefgo.app.AppController.TAG;
 
@@ -83,6 +85,14 @@ public class CustomerReviewOrder extends AppCompatActivity {
         String description = reviewBox.getText().toString();
 
         setOrder();
+        /*try {
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException e){
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(),
+                    "Error: " + e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }*/
         if(order == null){
             Toast.makeText(getApplicationContext(), "Order is null", Toast.LENGTH_LONG).show();
             return;
@@ -94,6 +104,16 @@ public class CustomerReviewOrder extends AppCompatActivity {
         else if (order.has("customer") && order.isNull("customer")){
             Toast.makeText(getApplicationContext(), "Customer is null", Toast.LENGTH_LONG).show();
             return;
+        }
+        else if (order.has("review") && !order.isNull("review")){
+            try {
+                reviewBox.setText(order.getJSONObject("review").getString("description"));
+            } catch(JSONException e){
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(),
+                        "Error: " + e.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
         }
         try {
             reviewer = order.getJSONObject("customer");
@@ -156,7 +176,6 @@ public class CustomerReviewOrder extends AppCompatActivity {
                                 JSONObject orderObject = (JSONObject) response.get(i);
                                 if (orderObject.getInt( "oid") == oid){
                                     order = orderObject;
-                                    Toast.makeText(getApplicationContext(), "this is a test", Toast.LENGTH_LONG).show();
                                 }
                             }
                         } catch (JSONException e) {
@@ -172,7 +191,7 @@ public class CustomerReviewOrder extends AppCompatActivity {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
+        }
         });
         AppController.getInstance().addToRequestQueue(req);
     }
