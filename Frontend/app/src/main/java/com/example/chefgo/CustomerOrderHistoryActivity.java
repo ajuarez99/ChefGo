@@ -55,6 +55,8 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
                 String selectedOrder = parent.getItemAtPosition(position).toString();
                 Intent customerReviewOrderIntent = new Intent(CustomerOrderHistoryActivity.this, CustomerReviewOrder.class);
                 customerReviewOrderIntent.putExtra("order", selectedOrder);
+                customerReviewOrderIntent.putExtra("User", user);
+                customerReviewOrderIntent.putExtra("oid", getOrderID(selectedOrder));
                 startActivity(customerReviewOrderIntent);
             }
         });
@@ -78,6 +80,7 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
                                 JSONObject order = (JSONObject) response.get(i);
                                 jsonResponse = "";
 
+                                int oid = order.getInt("oid");
                                 String price = order.getString("price");
                                 String dish = order.getString("dish");
                                 String date = order.getString("date");
@@ -93,6 +96,7 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
                                 }
 
                                 if (customerUsername.equals(user.getUsername())) {
+                                    jsonResponse += ("Order id: " + oid + "\n");
                                     jsonResponse += ("Dish: " + dish + "\n");
                                     jsonResponse += ("Chef: " + chefName + "\n");
                                     jsonResponse += ("Price: " + price + "\n");
@@ -127,5 +131,10 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
             }
         });
         AppController.getInstance().addToRequestQueue(req);
+    }
+
+    private int getOrderID(String selectedOrder){
+        String[] orderDescription = selectedOrder.split("\n");
+        return Integer.parseInt(orderDescription[0].replaceAll("[\\D]", ""));
     }
 }
