@@ -40,7 +40,7 @@ public class UserService {
 	}
 	
 	public List<Users> getUsersByZipCode(Integer zip){
-		Optional<List<Users>> u = userRepo.findByZip(zip);
+		Optional<List<Users>> u = userRepo.findByZipAndUserType(zip,(Integer) 2);
 		return u.get();
 	}
 	/**
