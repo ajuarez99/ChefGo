@@ -39,7 +39,8 @@ public class UserService {
 		return u.get();
 	}
 	
-	public List<Users> getUsersByZipAnduserType(Integer zip){
+
+	public List<Users> getUsersByZipCode(Integer zip){
 		Optional<List<Users>> u = userRepo.findByZipAndUserType(zip,(Integer) 2);
 		return u.get();
 	}

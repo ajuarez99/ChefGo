@@ -20,4 +20,5 @@ public interface UserRepo extends JpaRepository<Users, Integer> {
 	public Optional<Users> findByUsername(String username);
 	public Optional<List<Users>> findByZipAndUserType(Integer zip, Integer userType);
 
+
 }

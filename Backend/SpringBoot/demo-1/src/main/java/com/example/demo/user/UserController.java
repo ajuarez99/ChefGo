@@ -42,7 +42,7 @@ public class UserController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/users/chefs/{city}")
 	public List<Users> getAllChefs(@PathVariable Integer zip){
-		return users.getUsersByZipAnduserType(zip);
+		return users.getUsersByZipCode(zip);
 	}
 	
 //	@RequestMapping("/user/{username}/{password}")

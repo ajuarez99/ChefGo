@@ -39,14 +39,17 @@ public class CustomerMapsActivity extends FragmentActivity implements OnMapReady
     private UsersDomain user;
     private String  URL = "http://coms-309-sb-3.misc.iastate.edu:8080/users/chefs/";
     private String jsonResponse;
-    private List<UsersDomain> chef;
+    private List<UsersDomain> chefs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_maps);
-        chef = new ArrayList<UsersDomain>();
+        chefs = new ArrayList<UsersDomain>();
         user = getIntent().getParcelableExtra("User");
         URL += user.getZip();
+        getJSONArrayRequest();
+
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
 //        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
 //                .findFragmentById(R.id.map);
@@ -74,7 +77,7 @@ public class CustomerMapsActivity extends FragmentActivity implements OnMapReady
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentUserLocation,15));
     }
 
-    private void getJSONArrayRequest(final Context ctx){
+    private void getJSONArrayRequest(){
 
         JsonArrayRequest req = new JsonArrayRequest(URL,
                 new Response.Listener<JSONArray>() {
@@ -90,26 +93,17 @@ public class CustomerMapsActivity extends FragmentActivity implements OnMapReady
                             for (int i = 0; i < response.length(); i++) {
                                 UsersDomain chef = new UsersDomain();
                                 JSONObject order = (JSONObject) response.get(i);
-                                jsonResponse = "";
+
 
                                  chef.setUsername(order.getString("username"));
+                                 chef.setAddress((order.getString("address")));
+                                 chef.setState(order.getString("state"));
 
-                                        order.getString("userType");
-                                String user = "";
 
-                                String rating = order.getString("rating");
 
-                                jsonResponse += ("Username: " + username + "\n");
+                                chefs.add(chef);
 
-                                jsonResponse += ("userType: " + user + "\n");
-                                jsonResponse += ("rating: " + rating + "\n");
-
-                                arrayList.add(jsonResponse);
                             }
-                            UsersAdapter adapter = new UsersAdapter(arrayList, ctx);
-
-
-                            listView.setAdapter(adapter);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
