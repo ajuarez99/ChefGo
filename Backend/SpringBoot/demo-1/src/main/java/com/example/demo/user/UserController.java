@@ -41,8 +41,8 @@ public class UserController {
 	 * @param 
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/users/chefs/{city}")
-	public List<Users> getAllChefs(@PathVariable Integer zip){
-		return users.getUsersByZipCode(zip);
+	public List<Users> getAllChefs(@PathVariable Integer city){
+		return users.getUsersByZipCode(city);
 	}
 	
 //	@RequestMapping("/user/{username}/{password}")
