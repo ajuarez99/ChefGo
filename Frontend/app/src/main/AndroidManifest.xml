@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.chefgo">
 
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.LOCALHOST" />
@@ -24,6 +30,28 @@
         <activity android:name=".ChefClient.ChefProfile" />
         <activity android:name=".LoginorRegistrationActivity.RegistrationActivity" />
         <activity android:name=".AdminClient.AdminActivity" />
+
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBNgw4qONbniAT7WunoStTfr9CvGlePp" />
+
+        <activity android:name=".CustomerMapsActivity"/>
+        <activity android:name=".CustomerMealAccepted" />
+        <activity android:name=".AllergiesActivity" />
+        <activity android:name=".AdminClient.UsersActivity" />
+        <activity android:name=".ChefClient.ChefProfile" />
+        <activity android:name=".LoginorRegistrationActivity.RegistrationActivity" />
+        <activity android:name=".AdminClient.AdminActivity" />
+        <activity android:name=".ChefClient.ChefHandleMealActivity" />
+        <activity android:name=".ChefClient.ChefActiveMealsActivity" />
         <activity android:name=".ChefClient.ChefMainActivity" />
         <activity
             android:name=".LoginorRegistrationActivity.LoginActivity"
@@ -37,7 +65,7 @@
         <activity android:name=".CustomerOrderMealActivity" />
         <activity android:name=".CustomerOrderHistoryActivity" />
         <activity android:name=".CustomerProfileActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".CustomerMainActivity" />
         <activity android:name=".ViewMealRequests" />
     </application>
 

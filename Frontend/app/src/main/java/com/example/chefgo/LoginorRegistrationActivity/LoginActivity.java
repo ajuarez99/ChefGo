@@ -1,11 +1,14 @@
 package com.example.chefgo.LoginorRegistrationActivity;
+/**
+ * @author SB_3
+ *
+ */
 
 import android.accounts.AccountManager;
 
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,7 +26,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.chefgo.AdminClient.AdminActivity;
 import com.example.chefgo.ChefClient.ChefMainActivity;
 import com.example.chefgo.DomainObjects.UsersDomain;
-import com.example.chefgo.MainActivity;
+import com.example.chefgo.CustomerMainActivity;
 import com.example.chefgo.R;
 import com.example.chefgo.app.AppController;
 
@@ -70,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         //endregion
 
         //region register
-        register = findViewById(R.id.registration);
+        register = findViewById(R.id.register);
         register.setEnabled(true);
         register.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -98,7 +101,6 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d(TAG, response.toString());
 
                 try {
-
                     user.setUsername(response.getString("username"));
                     user.setEmail(response.getString("email"));
                     user.setName(response.getString("name"));
@@ -109,35 +111,31 @@ public class LoginActivity extends AppCompatActivity {
                     user.setRating(response.getDouble("rating"));
                     user.setUserType(response.getInt("userType"));
 
-
-                    if(user.getPassword().equals(password.getText().toString())) {
+                    if (user.getPassword().equals(password.getText().toString())) {
                         //if user is an admin
-                        if(user.getUserType() == 0 ){
+                        if (user.getUserType() == 0) {
                             Intent admin = new Intent(LoginActivity.this, AdminActivity.class);
                             admin.putExtra("User", user);
                             startActivity(admin);
                         }
                         //if user is a customer
-                        else if(user.getUserType() == 1) {
-                            Intent customer = new Intent(LoginActivity.this, MainActivity.class);
+                        else if (user.getUserType() == 1) {
+                            Intent customer = new Intent(LoginActivity.this, CustomerMainActivity.class);
                             customer.putExtra("User", user);
                             startActivity(customer);
                         }
                         // if user is a chef
-                        else if(user.getUserType() == 2){
+                        else if (user.getUserType() == 2) {
                             Intent chef = new Intent(LoginActivity.this, ChefMainActivity.class);
                             chef.putExtra("User", user);
                             startActivity(chef);
                         }
+                    } else {
+                        Toast.makeText(getApplicationContext(),
+                                "Wrong Password: ",
+                                Toast.LENGTH_LONG).show();
                     }
-
-                    else{
-                    Toast.makeText(getApplicationContext(),
-                            "Wrong Password: ",
-                            Toast.LENGTH_LONG).show();
-                }
-
-                } catch (JSONException e) {
+                }catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(),
                             "Error: " + e.getMessage(),

@@ -1,5 +1,7 @@
 package com.example.demo.user;
-
+/**
+ * @author SB_3
+ */
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +18,10 @@ public class UserService {
 	@Autowired
 	private UserRepo userRepo;
 	
-	
+	/**
+	 * Returns list of all User objects in DB
+	 * @return List of all User objects
+	 */
 	public List<Users> getAllUsers() {
 		List<Users> users = new ArrayList<>();
 
@@ -24,17 +29,34 @@ public class UserService {
 		return users;
 	}
 
-	
+	/**
+	 * Returns User with given username
+	 * @param username Username of User to find
+	 * @return User object with specified username
+	 */
 	public Users getUserByUsername(String username) {
 		Optional<Users> u = userRepo.findByUsername(username);
 		return u.get();
 	}
+	
 
+	public List<Users> getUsersByZipCode(Integer zip){
+		Optional<List<Users>> u = userRepo.findByZipAndUserType(zip,(Integer) 2);
+		return u.get();
+	}
+	/**
+	 * Adds User to DB
+	 * @param user User object to be added
+	 */
 	public void addUser(Users user) {
 		userRepo.save(user);
 	}
 	
-	
+	/**
+	 * Updates User's password
+	 * @param username Username of User that needs to be changed
+	 * @param password New password
+	 */
 	public void updatePassword(String username, String password) {
 		Optional<Users> u = userRepo.findByUsername(username);
 		Users update = u.get();
@@ -43,6 +65,11 @@ public class UserService {
 			
 	}
 	
+	/**
+	 * Updates User's email 
+	 * @param username Username of User that needs to be changed
+	 * @param email New email
+	 */
 	public void updateEmail(String username, String email) {
 		Optional<Users> u = userRepo.findByUsername(username);
 		Users update = u.get();
@@ -50,6 +77,11 @@ public class UserService {
 		userRepo.save(update);
 			
 	}
+	/**
+	 * Updates User's name
+	 * @param username Username of User that needs to be changed 
+	 * @param name New name
+	 */
 	public void updateName(String username, String name) {
 		Optional<Users> u = userRepo.findByUsername(username);
 		Users update = u.get();

@@ -1,4 +1,8 @@
 package com.example.chefgo.AdminClient;
+/**
+ * @author SB_3
+ *
+ */
 
 import android.content.Context;
 import android.os.Bundle;
@@ -44,8 +48,8 @@ public class UsersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+
         getJSONArrayRequest(this);
         listView = findViewById(R.id.users);
 

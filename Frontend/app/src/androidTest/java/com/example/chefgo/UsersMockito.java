@@ -1,4 +1,8 @@
 package com.example.chefgo;
+/**
+ * @author SB_3
+ *
+ */
 
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.LoginorRegistrationActivity.LoginActivity;

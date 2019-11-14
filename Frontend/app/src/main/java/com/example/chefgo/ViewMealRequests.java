@@ -1,4 +1,8 @@
 package com.example.chefgo;
+/**
+ * @author SB_3
+ *
+ */
 
 import android.os.Bundle;
 import android.util.Log;
@@ -54,7 +58,7 @@ public class ViewMealRequests extends AppCompatActivity {
         JsonArrayRequest req = new JsonArrayRequest(URL,
                 new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(JSONArray response){
                         Log.d(TAG, response.toString());
 
                         try {
@@ -69,12 +73,12 @@ public class ViewMealRequests extends AppCompatActivity {
 
                                 String oid = order.getString("oid");
                                 String dish = order.getString("dish");
-                                String customer = order.getString("customer");
+                                JSONObject customerObj = order.getJSONObject("customer");
+                                String customer = customerObj.getString("name");
                                 String date = order.getString("date");
 
                                 jsonResponse += ("Order id: " + oid + "\n");
                                 jsonResponse += ("Dish: " + dish + "\n");
-                                jsonResponse += ("Customer: " + customer + "\n");
                                 jsonResponse += ("Date: " + date + "\n");
                                 arrayList.add(jsonResponse);
                             }
@@ -101,4 +105,5 @@ public class ViewMealRequests extends AppCompatActivity {
         });
         AppController.getInstance().addToRequestQueue(req);
     }
+
 }

@@ -1,4 +1,8 @@
 package com.example.chefgo.AdminClient;
+/**
+ * @author SB_3
+ *
+ */
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -38,6 +42,10 @@ public class UsersAdapter  extends BaseAdapter implements ListAdapter {
         this.context = context;
     }
 
+    /**
+     *
+     * @return size of list
+     */
     @Override
     public int getCount() {
         return list.size();

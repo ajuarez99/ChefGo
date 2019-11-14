@@ -1,4 +1,8 @@
 package com.example.chefgo.LoginorRegistrationActivity;
+/**
+ * @author SB_3
+ *
+ */
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,7 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.chefgo.DomainObjects.UsersDomain;
-import com.example.chefgo.MainActivity;
+import com.example.chefgo.CustomerMainActivity;
 import com.example.chefgo.R;
 import com.example.chefgo.app.AppController;
 
@@ -107,7 +111,7 @@ public class RegistrationActivity extends AppCompatActivity {
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, URL, parameters, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Intent customer = new Intent(RegistrationActivity.this, MainActivity.class);
+                Intent customer = new Intent(RegistrationActivity.this, CustomerMainActivity.class);
                 user.setUsername(username.getText().toString());
                 user.setEmail(email.getText().toString());
                 user.setName(fname.getText().toString());
@@ -123,7 +127,7 @@ public class RegistrationActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Intent customer = new Intent(RegistrationActivity.this, MainActivity.class);
+                Intent customer = new Intent(RegistrationActivity.this, CustomerMainActivity.class);
                 user.setUsername(username.getText().toString());
                 user.setEmail(email.getText().toString());
                 user.setName(fname.getText().toString());

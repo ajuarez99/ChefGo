@@ -1,6 +1,10 @@
 package com.example.chefgo;
 
 import androidx.appcompat.app.AppCompatActivity;
+/**
+ * @author SB_3
+ *
+ */
 
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.app.AppController;
 
 import org.json.JSONArray;
@@ -31,23 +36,18 @@ import static com.example.chefgo.app.AppController.TAG;
 public class CustomerOrderHistoryActivity extends AppCompatActivity {
 
     ListView listView;
-    Button refresh;
+    UsersDomain user;
     private String  URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory", jsonResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_order_history);
-
-        refresh = findViewById(R.id.refresh);
+        user = new UsersDomain();
+        user = getIntent().getParcelableExtra("User");
         listView = findViewById(R.id.listview);
+
         getJSONArrayRequest();
-        refresh.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                getJSONArrayRequest();
-            }
-        });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -76,27 +76,32 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
                                 JSONObject order = (JSONObject) response.get(i);
                                 jsonResponse = "";
 
-                                String oid = order.getString("oid");
-                                //String price = order.getString("price");
-
-                                /*JSONObject review = order.getJSONObject("review");
-                                String rid = review.getString("rid");
-                                String rating = review.getString("rating");
-                                String reviewer = review.getString("reviewer");
-                                String reviewee = review.getString("reviewee");
-                                String reviewDate = review.getString("date");
-                                String description = review.getString("description");*/
-
+                                String price = order.getString("price");
                                 String dish = order.getString("dish");
-                                String chef = order.getString("chef");
-                                //String customer = order.getString("customer");
                                 String date = order.getString("date");
+                                String customerUsername = order.getJSONObject("customer").getString("username");
+                                String active = order.getInt("isActive") == 1 ? "Yes" : "No";
 
-                                jsonResponse += ("Order id: " + oid + "\n");
-                                jsonResponse += ("Dish: " + dish + "\n");
-                                jsonResponse += ("Chef: " + chef + "\n");
-                                jsonResponse += ("Date: " + date + "\n");
-                                arrayList.add(jsonResponse);
+                                String chefName;
+                                if (order.has("chef") && order.isNull("chef")){
+                                    chefName = "TBD";
+                                }
+                                else {
+                                    chefName = order.getJSONObject("chef").getString("name");
+                                }
+
+                                if (customerUsername.equals(user.getUsername())) {
+                                    jsonResponse += ("Dish: " + dish + "\n");
+                                    jsonResponse += ("Chef: " + chefName + "\n");
+                                    jsonResponse += ("Price: " + price + "\n");
+                                    jsonResponse += ("Date: " + date + "\n");
+                                    jsonResponse += ("Active: " + active + "\n");
+                                    arrayList.add(jsonResponse);
+                                }
+
+                            }
+                            if (arrayList.isEmpty()){
+                                //display that the user has no order history
                             }
                             ArrayAdapter arrayAdapter = new ArrayAdapter(CustomerOrderHistoryActivity.this, android.R.layout.simple_list_item_1, arrayList);
                             listView.setAdapter(arrayAdapter);

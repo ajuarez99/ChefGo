@@ -1,4 +1,8 @@
 package com.example.chefgo.ChefClient;
+/**
+ * @author SB_3
+ *
+ */
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,17 +16,19 @@ import com.example.chefgo.R;
 
 public class ChefMainActivity extends AppCompatActivity {
 
-    Button profileButton;
     private UsersDomain user;
+    Button profileButton;
+    Button activeMealsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chef_main);
-
         user =  getIntent().getParcelableExtra("User");
 
         profileButton = findViewById(R.id.profileButton);
+        activeMealsButton = findViewById(R.id.buttonActiveMeals);
+
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -31,5 +37,14 @@ public class ChefMainActivity extends AppCompatActivity {
                 startActivity(profile);
             }
         });
+        activeMealsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent activeMealsIntent = new Intent(ChefMainActivity.this, ChefActiveMealsActivity.class);
+                activeMealsIntent.putExtra("User", user);
+                startActivity(activeMealsIntent);
+            }
+        });
+
     }
 }

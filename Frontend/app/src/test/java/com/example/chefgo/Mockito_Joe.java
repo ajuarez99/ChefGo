@@ -15,6 +15,10 @@ import org.mockito.junit.MockitoRule;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+/**
+ * @author SB_3
+ *
+ */
 
 public class Mockito_Joe {
 
