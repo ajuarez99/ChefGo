@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
  *
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -51,9 +52,10 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Get the selected item text from ListView
-                String selectedItem = (String) parent.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(), selectedItem, Toast.LENGTH_LONG).show();
+                String selectedOrder = parent.getItemAtPosition(position).toString();
+                Intent customerReviewOrderIntent = new Intent(CustomerOrderHistoryActivity.this, CustomerReviewOrder.class);
+                customerReviewOrderIntent.putExtra("order", selectedOrder);
+                startActivity(customerReviewOrderIntent);
             }
         });
     }
