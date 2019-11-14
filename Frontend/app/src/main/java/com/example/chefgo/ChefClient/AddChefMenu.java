@@ -83,57 +83,78 @@ public class AddChefMenu extends AppCompatActivity {
                           final String cost,
                           final UsersDomain theUser) {
 
-        InputMethodManager inputManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        if (title.equals("")) {
+            Toast.makeText(getApplicationContext(), "Enter a title bitch.", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (apps.equals("")) {
+            Toast.makeText(getApplicationContext(), "Enter an app. N/A for none.", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (entree.equals("")) {
+            Toast.makeText(getApplicationContext(), "Enter an entree. N/A for none.", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (dessert.equals("")) {
+            Toast.makeText(getApplicationContext(), "Enter a dessert. N/A for none.", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (desc.equals("")) {
+            Toast.makeText(getApplicationContext(), "Enter a description.", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (cost.equals("")) {
+            Toast.makeText(getApplicationContext(), "Enter a price.", Toast.LENGTH_SHORT).show();
+            return;
+        } else {
 
-        //Construct the user object for the menu object
-        Map<String, String> userMap = new HashMap<>();
-        userMap.put("username", theUser.getUsername());
-        userMap.put("email", theUser.getEmail());
-        userMap.put("name", theUser.getName());
-        userMap.put("password", theUser.getPassword());
-        userMap.put("userType", theUser.getUserType().toString());
-        userMap.put("rating", theUser.getRating().toString());
-        userMap.put("address", theUser.getAddress());
-        userMap.put("state", theUser.getState());
-        userMap.put("zip", theUser.getZip().toString());
-        JSONObject userObject = new JSONObject(userMap);
+            InputMethodManager inputManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
-        //construct the menu object to be posted
-        Map<String, String> menuMap = new HashMap<>();
-        menuMap.put("title", title);
-        menuMap.put("appetizer", apps);
-        menuMap.put("entree", entree);
-        menuMap.put("dessert", dessert);
-        menuMap.put("description", desc);
-        menuMap.put("cost", cost);
-        JSONObject menuObject = new JSONObject(menuMap);
+            //Construct the user object for the menu object
+            Map<String, String> userMap = new HashMap<>();
+            userMap.put("username", theUser.getUsername());
+            userMap.put("email", theUser.getEmail());
+            userMap.put("name", theUser.getName());
+            userMap.put("password", theUser.getPassword());
+            userMap.put("userType", theUser.getUserType().toString());
+            userMap.put("rating", theUser.getRating().toString());
+            userMap.put("address", theUser.getAddress());
+            userMap.put("state", theUser.getState());
+            userMap.put("zip", theUser.getZip().toString());
+            JSONObject userObject = new JSONObject(userMap);
 
-        try{
-            menuObject.put("chef", userObject);
-        }catch(JSONException e){
-            e.printStackTrace();
-            Toast.makeText(getApplicationContext(),
-                    "Error: " + e.getMessage(),
-                    Toast.LENGTH_LONG).show();
+            //construct the menu object to be posted
+            Map<String, String> menuMap = new HashMap<>();
+            menuMap.put("title", title);
+            menuMap.put("appetizer", apps);
+            menuMap.put("entree", entree);
+            menuMap.put("dessert", dessert);
+            menuMap.put("description", desc);
+            menuMap.put("cost", cost);
+            JSONObject menuObject = new JSONObject(menuMap);
+
+            try {
+                menuObject.put("chef", userObject);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(),
+                        "Error: " + e.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+
+            JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, URL, menuObject, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    System.out.println(response.toString());
+                    Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                    Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                    System.out.println("THIS IS THE ERROR: " + error.getMessage());
+                }
+            });
+
+            AppController.getInstance().addToRequestQueue(jsonRequest);
         }
-
-        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, URL, menuObject, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                System.out.println(response.toString());
-                Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-                System.out.println("THIS IS THE ERROR: " + error.getMessage());
-            }
-        });
-
-        AppController.getInstance().addToRequestQueue(jsonRequest);
     }
 
 
