@@ -2,11 +2,20 @@ package com.example.chefgo;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Context;
 import android.location.Address;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.example.chefgo.AdminClient.UsersAdapter;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.Geocoding.CustomerGeoCode;
+import com.example.chefgo.app.AppController;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -14,20 +23,34 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.example.chefgo.app.AppController.TAG;
+
 public class CustomerMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private CustomerGeoCode geocode;
     private UsersDomain user;
+    private String  URL = "http://coms-309-sb-3.misc.iastate.edu:8080/users/chefs/";
+    private String jsonResponse;
+    private List<UsersDomain> chef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_maps);
+        chef = new ArrayList<UsersDomain>();
         user = getIntent().getParcelableExtra("User");
+        URL += user.getZip();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+//        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+//                .findFragmentById(R.id.map);
+//        mapFragment.getMapAsync(this);
     }
 
 
@@ -49,5 +72,63 @@ public class CustomerMapsActivity extends FragmentActivity implements OnMapReady
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(currentUserLocation).title("Marker in home"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentUserLocation,15));
+    }
+
+    private void getJSONArrayRequest(final Context ctx){
+
+        JsonArrayRequest req = new JsonArrayRequest(URL,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.d(TAG, response.toString());
+
+                        try {
+                            // Parsing json array response
+                            // loop through each json object
+                            ArrayList<String> arrayList = new ArrayList<>();
+
+                            for (int i = 0; i < response.length(); i++) {
+                                UsersDomain chef = new UsersDomain();
+                                JSONObject order = (JSONObject) response.get(i);
+                                jsonResponse = "";
+
+                                 chef.setUsername(order.getString("username"));
+
+                                        order.getString("userType");
+                                String user = "";
+
+                                String rating = order.getString("rating");
+
+                                jsonResponse += ("Username: " + username + "\n");
+
+                                jsonResponse += ("userType: " + user + "\n");
+                                jsonResponse += ("rating: " + rating + "\n");
+
+                                arrayList.add(jsonResponse);
+                            }
+                            UsersAdapter adapter = new UsersAdapter(arrayList, ctx);
+
+
+                            listView.setAdapter(adapter);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(),
+                                    "Error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        AppController.getInstance().addToRequestQueue(req);
     }
 }
