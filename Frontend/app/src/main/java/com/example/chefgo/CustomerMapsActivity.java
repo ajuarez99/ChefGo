@@ -47,7 +47,7 @@ public class CustomerMapsActivity extends FragmentActivity implements OnMapReady
         LatLng currentUserLocation = geocode.getLocationFromAddress(this, user.getAddress()+ ", " +user.getState() );
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(currentUserLocation).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(currentUserLocation));
+        mMap.addMarker(new MarkerOptions().position(currentUserLocation).title("Marker in home"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentUserLocation,15));
     }
 }

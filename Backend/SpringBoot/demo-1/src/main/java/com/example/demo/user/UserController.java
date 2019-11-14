@@ -35,6 +35,15 @@ public class UserController {
 	public void addUser(@RequestBody Users user) {
 		users.addUser(user);
 	}
+	/**
+	 * 
+	 * Return all chefs withen the users city
+	 * @param 
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/users/chefs/{city}")
+	public List<Users> getAllChefs(@PathVariable Integer zip){
+		return users.getUsersByZipCode(zip);
+	}
 	
 //	@RequestMapping("/user/{username}/{password}")
 //	public Users validateUser(@PathVariable String username, @PathVariable String password) {
