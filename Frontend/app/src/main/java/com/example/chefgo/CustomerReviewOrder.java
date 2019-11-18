@@ -3,9 +3,6 @@ package com.example.chefgo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.ColorSpace;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +22,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.app.AppController;
-import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +30,6 @@ import org.json.JSONObject;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import static com.example.chefgo.app.AppController.TAG;
 
@@ -41,12 +37,14 @@ public class CustomerReviewOrder extends AppCompatActivity {
 
     private UsersDomain user;
     private String selectedOrder;
-    private TextView reviewOrderTitle, orderDescriptionTitle, orderDescription;
+    private TextView orderDescriptionTitle, orderDescription;
+    private RatingBar ratingBar;
     private EditText reviewBox;
     private Button submitReview;
 
     private JSONObject order;
     private int oid;
+    private float reviewRating;
     private String  add_review_url = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory/review/";
     private static final String ORDER_HISTORY_URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory";
 
@@ -59,6 +57,16 @@ public class CustomerReviewOrder extends AppCompatActivity {
         user = getIntent().getParcelableExtra("User");
         oid = getIntent().getIntExtra("oid", oid);
         add_review_url += oid;
+
+        orderDescriptionTitle = findViewById(R.id.orderDescriptionTitle);
+        orderDescription = findViewById(R.id.orderDescription);
+        reviewBox = findViewById(R.id.reviewBox);
+        submitReview = findViewById(R.id.submitReview);
+        ratingBar = findViewById(R.id.reviewOrderRB);
+
+        orderDescriptionTitle.setPaintFlags(orderDescriptionTitle.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        orderDescription.setText(selectedOrder);
+
         setOrder(new VolleyCallBack() {
             @Override
             public void onSuccess() {
@@ -67,37 +75,52 @@ public class CustomerReviewOrder extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Order not found", Toast.LENGTH_LONG).show();
                     return;
                 }
+                //order has already been reviewed
                 if (order.has("review") && !order.isNull("review")){
-                    try{
-                        reviewBox.setText(order.getJSONObject("review").getString("description"));
-                        reviewBox.setEnabled(false);
-                        reviewBox.setClickable(false);
-                        submitReview.setVisibility(View.INVISIBLE);
-                    }
-                    catch(JSONException e){
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(),
-                                "Error: " + e.getMessage(),
-                                Toast.LENGTH_LONG).show();
-                    }
+                    displayReview();
+                }
+                else{
+                    ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                        @Override
+                        public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                            ratingBar.setRating(v);
+                            reviewRating = v;
+                            Toast.makeText(getApplicationContext(), Float.toString(reviewRating), Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+                    submitReview.setOnClickListener(new View.OnClickListener(){
+                        public void onClick(View v){
+                            reviewOrder();
+                        }
+                    });
                 }
             }
         });
+    }
 
-        reviewOrderTitle = findViewById(R.id.reviewOrderTitle);
-        orderDescriptionTitle = findViewById(R.id.orderDescriptionTitle);
-        orderDescription = findViewById(R.id.orderDescription);
-        reviewBox = findViewById(R.id.reviewBox);
-        submitReview = findViewById(R.id.submitReview);
+    private void displayReview(){
+        try{
+            reviewBox.setText(order.getJSONObject("review").getString("description"));
+            reviewBox.setEnabled(false);
+            reviewBox.setClickable(false);
+            ratingBar.setEnabled(false);
+            ratingBar.setClickable(false);
+            submitReview.setVisibility(View.INVISIBLE);
 
-        orderDescriptionTitle.setPaintFlags(orderDescriptionTitle.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        orderDescription.setText(selectedOrder);
-
-        submitReview.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                reviewOrder();
+            if (order.getJSONObject("review").isNull("rating")){
+                ratingBar.setRating(0);
             }
-        });
+            else {
+                ratingBar.setRating((float) order.getJSONObject("review").getDouble("rating"));
+            }
+        }
+        catch(JSONException e){
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(),
+                    "Error: " + e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.P)
@@ -133,14 +156,13 @@ public class CustomerReviewOrder extends AppCompatActivity {
 
         Map<String, String> reviewMap = new HashMap<>();
         reviewMap.put("rid", "0");
-        reviewMap.put("rating", "0");
+        reviewMap.put("rating", Float.toString(reviewRating));
         reviewMap.put("description", description);
         reviewMap.put("date", date);
         JSONObject review = new JSONObject(reviewMap);
         try {
             review.put("reviewer", reviewer);
             review.put("reviewee", reviewee);
-            Toast.makeText(getApplicationContext(), review.getJSONObject("reviewer").getString("email"), Toast.LENGTH_LONG).show();
         } catch (JSONException e){
             e.printStackTrace();
             Toast.makeText(getApplicationContext(),
