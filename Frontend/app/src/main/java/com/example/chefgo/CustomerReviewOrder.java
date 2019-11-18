@@ -54,10 +54,35 @@ public class CustomerReviewOrder extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_review_order);
+
         selectedOrder = getIntent().getStringExtra("order");
         user = getIntent().getParcelableExtra("User");
         oid = getIntent().getIntExtra("oid", oid);
         add_review_url += oid;
+        setOrder(new VolleyCallBack() {
+            @Override
+            public void onSuccess() {
+
+                if (order == null){
+                    Toast.makeText(getApplicationContext(), "Order not found", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (order.has("review") && !order.isNull("review")){
+                    try{
+                        reviewBox.setText(order.getJSONObject("review").getString("description"));
+                        reviewBox.setEnabled(false);
+                        reviewBox.setClickable(false);
+                        submitReview.setVisibility(View.INVISIBLE);
+                    }
+                    catch(JSONException e){
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(),
+                                "Error: " + e.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
 
         reviewOrderTitle = findViewById(R.id.reviewOrderTitle);
         orderDescriptionTitle = findViewById(R.id.orderDescriptionTitle);
@@ -70,7 +95,6 @@ public class CustomerReviewOrder extends AppCompatActivity {
 
         submitReview.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                Toast.makeText(getApplicationContext(), add_review_url, Toast.LENGTH_LONG).show();
                 reviewOrder();
             }
         });
@@ -84,15 +108,6 @@ public class CustomerReviewOrder extends AppCompatActivity {
         String date = Instant.now().toString();
         String description = reviewBox.getText().toString();
 
-        setOrder();
-        /*try {
-            TimeUnit.SECONDS.sleep(10);
-        } catch (InterruptedException e){
-            e.printStackTrace();
-            Toast.makeText(getApplicationContext(),
-                    "Error: " + e.getMessage(),
-                    Toast.LENGTH_LONG).show();
-        }*/
         if(order == null){
             Toast.makeText(getApplicationContext(), "Order is null", Toast.LENGTH_LONG).show();
             return;
@@ -105,16 +120,7 @@ public class CustomerReviewOrder extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Customer is null", Toast.LENGTH_LONG).show();
             return;
         }
-        else if (order.has("review") && !order.isNull("review")){
-            try {
-                reviewBox.setText(order.getJSONObject("review").getString("description"));
-            } catch(JSONException e){
-                e.printStackTrace();
-                Toast.makeText(getApplicationContext(),
-                        "Error: " + e.getMessage(),
-                        Toast.LENGTH_LONG).show();
-            }
-        }
+
         try {
             reviewer = order.getJSONObject("customer");
             reviewee = order.getJSONObject("chef");
@@ -161,7 +167,7 @@ public class CustomerReviewOrder extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(jsonObjReq);
     }
 
-    private void setOrder(){
+    private void setOrder(final VolleyCallBack callback){
 
         JsonArrayRequest req = new JsonArrayRequest(ORDER_HISTORY_URL,
                 new Response.Listener<JSONArray>() {
@@ -176,6 +182,7 @@ public class CustomerReviewOrder extends AppCompatActivity {
                                 JSONObject orderObject = (JSONObject) response.get(i);
                                 if (orderObject.getInt( "oid") == oid){
                                     order = orderObject;
+                                    callback.onSuccess();
                                 }
                             }
                         } catch (JSONException e) {
