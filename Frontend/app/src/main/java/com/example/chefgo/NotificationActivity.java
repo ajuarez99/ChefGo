@@ -23,7 +23,7 @@ public class NotificationActivity extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppController.sendNotification(getApplicationContext());
+                AppController.sendNotification();
             }
         });
 

@@ -27,7 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Component
 public class WebSocketServer {
 
-	 private static Map<Session, String> sessionUsernameMap = new HashMap<>();
+	 	private static Map<Session, String> sessionUsernameMap = new HashMap<>();
 	    private static Map<String, Session> usernameSessionMap = new HashMap<>();
 	    
 	    private final Logger logger = LoggerFactory.getLogger(WebSocketServer.class);

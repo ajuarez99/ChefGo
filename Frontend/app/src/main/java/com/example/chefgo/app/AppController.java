@@ -27,6 +27,7 @@ public class AppController extends Application {
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     private static AppController mInstance;
+    public static Context appContext;
     public String http = "http://10.0.2.2:8082/orderHistory";
     @Override
     public void onCreate() {
@@ -37,6 +38,7 @@ public class AppController extends Application {
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel1);
         }
+        appContext = getApplicationContext();
 
         mInstance = this;
 
@@ -72,9 +74,9 @@ public class AppController extends Application {
         }
     }
 
-    public static void sendNotification(Context applicationContext){
-        Notification orderAccepted = new NotificationCompat.Builder(applicationContext, CHANNEL_1_ID).setSmallIcon(R.drawable.ic_spatula).setContentTitle("Order Accepted").setContentText("Your order has been accepted").setPriority(NotificationCompat.PRIORITY_HIGH).build();
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(applicationContext);
+    public static void sendNotification(){
+        Notification orderAccepted = new NotificationCompat.Builder(appContext, CHANNEL_1_ID).setSmallIcon(R.drawable.ic_spatula).setContentTitle("Order Accepted").setContentText("Your order has been accepted").setPriority(NotificationCompat.PRIORITY_HIGH).build();
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(appContext);
         notificationManager.notify(1, orderAccepted);
     }
 }
