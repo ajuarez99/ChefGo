@@ -13,4 +13,5 @@
     <string name="com_auth0_domain">dev-0459bius.auth0.com</string>
     <string name="title_activity_users">UsersActivity</string>
     <string name="title_activity_customer_maps">Map</string>
+    <string name="title_activity_chat">ChatActivity</string>
 </resources>

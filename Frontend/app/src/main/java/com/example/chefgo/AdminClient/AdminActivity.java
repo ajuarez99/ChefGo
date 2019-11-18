@@ -11,8 +11,6 @@ import android.widget.Button;
  *
  */
 
-import com.example.chefgo.CustomerProfileActivity;
-
 import com.example.chefgo.R;
 
 public class AdminActivity extends AppCompatActivity {
