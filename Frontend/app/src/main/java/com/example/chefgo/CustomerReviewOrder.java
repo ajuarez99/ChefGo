@@ -66,7 +66,10 @@ public class CustomerReviewOrder extends AppCompatActivity {
 
         orderDescriptionTitle.setPaintFlags(orderDescriptionTitle.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         orderDescription.setText(selectedOrder);
+        createOrDisplayReview();
+    }
 
+    private void createOrDisplayReview(){
         setOrder(new VolleyCallBack() {
             @Override
             public void onSuccess() {
@@ -91,7 +94,7 @@ public class CustomerReviewOrder extends AppCompatActivity {
 
                     submitReview.setOnClickListener(new View.OnClickListener(){
                         public void onClick(View v){
-                            reviewOrder();
+                            createReview();
                         }
                     });
                 }
@@ -124,7 +127,7 @@ public class CustomerReviewOrder extends AppCompatActivity {
     }
 
     @TargetApi(Build.VERSION_CODES.P)
-    private void reviewOrder(){
+    private void createReview(){
 
         JSONObject reviewer = null;
         JSONObject reviewee = null;
