@@ -74,12 +74,12 @@ public class CustomerReviewOrder extends AppCompatActivity {
             @Override
             public void onSuccess() {
 
-                if (order == null){
+                if (order == null || !order.has("review")){
                     Toast.makeText(getApplicationContext(), "Order not found", Toast.LENGTH_LONG).show();
                     return;
                 }
                 //order has already been reviewed
-                if (order.has("review") && !order.isNull("review")){
+                else if (order.has("review") && !order.isNull("review")){
                     displayReview();
                 }
                 else{
@@ -88,7 +88,6 @@ public class CustomerReviewOrder extends AppCompatActivity {
                         public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                             ratingBar.setRating(v);
                             reviewRating = v;
-                            Toast.makeText(getApplicationContext(), Float.toString(reviewRating), Toast.LENGTH_LONG).show();
                         }
                     });
 
@@ -187,23 +186,19 @@ public class CustomerReviewOrder extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
             }
-        }) {
-        };
+        });
         AppController.getInstance().addToRequestQueue(jsonObjReq);
     }
 
     private void setOrder(final VolleyCallBack callback){
-
         JsonArrayRequest req = new JsonArrayRequest(ORDER_HISTORY_URL,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.d(TAG, response.toString());
-
                         try {
                             order = null;
                             for (int i = 0; i < response.length(); i++) {
-
                                 JSONObject orderObject = (JSONObject) response.get(i);
                                 if (orderObject.getInt( "oid") == oid){
                                     order = orderObject;
