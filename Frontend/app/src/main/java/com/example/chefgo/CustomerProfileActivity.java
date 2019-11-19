@@ -54,7 +54,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
     private String jsonResponse;
 
     private TextView txtResponse;
-    private String URL = "http://coms-309-sb-3.misc.iastate.edu:8080/user";
+    private String URL = "http://coms-309-sb-3.misc.iastate.edu:8080/users";
     //private String URL = "http://10.0.2.2:8080/user";
 
     private String jsonObjectTag = "jobj_req", tag_json_arry = "jarray_req";
@@ -81,14 +81,10 @@ public class CustomerProfileActivity extends AppCompatActivity {
 
         user =  getIntent().getParcelableExtra("User");
 
-      //  makeJSONArrayReq();
-
-
-
         ratingBar = findViewById(R.id.ratingBar);
         profilePicButton = findViewById(R.id.setProfPic);
         profilePic = findViewById(R.id.profilePic);
-        String name = user.getName() + " " + user.getName();
+        String name = user.getName();
         nameView.setText(name);
         if(user.getRating() != null) {
             ratingBar.setRating(user.getRating().floatValue());
@@ -104,37 +100,24 @@ public class CustomerProfileActivity extends AppCompatActivity {
             }
         });
 
-
-//        postNameButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                postUser(nameInput.getText().toString(), rate);
-//            }
-//        });
-//        refreshButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                makeJSONArrayReq();
-//                nameView.setText(FName);
-//                nameInput.setText(null);
-//            }
-//        });
-
         postNameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                postUser(nameInput.getText().toString(), rate);
+                postUser(nameView.getText().toString(), rate);
                 FName = nameInput.getText().toString();
+                makeJSONArrayReq();
+                nameView.setText(FName);
+                nameInput.setText(null);
             }
         });
-        refreshButton.setOnClickListener(new View.OnClickListener() {
+/*        refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 makeJSONArrayReq();
                 nameView.setText(FName);
                 nameInput.setText(null);
             }
-        });
+        });*/
 
         profilePicButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,10 +148,13 @@ public class CustomerProfileActivity extends AppCompatActivity {
 
                                 JSONObject person = (JSONObject) response.get(i);
 
-                                String firstName = person.getString("fName");
+                                String firstName = person.getString("name");
                                 double rating = person.getDouble("rating");
                                 username = person.getString("username");
-                                FName = firstName;
+                                if(username.equals(user.getUsername())){
+                                    FName = firstName;
+                                }
+
                                 jsonResponse += "firstName: " + firstName + "\n\n";
                                 nameView.setText(firstName);
                                 ratingBar.setRating((float) rating);
@@ -199,23 +185,21 @@ public class CustomerProfileActivity extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(req);
     }
 
-    private void postUser(final String firstName, final String rating) {
+    private void postUser(final String name, final String rating) {
 
         InputMethodManager inputManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
 
         Map<String, String> params = new HashMap();
-        params.put("username", "jstr");
-        params.put("email", "jstrobe@iastate.edu");
-        params.put("fName", firstName);
-        params.put("lName", "Strobel");
-        params.put("password", "password");
-        params.put("userType", "1");
+        params.put("username", user.getUsername());
+        params.put("email", user.getEmail());
+        params.put("name", name);
+        params.put("password", user.getPassword());
+        params.put("userType", user.getUserType().toString());
         params.put("rating", rating);
-        params.put("address", "Morningside St");
-        params.put("state", "Iowa");
-        params.put("zip", "50014");
-//        params.put("allergies","");
+        params.put("address", user.getAddress());
+        params.put("state", user.getState());
+        params.put("zip", user.getZip().toString());
 
         JSONObject parameters = new JSONObject(params);
 

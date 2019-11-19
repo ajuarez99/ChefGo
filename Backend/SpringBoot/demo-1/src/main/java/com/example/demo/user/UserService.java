@@ -39,6 +39,7 @@ public class UserService {
 		return u.get();
 	}
 	
+
 	public List<Users> getUsersByCity(String city){
 		Optional<List<Users>> u = userRepo.findByCityAndUserType(city,(Integer) 2);
 		return u.get();
