@@ -24,6 +24,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.chefgo.CustomerOrderMealActivity;
 import com.example.chefgo.DomainObjects.UsersDomain;
+import com.example.chefgo.LoginorRegistrationActivity.LoginActivity;
 import com.example.chefgo.R;
 import com.example.chefgo.app.AppController;
 
@@ -114,6 +115,7 @@ public class ChefHandleMealActivity extends AppCompatActivity {
             }
         });
         AppController.getInstance().addToRequestQueue(jsonObjReq);
+        LoginActivity.ws.send(oid);
     }
 
     /**

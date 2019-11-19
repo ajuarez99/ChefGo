@@ -35,12 +35,19 @@ import com.example.chefgo.app.AppController;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import okhttp3.OkHttpClient;
+import okhttp3.WebSocket;
+import okhttp3.WebSocketListener;
+
+
+
 import static com.example.chefgo.app.AppController.TAG;
 
 public class LoginActivity extends AppCompatActivity {
 
     private Button login;
     private String URL = "http://coms-309-sb-3.misc.iastate.edu:8080/user";
+    private String notficationWS = "ws://coms-309-sb-3.misc.iastata.edu:8080/notification/";
    //private String URL = "http://10.0.2.2:8080/user";
     private String jsonObjectTag = "jobj_req", tag_json_arry = "jarray_req";
     String tag_string_req ="string_req";
@@ -48,12 +55,15 @@ public class LoginActivity extends AppCompatActivity {
     EditText username;
     EditText password;
     private Button register;
+    private OkHttpClient client;
+    public static WebSocket ws;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        client = new OkHttpClient();
 
 
 
@@ -112,6 +122,10 @@ public class LoginActivity extends AppCompatActivity {
                     user.setUserType(response.getInt("userType"));
 
                     if (user.getPassword().equals(password.getText().toString())) {
+
+
+
+                        start(user.getUsername());
                         //if user is an admin
                         if (user.getUserType() == 0) {
                             Intent admin = new Intent(LoginActivity.this, AdminActivity.class);
@@ -157,6 +171,39 @@ public class LoginActivity extends AppCompatActivity {
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(jsonObjReq);
     }
+
+    private void start(String username) {
+        okhttp3.Request request = new okhttp3.Request.Builder().url(notficationWS + username).build();
+        EchoWebSocketListener listener = new EchoWebSocketListener();
+        ws = client.newWebSocket(request, listener);
+        client.dispatcher().executorService().shutdown();
+    }
+
+    public final class EchoWebSocketListener extends WebSocketListener {
+        private static final int NORMAL_CLOSURE_STATUS = 1000;
+
+        public void onOpen() {
+
+        }
+        @Override
+        public void onMessage(WebSocket webSocket, String text) {
+            AppController.sendNotification();
+        }
+        @Override
+        public void onClosing(WebSocket webSocket, int code, String reason) {
+            webSocket.close(NORMAL_CLOSURE_STATUS, null);
+
+        }
+
+        public void onFailure(WebSocket webSocket, Throwable t, Response response) {
+
+        }
+    }
+
+
+
+
+
 
 
 }

@@ -52,7 +52,7 @@
         <activity android:name=".ChefClient.ChefActiveMealsActivity" />
         <activity android:name=".ChefClient.ChefMainActivity" />
         <activity
-            android:name=".NotificationActivity"
+            android:name=".LoginorRegistrationActivity.LoginActivity"
             android:label="ChefGo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

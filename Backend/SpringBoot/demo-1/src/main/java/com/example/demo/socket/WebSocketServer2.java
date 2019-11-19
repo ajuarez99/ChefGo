@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.orderhistory.OrderHistory;
 import com.example.demo.orderhistory.OrderHistoryService;
 import com.example.demo.user.UserService;
 
@@ -29,12 +30,12 @@ public class WebSocketServer2 {
 
 	@Autowired
 	public void setUsersService(UserService service) {
-	      this.userService = service;
+	      WebSocketServer2.userService = service;
 	}
 	
 	@Autowired
 	public void setOrderService(OrderHistoryService orderService) {
-		this.orderService = orderService;
+		WebSocketServer2.orderService = orderService;
 	}
 
 	private static Map<Session, String> sessionUsernameMap = new HashMap<>();
@@ -46,6 +47,7 @@ public class WebSocketServer2 {
     public void onOpen(Session session, @PathParam("username") String username) throws IOException 
     {
     	sessionUsernameMap.put(session, username);
+    	usernameSessionMap.put(username, session);
     }
  
     @OnMessage
@@ -53,18 +55,25 @@ public class WebSocketServer2 {
     {
     	try {
     		int oid = Integer.parseInt(message);
+    		OrderHistory order = orderService.getOrderByOid(oid);
+    		//TODO: Error handling if customer does not exist
+    		Session customer = usernameSessionMap.get(order.getCustomer().getUsername());
+    		String response = order.getChef().getName() + " has accepted your order";
+    		customer.getBasicRemote().sendText(response);
     	}
     	catch(NumberFormatException e) {
     		logger.info("Message was not a number");
     	}
     	
     	
+    	
     }
  
     @OnClose
-    public void onClose(Session session) throws IOException
+    public void onClose(Session session, @PathParam("username") String username) throws IOException
     {
-
+    	usernameSessionMap.remove(username);
+    	logger.info(username + " disconnected");
     }
  
     @OnError
