@@ -38,7 +38,8 @@ public class Demo1ApplicationTests {
 	
 	@Test
 	public void testUpdateOrderChef() throws Exception {
-		Users chef = new Users("jstr", "asdfas", "karthik", "pass", 2.2 , 0, "way out west", "Iowa", "Ames");
+		//Users chef = new Users("jstr", "asdfas", "karthik", "pass", 2.2 , 0, "way out west", "Iowa", "Ames");
+		Users chef = new Users("jstr", "asdfas", "karthik", "pass", 2.2 , 0, "way out west", "Iowa", 50014);
 		OrderHistory Order = new OrderHistory(1, new Date(100), 22.50, null, "chicken", null);
 		
 		Mockito.when(service.getOrderByOid(1)).thenReturn(Order);

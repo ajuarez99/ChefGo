@@ -40,9 +40,14 @@ public class UserController {
 	 * Return all chefs withen the users city
 	 * @param 
 	 */
-	@RequestMapping(method = RequestMethod.GET, path = "/users/chefs/{city}")
-	public List<Users> getAllChefs(@PathVariable String city){
-		return users.getUsersByCity(city);
+//	@RequestMapping(method = RequestMethod.GET, path = "/users/chefs/{city}")
+//	public List<Users> getAllChefs(@PathVariable String city){
+//		return users.getUsersByCity(city);
+//	}
+	
+	@RequestMapping(method = RequestMethod.GET, path = "/users/chefs/{zip}")
+	public List<Users> getAllChefs(@PathVariable int zip){
+		return users.getUsersByZip(zip);
 	}
 	
 //	@RequestMapping("/user/{username}/{password}")
@@ -137,11 +142,17 @@ public class UserController {
 	 * @param state New state User lives in
 	 * @param zip New zip code for User
 	 */
+	
 	@RequestMapping(method = RequestMethod.PUT, path = "/users/{username}/address")
 	public void updateAddress(@PathVariable String username, @RequestBody String address, @RequestBody String state,
-			@RequestBody String city) {
-		users.updateAddress(username, address, state, city);
+			@RequestBody Integer zip) {
+		users.updateAddress(username, address, state, zip);
 	}
+//	@RequestMapping(method = RequestMethod.PUT, path = "/users/{username}/address")
+//	public void updateAddress(@PathVariable String username, @RequestBody String address, @RequestBody String state,
+//			@RequestBody String city) {
+//		users.updateAddress(username, address, state, city);
+//	}
 	/**
 	 * Endpoint for deleting User with given username
 	 * @param username Username for User to be deleted
