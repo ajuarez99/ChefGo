@@ -149,4 +149,12 @@ public class OrderHistoryService {
 		orderHistoryRepo.delete(toDelete);
 	}
 	
+	public List<Users> getChefByOid(int oid){
+		Optional<OrderHistory> u = orderHistoryRepo.findByOid(oid);
+		OrderHistory order = u.get();
+		List<Users> chef = new ArrayList<Users>();
+		chef.add(order.getChef());
+		return chef;
+	}
+	
 }

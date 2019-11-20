@@ -5,7 +5,6 @@ package com.example.demo.orderhistory;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.reviews.Reviews;
 import com.example.demo.user.Users;
-
-import java.util.concurrent.*;
 
 @RestController
 public class OrderHistoryController {
@@ -139,9 +136,14 @@ public class OrderHistoryController {
 		orderHistory.deleteOrder(id);
 	}
 	
+	@RequestMapping("/orderHistory/{oid}/chef")
+	public List<Users> getChefForOrder(@PathVariable Integer oid) {
+		return orderHistory.getChefByOid(oid);
+	}
 	
 	
 	
+
 	
 	public void makeOrderInactive(OrderHistory order) {
 		final Runnable setInactive = new Runnable() {
