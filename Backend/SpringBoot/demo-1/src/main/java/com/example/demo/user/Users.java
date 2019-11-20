@@ -96,7 +96,7 @@ public class Users {
     /**
      * Zip code of User
      */
-    private Integer zip;
+    private String city;
     
 //    @OneToMany(mappedBy = "user")
 //    private List<Allergies> allergies;
@@ -120,7 +120,7 @@ public class Users {
      * @param zip Zip Code
      */
     public Users(String username, String email, String name, String pass, Double rating,
-    		Integer type, String address, String state, Integer zip) {
+    		Integer type, String address, String state, String city) {
     	this.username = username;
     	this.email = email;
     	this.name= name;
@@ -129,7 +129,7 @@ public class Users {
     	this.rating = rating;
     	this.address = address;
     	this.state = state;
-    	this.zip = zip;
+    	this.city = city;
     }
     /**
      * Returns the type of User
@@ -236,15 +236,15 @@ public class Users {
      * Sets the zip code for User
      * @param zip Zip code
      */
-    public void setZip(Integer zip) {
-    	this.zip = zip;
+    public void setCity(String city) {
+    	this.city = city;
     }
     /**
      * Returns zip code of User
      * @return Zip code
      */
-    public Integer getZip() {
-    	return this.zip;
+    public String getCity() {
+    	return this.city;
     }
     /**
      * Returns the email of User

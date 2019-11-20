@@ -40,11 +40,11 @@ public class UserService {
 	}
 	
 
-	public List<Users> getUsersByZipCode(Integer zip){
-		Optional<List<Users>> u = userRepo.findByZipAndUserType(zip,(Integer) 2);
+	public List<Users> getUsersByCity(String city){
+		Optional<List<Users>> u = userRepo.findByCityAndUserType(city,(Integer) 2);
 		return u.get();
 	}
-	/**
+	/*
 	 * Adds User to DB
 	 * @param user User object to be added
 	 */
@@ -89,12 +89,12 @@ public class UserService {
 		userRepo.save(update);
 	}
 	
-	public void updateAddress(String username, String address, String state, Integer zip) {
+	public void updateAddress(String username, String address, String state, String city) {
 		Optional<Users> u = userRepo.findByUsername(username);
 		Users update = u.get();
 		update.setAddress(address);
 		update.setState(state);
-		update.setZip(zip);
+		update.setCity(city);
 		userRepo.save(update);
 	}
 
