@@ -120,6 +120,13 @@ public class OrderHistoryService {
 		update.setDish(dish);
 		orderHistoryRepo.save(update);	
 	}
+	
+	public void updateIsActive(int id, int active) {
+		Optional<OrderHistory> u = orderHistoryRepo.findById(id);
+		OrderHistory update = u.get();
+		update.setActive(active);
+		orderHistoryRepo.save(update);	
+	}
 	/**
 	 * adds a review to a specific order
 	 * @param id id of order
@@ -129,6 +136,7 @@ public class OrderHistoryService {
 		Optional<OrderHistory> u = orderHistoryRepo.findById(id);
 		OrderHistory update = u.get();
 		update.setReview(review);
+		update.setActive(0);
 		orderHistoryRepo.save(update);	
 	}
 	/**

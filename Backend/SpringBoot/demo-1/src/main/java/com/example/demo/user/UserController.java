@@ -41,8 +41,8 @@ public class UserController {
 	 * @param 
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/users/chefs/{city}")
-	public List<Users> getAllChefs(@PathVariable Integer city){
-		return users.getUsersByZipCode(city);
+	public List<Users> getAllChefs(@PathVariable String city){
+		return users.getUsersByCity(city);
 	}
 	
 //	@RequestMapping("/user/{username}/{password}")
@@ -139,8 +139,8 @@ public class UserController {
 	 */
 	@RequestMapping(method = RequestMethod.PUT, path = "/users/{username}/address")
 	public void updateAddress(@PathVariable String username, @RequestBody String address, @RequestBody String state,
-			@RequestBody Integer zip) {
-		users.updateAddress(username, address, state, zip);
+			@RequestBody String city) {
+		users.updateAddress(username, address, state, city);
 	}
 	/**
 	 * Endpoint for deleting User with given username
