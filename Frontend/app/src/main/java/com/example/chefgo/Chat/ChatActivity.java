@@ -39,7 +39,7 @@ public class ChatActivity extends AppCompatActivity {
         t1= findViewById(R.id.tx1);
         con = this;
         user = getIntent().getParcelableExtra("User");
-
+       final String name = getIntent().getParcelableExtra("customer");
         Draft[] drafts = {new Draft_6455()};
 
         /**
@@ -47,7 +47,7 @@ public class ChatActivity extends AppCompatActivity {
          * computer, and change the ip address to that of your computer.
          * If running on the emulator, you can use localhost.
          */
-        String w = "ws://coms-309-sb-3.misc.iastate.edu:8080/getUser/" + user.getUsername();
+        String w = "ws://coms-309-sb-3.misc.iastate.edu:8080/getUser/" + user.getName();
 
         try {
             Log.d("Socket:", "Trying socket");
@@ -94,7 +94,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    cc.send(e2.getText().toString());
+                    cc.send("@"+name+ " " + e2.getText().toString());
                     e2.setText("");
                     InputMethodManager inputManager = (InputMethodManager) con.getSystemService(Context.INPUT_METHOD_SERVICE);
                     inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
