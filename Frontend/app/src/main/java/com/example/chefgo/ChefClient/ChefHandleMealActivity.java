@@ -89,6 +89,7 @@ public class ChefHandleMealActivity extends AppCompatActivity {
                 try {
                     order.put("chef", chefObject);
                     postJSONObjectRequest(chefObject);
+
                 } catch(JSONException e){
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(),

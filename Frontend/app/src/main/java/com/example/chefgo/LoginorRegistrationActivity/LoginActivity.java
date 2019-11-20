@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button login;
     private String URL = "http://coms-309-sb-3.misc.iastate.edu:8080/user";
-    private String notficationWS = "ws://coms-309-sb-3.misc.iastata.edu:8080/notification/";
+    private String notficationWS = "ws://coms-309-sb-3.misc.iastate.edu:8080/notification/";
    //private String URL = "http://10.0.2.2:8080/user";
     private String jsonObjectTag = "jobj_req", tag_json_arry = "jarray_req";
     String tag_string_req ="string_req";
@@ -186,8 +186,8 @@ public class LoginActivity extends AppCompatActivity {
 
         }
         @Override
-        public void onMessage(WebSocket webSocket, String text) {
-            AppController.sendNotification();
+        public void onMessage(WebSocket webSocket, String message) {
+            AppController.sendNotification(message);
         }
         @Override
         public void onClosing(WebSocket webSocket, int code, String reason) {

@@ -3,6 +3,10 @@ package com.example.demo.orderhistory;
  * @author SB_3
  */
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,10 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.reviews.Reviews;
 import com.example.demo.user.Users;
 
+import java.util.concurrent.*;
+
 @RestController
 public class OrderHistoryController {
 	@Autowired
 	private OrderHistoryService orderHistory;
+	public final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	
 	/**
 	 * Endpoint for returning all Orders
@@ -38,6 +45,7 @@ public class OrderHistoryController {
 		OrderHistory order = orderHistory.getOrderByOid(oid);
 		order.setChef(chef);
 		orderHistory.addOrderToHistory(order);
+		makeOrderInactive(order);
 	}
 	
 	/**
@@ -129,5 +137,20 @@ public class OrderHistoryController {
 	@RequestMapping(method = RequestMethod.DELETE, path = "/delete/{id}")
 	public void deleteOrder(@PathVariable Integer id) {
 		orderHistory.deleteOrder(id);
+	}
+	
+	
+	
+	
+	
+	public void makeOrderInactive(OrderHistory order) {
+		final Runnable setInactive = new Runnable() {
+			public void run() {
+				order.setActive(0);
+				orderHistory.updateIsActive(order.getoid(), 0);
+			}
+		};
+		
+		scheduler.schedule(setInactive, 1, TimeUnit.MINUTES);
 	}
 }

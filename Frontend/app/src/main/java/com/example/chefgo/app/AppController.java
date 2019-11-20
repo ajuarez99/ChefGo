@@ -3,7 +3,6 @@ import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.ContentProvider;
 import android.content.Context;
 import android.os.Build;
 import android.text.TextUtils;
@@ -74,8 +73,8 @@ public class AppController extends Application {
         }
     }
 
-    public static void sendNotification(){
-        Notification orderAccepted = new NotificationCompat.Builder(appContext, CHANNEL_1_ID).setSmallIcon(R.drawable.ic_spatula).setContentTitle("Order Accepted").setContentText("Your order has been accepted").setPriority(NotificationCompat.PRIORITY_HIGH).build();
+    public static void sendNotification(String notifMessage){
+        Notification orderAccepted = new NotificationCompat.Builder(appContext, CHANNEL_1_ID).setSmallIcon(R.drawable.ic_spatula).setContentTitle("Order Accepted").setContentText(notifMessage).setPriority(NotificationCompat.PRIORITY_HIGH).build();
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(appContext);
         notificationManager.notify(1, orderAccepted);
     }
