@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
  *
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -51,9 +52,12 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Get the selected item text from ListView
-                String selectedItem = (String) parent.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(), selectedItem, Toast.LENGTH_LONG).show();
+                String selectedOrder = parent.getItemAtPosition(position).toString();
+                Intent customerReviewOrderIntent = new Intent(CustomerOrderHistoryActivity.this, CustomerReviewOrder.class);
+                customerReviewOrderIntent.putExtra("order", selectedOrder);
+                customerReviewOrderIntent.putExtra("User", user);
+                customerReviewOrderIntent.putExtra("oid", getOrderID(selectedOrder));
+                startActivity(customerReviewOrderIntent);
             }
         });
     }
@@ -76,6 +80,7 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
                                 JSONObject order = (JSONObject) response.get(i);
                                 jsonResponse = "";
 
+                                int oid = order.getInt("oid");
                                 String price = order.getString("price");
                                 String dish = order.getString("dish");
                                 String date = order.getString("date");
@@ -91,6 +96,7 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
                                 }
 
                                 if (customerUsername.equals(user.getUsername())) {
+                                    jsonResponse += ("Order id: " + oid + "\n");
                                     jsonResponse += ("Dish: " + dish + "\n");
                                     jsonResponse += ("Chef: " + chefName + "\n");
                                     jsonResponse += ("Price: " + price + "\n");
@@ -125,5 +131,10 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
             }
         });
         AppController.getInstance().addToRequestQueue(req);
+    }
+
+    private int getOrderID(String selectedOrder){
+        String[] orderDescription = selectedOrder.split("\n");
+        return Integer.parseInt(orderDescription[0].replaceAll("[\\D]", ""));
     }
 }
