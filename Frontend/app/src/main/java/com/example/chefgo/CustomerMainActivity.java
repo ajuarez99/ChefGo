@@ -13,7 +13,7 @@ public class CustomerMainActivity extends AppCompatActivity {
     Button customerOrderHistoryButton;
     Button customerOrderMeal;
     Button acceptedMealButton;
-
+    Button map;
     private UsersDomain  user;
 
 
@@ -30,6 +30,15 @@ public class CustomerMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         user = (UsersDomain) getIntent().getParcelableExtra("User");
+        map = findViewById(R.id.map);
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent customerMapIntent = new Intent(CustomerMainActivity.this, CustomerMapsActivity.class);
+                customerMapIntent.putExtra("User", user);
+                startActivity(customerMapIntent);
+            }
+        });
         customerProfileButton = findViewById(R.id.buttonCustomerProfile);
         customerProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override

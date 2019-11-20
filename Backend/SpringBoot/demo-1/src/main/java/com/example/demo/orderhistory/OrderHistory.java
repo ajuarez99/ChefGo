@@ -31,7 +31,7 @@ public class OrderHistory {
 	/**
 	 * Review object for Order
 	 */
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "reviewID")
     private Reviews review;
     

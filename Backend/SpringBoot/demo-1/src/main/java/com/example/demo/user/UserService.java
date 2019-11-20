@@ -38,6 +38,12 @@ public class UserService {
 		Optional<Users> u = userRepo.findByUsername(username);
 		return u.get();
 	}
+	
+
+	public List<Users> getUsersByZipCode(Integer zip){
+		Optional<List<Users>> u = userRepo.findByZipAndUserType(zip,(Integer) 2);
+		return u.get();
+	}
 	/**
 	 * Adds User to DB
 	 * @param user User object to be added
@@ -58,6 +64,7 @@ public class UserService {
 		userRepo.save(update);
 			
 	}
+	
 	/**
 	 * Updates User's email 
 	 * @param username Username of User that needs to be changed

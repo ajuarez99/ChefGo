@@ -6,11 +6,13 @@ package com.example.chefgo.ChefClient;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -38,6 +40,7 @@ public class ChefProfile extends AppCompatActivity {
     ListView chefReviews;
     RatingBar chefRating;
     TextView chefName;
+    Button addMealButton;
 
     private String jsonResponse;
 
@@ -56,6 +59,7 @@ public class ChefProfile extends AppCompatActivity {
         chefReviews = findViewById(R.id.chefReviewList);
         chefRating = findViewById(R.id.chefRating);
         chefName = findViewById(R.id.chefNameText);
+        addMealButton = findViewById(R.id.addMealButton);
 
         //Get user info from last page
         user =  getIntent().getParcelableExtra("User");
@@ -81,6 +85,15 @@ public class ChefProfile extends AppCompatActivity {
                 // Get the selected item text from ListView
                 String selectedItem = (String) parent.getItemAtPosition(position);
                 Toast.makeText(getApplicationContext(), selectedItem, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        addMealButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addMenu = new Intent(ChefProfile.this, AddChefMenu.class);
+                addMenu.putExtra("User", user);
+                startActivity(addMenu);
             }
         });
 
