@@ -22,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.chefgo.Chat.ChatActivity;
 import com.example.chefgo.CustomerOrderMealActivity;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.R;
@@ -53,7 +54,7 @@ public class ChefHandleMealActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chef_handle_meal);
         itemDescription = getIntent().getStringExtra("JSON_RESPONSE");
-        String[] fields = splitJSONResponse(itemDescription);
+        final String[] fields = splitJSONResponse(itemDescription);
         oid = fields[0];
         String jsonString = getIntent().getStringExtra("JSON_OBJECT");
 
@@ -94,6 +95,12 @@ public class ChefHandleMealActivity extends AppCompatActivity {
                             "Error: " + e.getMessage(),
                             Toast.LENGTH_LONG).show();
                 }
+
+                Intent chatIntent = new Intent(ChefHandleMealActivity.this, ChatActivity.class);
+                chatIntent.putExtra("User", user);
+                chatIntent.putExtra("oid", fields[0]);
+                chatIntent.putExtra("customer", fields[3]);
+                startActivity(chatIntent);
             }
         });
     }
