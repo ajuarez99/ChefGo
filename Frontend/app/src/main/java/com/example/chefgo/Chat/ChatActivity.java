@@ -1,8 +1,10 @@
 package com.example.chefgo.Chat;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,7 +28,7 @@ public class ChatActivity extends AppCompatActivity {
     EditText e1,e2;
     TextView t1;
     UsersDomain user;
-
+    Context con;
     private WebSocketClient cc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,7 @@ public class ChatActivity extends AppCompatActivity {
         b2= findViewById(R.id.send);
         e2= findViewById(R.id.et2);
         t1= findViewById(R.id.tx1);
-
+        con = this;
         user = getIntent().getParcelableExtra("User");
 
         Draft[] drafts = {new Draft_6455()};
@@ -53,12 +55,14 @@ public class ChatActivity extends AppCompatActivity {
                 @Override
                 public void onMessage(String message) {
                     Log.d("", "run() returned: " + message);
-                    String s=t1.getText().toString() + " \n";
+                    String s=t1.getText().toString() + " " +
+                            "\n";
                     //t1.setText("hello world");
                     //Log.d("first", "run() returned: " + s);
                     //s=t1.getText().toString();
                     //Log.d("second", "run() returned: " + s);
                     t1.setText(s+message);
+                    e2.setText("");
                 }
 
                 @Override
@@ -91,6 +95,9 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     cc.send(e2.getText().toString());
+                    e2.setText("");
+                    InputMethodManager inputManager = (InputMethodManager) con.getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
                 catch (Exception e)
                 {
