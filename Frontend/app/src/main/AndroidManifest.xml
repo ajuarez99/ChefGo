@@ -46,6 +46,7 @@
             android:value="AIzaSyBNgw4qONbniAT7WunoStTfr9CvGlePp" />
 
         <activity android:name=".CustomerMapsActivity"/>
+        <activity android:name=".CustomerReviewOrder"/>
         <activity android:name=".CustomerMealAccepted" />
         <activity android:name=".AllergiesActivity" />
         <activity android:name=".ChefClient.ChefHandleMealActivity" />

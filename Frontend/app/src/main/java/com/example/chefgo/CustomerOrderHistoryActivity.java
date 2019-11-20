@@ -36,6 +36,7 @@ import static com.example.chefgo.app.AppController.TAG;
 
 public class CustomerOrderHistoryActivity extends AppCompatActivity {
 
+    TextView description;
     ListView listView;
     UsersDomain user;
     private String  URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory", jsonResponse;
@@ -47,6 +48,7 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
         user = new UsersDomain();
         user = getIntent().getParcelableExtra("User");
         listView = findViewById(R.id.listview);
+        description = findViewById(R.id.orderHistoryDescription);
 
         getJSONArrayRequest();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -75,7 +77,7 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
                             // loop through each json object
                             ArrayList<String> arrayList = new ArrayList<>();
 
-                            for (int i = 0; i < response.length(); i++) {
+                            for (int i = response.length()-1; i >= 0; i--) {
 
                                 JSONObject order = (JSONObject) response.get(i);
                                 jsonResponse = "";
@@ -107,7 +109,7 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
 
                             }
                             if (arrayList.isEmpty()){
-                                //display that the user has no order history
+                                description.setText("You have no order history.");
                             }
                             ArrayAdapter arrayAdapter = new ArrayAdapter(CustomerOrderHistoryActivity.this, android.R.layout.simple_list_item_1, arrayList);
                             listView.setAdapter(arrayAdapter);

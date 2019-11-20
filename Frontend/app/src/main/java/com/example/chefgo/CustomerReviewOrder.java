@@ -53,10 +53,12 @@ public class CustomerReviewOrder extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_review_order);
 
+
         selectedOrder = getIntent().getStringExtra("order");
         user = getIntent().getParcelableExtra("User");
         oid = getIntent().getIntExtra("oid", oid);
         add_review_url += oid;
+
 
         orderDescriptionTitle = findViewById(R.id.orderDescriptionTitle);
         orderDescription = findViewById(R.id.orderDescription);
@@ -94,6 +96,7 @@ public class CustomerReviewOrder extends AppCompatActivity {
                     submitReview.setOnClickListener(new View.OnClickListener(){
                         public void onClick(View v){
                             createReview();
+                            Toast.makeText(getApplicationContext(), "Review submitted", Toast.LENGTH_LONG).show();
                         }
                     });
                 }
@@ -102,13 +105,19 @@ public class CustomerReviewOrder extends AppCompatActivity {
     }
 
     private void displayReview(){
+        reviewBox.setEnabled(false);
+        reviewBox.setClickable(false);
+        ratingBar.setEnabled(false);
+        ratingBar.setClickable(false);
+        submitReview.setVisibility(View.INVISIBLE);
+
         try{
-            reviewBox.setText(order.getJSONObject("review").getString("description"));
-            reviewBox.setEnabled(false);
-            reviewBox.setClickable(false);
-            ratingBar.setEnabled(false);
-            ratingBar.setClickable(false);
-            submitReview.setVisibility(View.INVISIBLE);
+            if (order.getJSONObject("review").getString("description").equals("")){
+                reviewBox.setText("No description provided");
+            }
+            else {
+                reviewBox.setText(order.getJSONObject("review").getString("description"));
+            }
 
             if (order.getJSONObject("review").isNull("rating")){
                 ratingBar.setRating(0);
@@ -177,7 +186,7 @@ public class CustomerReviewOrder extends AppCompatActivity {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        Toast.makeText(CustomerReviewOrder.this, "Review submitted successfully", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Review submitted successfully", Toast.LENGTH_LONG).show();
                         reviewBox.setText("");
                     }
                 }, new Response.ErrorListener() {
