@@ -78,8 +78,8 @@ public class CustomerMapsActivity extends FragmentActivity implements OnMapReady
         geocode = new CustomerGeoCode();
         LatLng currentUserLocation = geocode.getLocationFromAddress(this, user.getAddress()+ ", " +user.getState() );
 
-       // mMap.addMarker(new MarkerOptions().position(currentUserLocation).title("MyHome").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-     //   mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentUserLocation,17));
+        mMap.addMarker(new MarkerOptions().position(currentUserLocation).title("MyHome").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentUserLocation,17));
 
         for(int i =0;i<chefs.size();i++){
             LatLng chefHomeLocation = geocode.getLocationFromAddress(this, chefs.get(i).getAddress() + ", " + chefs.get(i).getState());
