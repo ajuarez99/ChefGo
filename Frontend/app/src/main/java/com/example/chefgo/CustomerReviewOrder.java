@@ -75,30 +75,30 @@ public class CustomerReviewOrder extends AppCompatActivity {
         setOrder(new VolleyCallBack() {
             @Override
             public void onSuccess() {
+                try {
+                    //order has already been reviewed
+                    if (order.has("review") && !order.isNull("review")) {
+                        displayReview();
+                    }
+                    //order hasn't been review and is no longer active
+                    else if (order.has("review") && !order.isNull("review") && (order.getInt("isActive") == 0)) {
+                        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                            @Override
+                            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                                ratingBar.setRating(v);
+                                reviewRating = v;
+                            }
+                        });
 
-                if (order == null || !order.has("review")){
-                    Toast.makeText(getApplicationContext(), "Order not found", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                //order has already been reviewed
-                else if (order.has("review") && !order.isNull("review")){
-                    displayReview();
-                }
-                else{
-                    ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-                        @Override
-                        public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                            ratingBar.setRating(v);
-                            reviewRating = v;
-                        }
-                    });
-
-                    submitReview.setOnClickListener(new View.OnClickListener(){
-                        public void onClick(View v){
-                            createReview();
-                            Toast.makeText(getApplicationContext(), "Review submitted", Toast.LENGTH_LONG).show();
-                        }
-                    });
+                        submitReview.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                createReview();
+                                Toast.makeText(getApplicationContext(), "Review submitted.", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                } catch (JSONException e){
+                    e.printStackTrace();
                 }
             }
         });

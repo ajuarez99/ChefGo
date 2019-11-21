@@ -74,10 +74,10 @@ public class CustomerOrderMealActivity extends AppCompatActivity {
         customerMap.put("state", user.getState());
         customerMap.put("zip", user.getZip().toString());
         JSONObject customerObject = new JSONObject(customerMap);
-        int x = Integer.MAX_VALUE;
+
         Map<String, String> orderMap = new HashMap<>();
         orderMap.put("isActive", "1");
-        orderMap.put("oid", Integer.toString(x));
+        orderMap.put("oid", Integer.toString(Integer.MAX_VALUE));
         orderMap.put("price", price);
         orderMap.put("dish", meal);
         orderMap.put("chef", null);
