@@ -23,6 +23,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".CustomerSeeChefProfile"></activity>
         <activity
             android:name=".Chat.ChatActivity"
             android:label="@string/title_activity_chat"
@@ -47,8 +48,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBNgw4qONbniAT7WunoStTfr9CvGlePp" />
 
-        <activity android:name=".CustomerMapsActivity"/>
-        <activity android:name=".CustomerReviewOrder"/>
+        <activity android:name=".CustomerMapsActivity" />
+        <activity android:name=".CustomerReviewOrder" />
         <activity android:name=".CustomerMealAccepted" />
         <activity android:name=".AllergiesActivity" />
         <activity android:name=".ChefClient.ChefHandleMealActivity" />
