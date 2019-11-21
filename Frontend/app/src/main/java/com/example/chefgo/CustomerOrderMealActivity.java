@@ -1,7 +1,5 @@
 package com.example.chefgo;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -74,10 +74,10 @@ public class CustomerOrderMealActivity extends AppCompatActivity {
         customerMap.put("state", user.getState());
         customerMap.put("zip", user.getZip().toString());
         JSONObject customerObject = new JSONObject(customerMap);
-
+        int x = Integer.MAX_VALUE;
         Map<String, String> orderMap = new HashMap<>();
         orderMap.put("isActive", "1");
-        orderMap.put("oid", "12");
+        orderMap.put("oid", Integer.toString(x));
         orderMap.put("price", price);
         orderMap.put("dish", meal);
         orderMap.put("chef", null);
