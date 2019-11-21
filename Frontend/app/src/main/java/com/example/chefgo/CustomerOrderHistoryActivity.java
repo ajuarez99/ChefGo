@@ -94,7 +94,7 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
                             if (arrayList.isEmpty()){
                                 description.setText("You have no order history.");
                             }
-                            OrderHistoryAdapter arrayAdapter = new OrderHistoryAdapter(arrayList, ctx,user);
+                            OrderHistoryAdapter arrayAdapter = new OrderHistoryAdapter(arrayList, ctx);
                             listView.setAdapter(arrayAdapter);
 
                         } catch (JSONException e) {
@@ -123,3 +123,4 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
         return Integer.parseInt(orderDescription[0].replaceAll("[\\D]", ""));
     }
 }
+

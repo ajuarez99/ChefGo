@@ -15,4 +15,5 @@
     <string name="title_activity_customer_maps">Map</string>
     <string name="title_activity_chat">ChatActivity</string>
     <string name="order_history_adapt">Meal</string>
+
 </resources>
