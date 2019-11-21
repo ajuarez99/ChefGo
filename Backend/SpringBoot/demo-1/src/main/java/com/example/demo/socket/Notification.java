@@ -61,16 +61,22 @@ public class Notification {
     {
         // Handle new messages
     	Users recipient = null;
+    	Users sender = userService.getUserByUsername(username);
     	logger.info("Entered into Message: Got Message:"+message);
-    	if(userService.getUserByUsername(username).getUserType() == 2) recipient = orderService.getOrderByOid(oid).getCustomer();
-    	if(userService.getUserByUsername(username).getUserType() == 1) recipient = orderService.getOrderByOid(oid).getChef();
+    	if(userService.getUserByUsername(username).getUserType() == 2) {
+    		recipient = orderService.getOrderByOid(oid).getCustomer();
+    		
+    	}
+    	if(userService.getUserByUsername(username).getUserType() == 1) { 
+    		recipient = orderService.getOrderByOid(oid).getChef();
+    	}
     	
     	if(recipient.equals(null)) logger.info("Recipient is invalid");
     	else {
     		Session toSend = usernameSessionMap.get(recipient.getUsername());
-    		toSend.getBasicRemote().sendText(recipient.getName() + ": " + message);
+    		toSend.getBasicRemote().sendText(sender.getName() + ": " + message);
+    		session.getBasicRemote().sendText(sender.getName() + ": " + message);
     	}
-
     }
  
     @OnClose
