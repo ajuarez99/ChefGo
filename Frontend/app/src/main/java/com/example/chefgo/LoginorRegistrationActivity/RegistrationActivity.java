@@ -96,6 +96,10 @@ public class RegistrationActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Passwords dont match", Toast.LENGTH_SHORT).show();
                 return;
             }
+            if(!ValidationRegister.validateAddress(this, address.getText().toString(), state.getSelectedItem().toString())){
+                Toast.makeText(getApplicationContext(), "Address is not valid", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             String checkURL = URL2 +"/"+username.getText().toString();
             validateNewUser(checkURL);
@@ -105,14 +109,14 @@ public class RegistrationActivity extends AppCompatActivity {
             Map<String, String> params = new HashMap();
             params.put("username", username.getText().toString());
             params.put("email", email.getText().toString());
-            params.put("fName", fname.getText().toString());
+            params.put("name", fname.getText().toString() + " " + lname.getText().toString());
             params.put("password", password.getText().toString());
             params.put("userType", "1");
             params.put("rating", "5");
             params.put("address", address.getText().toString());
             params.put("state", state.getSelectedItem().toString());
             params.put("zip", zipcode.getText().toString());
-            params.put("lname", lname.getText().toString());
+
 
 
             JSONObject parameters = new JSONObject(params);
@@ -123,7 +127,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     Intent customer = new Intent(RegistrationActivity.this, CustomerMainActivity.class);
                     user.setUsername(username.getText().toString());
                     user.setEmail(email.getText().toString());
-                    user.setName(fname.getText().toString());
+                    user.setName(fname.getText().toString() + " " + lname.getText().toString());
                     user.setAddress(address.getText().toString());
                     user.setState(state.getSelectedItem().toString());
                     user.setZip(Integer.parseInt(zipcode.getText().toString()));

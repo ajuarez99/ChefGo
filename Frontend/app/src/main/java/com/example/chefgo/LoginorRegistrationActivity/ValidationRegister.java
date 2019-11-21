@@ -4,6 +4,7 @@ package com.example.chefgo.LoginorRegistrationActivity;
  *
  */
 
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.chefgo.AdminClient.AdminActivity;
 import com.example.chefgo.ChefClient.ChefMainActivity;
 import com.example.chefgo.CustomerMainActivity;
+import com.example.chefgo.Geocoding.CustomerGeoCode;
 import com.example.chefgo.app.AppController;
 
 import org.json.JSONException;
@@ -52,6 +54,12 @@ public class ValidationRegister {
             else{
                 return false;
             }
+        }
+
+        public static boolean validateAddress(final Context ctx, String address, String state){
+            CustomerGeoCode geoCode = new CustomerGeoCode();
+
+            return geoCode.getLocationFromAddress(ctx, address + ", "+state) != null;
         }
 
 }
