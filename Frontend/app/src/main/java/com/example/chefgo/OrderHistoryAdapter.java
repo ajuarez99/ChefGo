@@ -80,9 +80,17 @@ public class OrderHistoryAdapter extends BaseAdapter implements ListAdapter {
 
         TextView listItemText = (TextView)view.findViewById(R.id.list_itm_string);
         listItemText.setText(list.get(position));
-
+        String orderToCheck = list.get(position);
+        int active = orderToCheck.indexOf("Active");
+        active += 8;
+        String isActive = "";
+        while(orderToCheck.charAt(active) != '\n'){
+            isActive += orderToCheck.charAt(active);
+            active++;
+        }
 
         Button reviewsBtn = (Button)view.findViewById(R.id.review_btn);
+        if(isActive.equalsIgnoreCase("yes")) reviewsBtn.setText("Chat");
         Button profileBtn = (Button)view.findViewById(R.id.chefProfile_btn);
 
         final View vi = view;
