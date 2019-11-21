@@ -15,5 +15,6 @@
     <string name="title_activity_customer_maps">Map</string>
     <string name="title_activity_chat">ChatActivity</string>
     <string name="order_history_adapt">Meal</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDL-rsojGA1NL-MGY3sl4t5ciRFMN4iB2o</string>
 
 </resources>

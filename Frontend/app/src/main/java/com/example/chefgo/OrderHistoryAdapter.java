@@ -155,7 +155,7 @@ public class OrderHistoryAdapter extends BaseAdapter implements ListAdapter {
                 // Adding request to request queue
                 AppController.getInstance().addToRequestQueue(req);
 
-               
+
             }
         });
 

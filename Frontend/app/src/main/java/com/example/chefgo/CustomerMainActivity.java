@@ -41,15 +41,7 @@ public class CustomerMainActivity extends AppCompatActivity {
                 startActivity(customerMapIntent);
             }
         });
-        chat = findViewById(R.id.chat);
-        chat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent chatIntent = new Intent(CustomerMainActivity.this, ChatActivity.class);
-                chatIntent.putExtra("User", user);
-                startActivity(chatIntent);
-            }
-        });
+
         customerProfileButton = findViewById(R.id.buttonCustomerProfile);
         customerProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override

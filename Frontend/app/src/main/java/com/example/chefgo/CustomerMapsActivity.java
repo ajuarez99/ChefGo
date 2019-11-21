@@ -2,7 +2,10 @@ package com.example.chefgo;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Address;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.chefgo.AdminClient.UsersAdapter;
+import com.example.chefgo.Chat.ChatActivity;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.Geocoding.CustomerGeoCode;
 import com.example.chefgo.app.AppController;
@@ -22,6 +26,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
@@ -73,14 +78,47 @@ public class CustomerMapsActivity extends FragmentActivity implements OnMapReady
         geocode = new CustomerGeoCode();
         LatLng currentUserLocation = geocode.getLocationFromAddress(this, user.getAddress()+ ", " +user.getState() );
 
-        mMap.addMarker(new MarkerOptions().position(currentUserLocation).title("Marker in home").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentUserLocation,17));
+       // mMap.addMarker(new MarkerOptions().position(currentUserLocation).title("MyHome").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+     //   mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentUserLocation,17));
 
         for(int i =0;i<chefs.size();i++){
             LatLng chefHomeLocation = geocode.getLocationFromAddress(this, chefs.get(i).getAddress() + ", " + chefs.get(i).getState());
-            mMap.addMarker((new MarkerOptions().position(chefHomeLocation).title(""+chefs.get(i).getName())));
+            mMap.addMarker((new MarkerOptions().position(chefHomeLocation).title(i+ ") " +chefs.get(i).getUsername())));
         }
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
+        {
+
+            @Override
+            public boolean onMarkerClick(final Marker arg0) {
+
+                    // Use the Builder class for convenient dialog construction
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CustomerMapsActivity.this);
+                    builder.setMessage("See Chef Profile?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Intent chefProfile = new Intent(CustomerMapsActivity.this, CustomerSeeChefProfile.class);
+                                    String chefIndex = arg0.getTitle().charAt(0) + "";
+                                    UsersDomain chef = chefs.get(Integer.parseInt(chefIndex));
+                                    chefProfile.putExtra("user", chef);
+                                    startActivity(chefProfile);
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // User cancelled the dialog
+                                }
+                            });
+                    // Create the AlertDialog object and return it
+                    builder.show();
+
+
+                return true;
+            }// if marker source is clicked
+                // display toast
+
+        });
     }
+
 
     private void getJSONArrayRequest(final SupportMapFragment map , final OnMapReadyCallback ready){
 
