@@ -4,7 +4,25 @@ package com.example.chefgo.LoginorRegistrationActivity;
  *
  */
 
+import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.example.chefgo.AdminClient.AdminActivity;
+import com.example.chefgo.ChefClient.ChefMainActivity;
+import com.example.chefgo.CustomerMainActivity;
+import com.example.chefgo.app.AppController;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import static com.example.chefgo.app.AppController.TAG;
 
 public class ValidationRegister {
 
@@ -34,5 +52,6 @@ public class ValidationRegister {
             else{
                 return false;
             }
-            }
+        }
+
 }
