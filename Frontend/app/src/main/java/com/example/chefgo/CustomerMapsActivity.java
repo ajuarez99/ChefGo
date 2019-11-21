@@ -92,13 +92,13 @@ public class CustomerMapsActivity extends FragmentActivity implements OnMapReady
             public boolean onMarkerClick(final Marker arg0) {
 
                     // Use the Builder class for convenient dialog construction
+                String chefIndex = arg0.getTitle().charAt(0) + "";
+               final UsersDomain chef = chefs.get(Integer.parseInt(chefIndex));
                     AlertDialog.Builder builder = new AlertDialog.Builder(CustomerMapsActivity.this);
-                    builder.setMessage("See Chef Profile?")
+                    builder.setMessage("See "+ chef.getName()+  " Profile?" + "\n" +"Rating: " + chef.getRating())
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     Intent chefProfile = new Intent(CustomerMapsActivity.this, CustomerSeeChefProfile.class);
-                                    String chefIndex = arg0.getTitle().charAt(0) + "";
-                                    UsersDomain chef = chefs.get(Integer.parseInt(chefIndex));
                                     chefProfile.putExtra("user", chef);
                                     startActivity(chefProfile);
                                 }
