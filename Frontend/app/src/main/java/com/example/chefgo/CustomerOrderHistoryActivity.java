@@ -45,17 +45,6 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
         description = findViewById(R.id.orderHistoryDescription);
 
         getJSONArrayRequest(this);
-/*        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedOrder = parent.getItemAtPosition(position).toString();
-                Intent customerReviewOrderIntent = new Intent(CustomerOrderHistoryActivity.this, CustomerReviewOrder.class);
-                customerReviewOrderIntent.putExtra("order", selectedOrder);
-                customerReviewOrderIntent.putExtra("User", user);
-                customerReviewOrderIntent.putExtra("oid", getOrderID(selectedOrder));
-                startActivity(customerReviewOrderIntent);
-            }
-        });*/
     }
 
     private void getJSONArrayRequest(final Context ctx){
