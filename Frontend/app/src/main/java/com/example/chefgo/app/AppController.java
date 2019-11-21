@@ -3,7 +3,9 @@ import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.text.TextUtils;
 
@@ -14,6 +16,8 @@ import com.android.volley.toolbox.Volley;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
+import com.example.chefgo.Chat.ChatActivity;
+import com.example.chefgo.CustomerOrderMealActivity;
 import com.example.chefgo.R;
 import com.example.chefgo.net_util.LruBitmapCache;
 
@@ -74,7 +78,14 @@ public class AppController extends Application {
     }
 
     public static void sendNotification(String notifMessage){
-        Notification orderAccepted = new NotificationCompat.Builder(appContext, CHANNEL_1_ID).setSmallIcon(R.drawable.ic_spatula).setContentTitle("Order Accepted").setContentText(notifMessage).setPriority(NotificationCompat.PRIORITY_HIGH).build();
+        Intent intent = new Intent(appContext, ChatActivity.class);
+        PendingIntent chat = PendingIntent.getActivity(appContext, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Notification orderAccepted = new NotificationCompat.Builder(appContext, CHANNEL_1_ID).setSmallIcon(R.drawable.ic_spatula)
+                .setContentTitle("Order Accepted")
+                .setContentText(notifMessage)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(chat)
+                .build();
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(appContext);
         notificationManager.notify(1, orderAccepted);
     }

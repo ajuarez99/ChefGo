@@ -51,12 +51,14 @@ public class LoginActivity extends AppCompatActivity {
    //private String URL = "http://10.0.2.2:8080/user";
     private String jsonObjectTag = "jobj_req", tag_json_arry = "jarray_req";
     String tag_string_req ="string_req";
-    private UsersDomain user = new UsersDomain();
+    public static UsersDomain user = new UsersDomain();
     EditText username;
     EditText password;
     private Button register;
     private OkHttpClient client;
     public static WebSocket ws;
+    public static String chatOID;
+    private static int messageSeq = 0;
 
 
     @Override
@@ -186,7 +188,14 @@ public class LoginActivity extends AppCompatActivity {
         }
         @Override
         public void onMessage(WebSocket webSocket, String message) {
-            AppController.sendNotification(message);
+            if(messageSeq == 0) {
+                chatOID = message;
+                messageSeq++;
+            }
+            else{
+                AppController.sendNotification(message);
+                messageSeq = 0;
+            }
         }
         @Override
         public void onClosing(WebSocket webSocket, int code, String reason) {

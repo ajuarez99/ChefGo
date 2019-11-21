@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.chefgo.DomainObjects.OrderHistoryDomain;
 import com.example.chefgo.DomainObjects.UsersDomain;
+import com.example.chefgo.LoginorRegistrationActivity.LoginActivity;
 import com.example.chefgo.R;
 
 import org.java_websocket.client.WebSocketClient;
@@ -30,6 +31,7 @@ public class ChatActivity extends AppCompatActivity {
     TextView t1;
     UsersDomain user;
     Context con;
+    String oid;
     private WebSocketClient cc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,9 @@ public class ChatActivity extends AppCompatActivity {
         t1= findViewById(R.id.tx1);
         con = this;
         user = getIntent().getParcelableExtra("User");
-        String oid = getIntent().getStringExtra("oid");
+        if(user == null) user = LoginActivity.user;
+        oid = getIntent().getStringExtra("oid");
+        if(oid == null) oid = LoginActivity.chatOID;
         Draft[] drafts = {new Draft_6455()};
 
         /**

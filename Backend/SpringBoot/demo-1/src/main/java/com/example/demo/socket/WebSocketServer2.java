@@ -62,6 +62,7 @@ public class WebSocketServer2 {
     		logger.info(order.getCustomer().getUsername());
     		Session customer = usernameSessionMap.get(order.getCustomer().getUsername());
     		String response = userService.getUserByUsername(username).getName() + " has accepted your order";
+    		customer.getBasicRemote().sendText(oid+"");
     		customer.getBasicRemote().sendText(response);
     	}
     	catch(NumberFormatException e) {
