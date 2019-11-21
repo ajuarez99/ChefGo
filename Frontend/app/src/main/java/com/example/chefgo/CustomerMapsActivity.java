@@ -135,13 +135,18 @@ public class CustomerMapsActivity extends FragmentActivity implements OnMapReady
 
                             for (int i = 0; i < response.length(); i++) {
                                 UsersDomain chef = new UsersDomain();
-                                JSONObject order = (JSONObject) response.get(i);
 
 
-                                 chef.setUsername(order.getString("username"));
-                                 chef.setName(order.getString("name"));
-                                 chef.setAddress((order.getString("address")));
-                                 chef.setState(order.getString("state"));
+                                JSONObject person = (JSONObject) response.get(i);
+                                chef.setUsername(person.getString("username"));
+                                chef.setEmail(person.getString("email"));
+                                chef.setName(person.getString("name"));
+                                chef.setAddress(person.getString("address"));
+                                chef.setState(person.getString("state"));
+                                chef.setZip(person.getInt("zip"));
+                                chef.setPassword(person.getString("password"));
+                                chef.setRating(person.getDouble("rating"));
+                                chef.setUserType(person.getInt("userType"));
 
 
 
