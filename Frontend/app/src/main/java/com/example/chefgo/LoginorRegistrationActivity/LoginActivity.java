@@ -176,7 +176,6 @@ public class LoginActivity extends AppCompatActivity {
         okhttp3.Request request = new okhttp3.Request.Builder().url(notficationWS + username).build();
         EchoWebSocketListener listener = new EchoWebSocketListener();
         ws = client.newWebSocket(request, listener);
-        client.dispatcher().executorService().shutdown();
     }
 
     public final class EchoWebSocketListener extends WebSocketListener {

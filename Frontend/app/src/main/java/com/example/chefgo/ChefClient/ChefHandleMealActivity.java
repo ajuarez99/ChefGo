@@ -37,6 +37,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.WebSocket.*;
+import okhttp3.WebSocketListener;
+
 import static com.example.chefgo.app.AppController.TAG;
 
 public class ChefHandleMealActivity extends AppCompatActivity {
