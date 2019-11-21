@@ -14,7 +14,7 @@
         android:textSize="50dp"
         android:text="Order History" />
     <TextView
-        android:id="@+id/help"
+        android:id="@+id/orderHistoryDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
@@ -26,6 +26,6 @@
         android:id="@+id/listview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/help" />
+        android:layout_below="@id/orderHistoryDescription" />
 
 </RelativeLayout>

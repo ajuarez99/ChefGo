@@ -3,6 +3,9 @@ package com.example.demo.orderhistory;
  * @author SB_3
  */
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +21,7 @@ import com.example.demo.user.Users;
 public class OrderHistoryController {
 	@Autowired
 	private OrderHistoryService orderHistory;
+	public final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	
 	/**
 	 * Endpoint for returning all Orders
@@ -38,6 +42,7 @@ public class OrderHistoryController {
 		OrderHistory order = orderHistory.getOrderByOid(oid);
 		order.setChef(chef);
 		orderHistory.addOrderToHistory(order);
+		makeOrderInactive(order);
 	}
 	
 	/**
@@ -103,6 +108,11 @@ public class OrderHistoryController {
 		return orderHistory.getOrderByChefName(username);
 	}
 	
+	/**
+	 * Endpoint for getting all Order objects for a specific Customer
+	 * @param username Username of user
+	 * @return	List of all Order objects where specified user is assigned to Customer
+	 */
 	@RequestMapping("/orderHistory/cust/{username}")
 	public List<OrderHistory> getAllOrdersByCust(@PathVariable String username) {
 		return orderHistory.getOrderByCustName(username);
@@ -124,5 +134,25 @@ public class OrderHistoryController {
 	@RequestMapping(method = RequestMethod.DELETE, path = "/delete/{id}")
 	public void deleteOrder(@PathVariable Integer id) {
 		orderHistory.deleteOrder(id);
+	}
+	
+	@RequestMapping("/orderHistory/{oid}/chef")
+	public List<Users> getChefForOrder(@PathVariable Integer oid) {
+		return orderHistory.getChefByOid(oid);
+	}
+	
+	
+	
+
+	
+	public void makeOrderInactive(OrderHistory order) {
+		final Runnable setInactive = new Runnable() {
+			public void run() {
+				order.setActive(0);
+				orderHistory.updateIsActive(order.getoid(), 0);
+			}
+		};
+		
+		scheduler.schedule(setInactive, 1, TimeUnit.MINUTES);
 	}
 }

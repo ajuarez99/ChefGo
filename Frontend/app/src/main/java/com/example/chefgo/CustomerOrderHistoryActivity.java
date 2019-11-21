@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
  *
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,6 +36,7 @@ import static com.example.chefgo.app.AppController.TAG;
 
 public class CustomerOrderHistoryActivity extends AppCompatActivity {
 
+    TextView description;
     ListView listView;
     UsersDomain user;
     private String  URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory", jsonResponse;
@@ -46,14 +48,18 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
         user = new UsersDomain();
         user = getIntent().getParcelableExtra("User");
         listView = findViewById(R.id.listview);
+        description = findViewById(R.id.orderHistoryDescription);
 
         getJSONArrayRequest();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Get the selected item text from ListView
-                String selectedItem = (String) parent.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(), selectedItem, Toast.LENGTH_LONG).show();
+                String selectedOrder = parent.getItemAtPosition(position).toString();
+                Intent customerReviewOrderIntent = new Intent(CustomerOrderHistoryActivity.this, CustomerReviewOrder.class);
+                customerReviewOrderIntent.putExtra("order", selectedOrder);
+                customerReviewOrderIntent.putExtra("User", user);
+                customerReviewOrderIntent.putExtra("oid", getOrderID(selectedOrder));
+                startActivity(customerReviewOrderIntent);
             }
         });
     }
@@ -71,11 +77,12 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
                             // loop through each json object
                             ArrayList<String> arrayList = new ArrayList<>();
 
-                            for (int i = 0; i < response.length(); i++) {
+                            for (int i = response.length()-1; i >= 0; i--) {
 
                                 JSONObject order = (JSONObject) response.get(i);
                                 jsonResponse = "";
 
+                                int oid = order.getInt("oid");
                                 String price = order.getString("price");
                                 String dish = order.getString("dish");
                                 String date = order.getString("date");
@@ -91,6 +98,7 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
                                 }
 
                                 if (customerUsername.equals(user.getUsername())) {
+                                    jsonResponse += ("Order id: " + oid + "\n");
                                     jsonResponse += ("Dish: " + dish + "\n");
                                     jsonResponse += ("Chef: " + chefName + "\n");
                                     jsonResponse += ("Price: " + price + "\n");
@@ -101,7 +109,7 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
 
                             }
                             if (arrayList.isEmpty()){
-                                //display that the user has no order history
+                                description.setText("You have no order history.");
                             }
                             ArrayAdapter arrayAdapter = new ArrayAdapter(CustomerOrderHistoryActivity.this, android.R.layout.simple_list_item_1, arrayList);
                             listView.setAdapter(arrayAdapter);
@@ -125,5 +133,10 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
             }
         });
         AppController.getInstance().addToRequestQueue(req);
+    }
+
+    private int getOrderID(String selectedOrder){
+        String[] orderDescription = selectedOrder.split("\n");
+        return Integer.parseInt(orderDescription[0].replaceAll("[\\D]", ""));
     }
 }

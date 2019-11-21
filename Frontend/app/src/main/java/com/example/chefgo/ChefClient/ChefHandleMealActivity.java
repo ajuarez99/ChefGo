@@ -25,6 +25,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.chefgo.Chat.ChatActivity;
 import com.example.chefgo.CustomerOrderMealActivity;
 import com.example.chefgo.DomainObjects.UsersDomain;
+import com.example.chefgo.LoginorRegistrationActivity.LoginActivity;
 import com.example.chefgo.R;
 import com.example.chefgo.app.AppController;
 
@@ -36,6 +37,11 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.WebSocket.*;
+import okhttp3.WebSocketListener;
 
 import static com.example.chefgo.app.AppController.TAG;
 
@@ -89,6 +95,7 @@ public class ChefHandleMealActivity extends AppCompatActivity {
                 try {
                     order.put("chef", chefObject);
                     postJSONObjectRequest(chefObject);
+
                 } catch(JSONException e){
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(),
@@ -121,6 +128,7 @@ public class ChefHandleMealActivity extends AppCompatActivity {
             }
         });
         AppController.getInstance().addToRequestQueue(jsonObjReq);
+        LoginActivity.ws.send(oid);
     }
 
     /**

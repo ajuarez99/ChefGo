@@ -16,7 +16,7 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
-
+0
     buildTypes {
         release {
             minifyEnabled false
