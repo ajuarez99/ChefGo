@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
+
 import java.io.IOException;
 import java.util.List;
 
@@ -17,12 +18,13 @@ public class CustomerGeoCode {
 
     }
 
-    public LatLng getLocationFromAddress(Context context, String inputtedAddress) {
+    public LatLng getLocationFromAddress(Context context, String inputtedAddress) throws NullPointerException {
         //consrtuct that geo coder
         Geocoder coder = new Geocoder(context);
         List<Address> address;
-        LatLng resLatLng = null;
+        //LatLng resLatLng = null;
 
+        LatLng resLatLng = null;
         try {
 
             address = coder.getFromLocationName(inputtedAddress, 5);

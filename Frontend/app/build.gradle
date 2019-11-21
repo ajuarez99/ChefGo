@@ -16,7 +16,7 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
-0
+    0
     buildTypes {
         release {
             minifyEnabled false
@@ -27,6 +27,9 @@ android {
 
 }
 
+repositories {
+    mavenCentral()
+}
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.0.2'
