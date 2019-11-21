@@ -58,7 +58,10 @@ public class ChatActivity extends AppCompatActivity {
                     Log.d("", "run() returned: " + message);
                     String s=t1.getText().toString() + " " +
                             "\n";
-
+                    //t1.setText("hello world");
+                    //Log.d("first", "run() returned: " + s);
+                    //s=t1.getText().toString();
+                    //Log.d("second", "run() returned: " + s);
                     t1.setText(s+message);
                     e2.setText("");
                 }
@@ -94,7 +97,6 @@ public class ChatActivity extends AppCompatActivity {
                 try {
                     cc.send( e2.getText().toString());
                     e2.setText("");
-
                     InputMethodManager inputManager = (InputMethodManager) con.getSystemService(Context.INPUT_METHOD_SERVICE);
                     inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }

@@ -15,7 +15,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.example.chefgo.Chat.ChatActivity;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.app.AppController;
 
@@ -32,12 +31,11 @@ public class OrderHistoryAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<String> list = new ArrayList<String>();
     private Context context;
     private String jsonResponse;
-    private UsersDomain user;
+    private UsersDomain user = new UsersDomain();
 
-    public OrderHistoryAdapter(ArrayList<String> list, Context context,UsersDomain user) {
+    public OrderHistoryAdapter(ArrayList<String> list, Context context) {
         this.list = list;
         this.context = context;
-        this.user = user;
     }
 
     /**
@@ -90,9 +88,8 @@ public class OrderHistoryAdapter extends BaseAdapter implements ListAdapter {
         reviewsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               final String order = list.get(position);
+                String order = list.get(position);
                 String oid = "";
-                final UsersDomain chef = new UsersDomain();
                 int i = 10;
                 while(order.charAt(i) != '\n'){
                     oid += order.charAt(i);
@@ -111,34 +108,15 @@ public class OrderHistoryAdapter extends BaseAdapter implements ListAdapter {
                                     jsonResponse = "";
                                     for (int i = 0; i < response.length(); i++) {
                                         JSONObject person = (JSONObject) response.get(i);
-                                        chef.setUsername(person.getString("username"));
-                                        chef.setEmail(person.getString("email"));
-                                        chef.setName(person.getString("name"));
-                                        chef.setAddress(person.getString("address"));
-                                        chef.setState(person.getString("state"));
-                                        chef.setZip(person.getInt("zip"));
-                                        chef.setPassword(person.getString("password"));
-                                        chef.setRating(person.getDouble("rating"));
-                                        chef.setUserType(person.getInt("userType"));
-
-                                    }
-                                    int oid = getOrderID(order);
-                                    String active = getActive(order);
-
-                                    if(active.equals("Ye")) {
-
-                                        Intent reviewIntent = new Intent(vi.getContext(), ChatActivity.class);
-                                        reviewIntent.putExtra("order", order);
-                                        reviewIntent.putExtra("User", user);
-                                        reviewIntent.putExtra("oid", String.valueOf(oid));
-                                        context.startActivity(reviewIntent);
-                                    }else {
-                                        Intent reviewIntent = new Intent(vi.getContext(), CustomerReviewOrder.class);
-                                        reviewIntent.putExtra("order", order);
-                                        reviewIntent.putExtra("User", chef);
-                                        reviewIntent.putExtra("oid", getOrderID(order));
-                                        context.startActivity(reviewIntent);
-
+                                        user.setUsername(person.getString("username"));
+                                        user.setEmail(person.getString("email"));
+                                        user.setName(person.getString("name"));
+                                        user.setAddress(person.getString("address"));
+                                        user.setState(person.getString("state"));
+                                        user.setZip(person.getInt("zip"));
+                                        user.setPassword(person.getString("password"));
+                                        user.setRating(person.getDouble("rating"));
+                                        user.setUserType(person.getInt("userType"));
                                     }
 
                                 } catch (JSONException e) {
@@ -156,6 +134,11 @@ public class OrderHistoryAdapter extends BaseAdapter implements ListAdapter {
                 // Adding request to request queue
                 AppController.getInstance().addToRequestQueue(req);
 
+                Intent reviewIntent = new Intent(vi.getContext(), CustomerReviewOrder.class);
+                reviewIntent.putExtra("order", order);
+                reviewIntent.putExtra("User", user);
+                reviewIntent.putExtra("oid", getOrderID(order));
+                context.startActivity(reviewIntent);
             }
         });
 
@@ -221,9 +204,5 @@ public class OrderHistoryAdapter extends BaseAdapter implements ListAdapter {
     private int getOrderID(String selectedOrder){
         String[] orderDescription = selectedOrder.split("\n");
         return Integer.parseInt(orderDescription[0].replaceAll("[\\D]", ""));
-    }
-    private String getActive(String selectedOrder){
-        String[] orderDescritpion = selectedOrder.split("\n");
-        return ("" + orderDescritpion[5].charAt(8) + orderDescritpion[5].charAt(9) );
     }
 }
