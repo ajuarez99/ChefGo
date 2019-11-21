@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.chefgo">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -24,7 +23,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ChefClient.AddChefMenu"/>
+        <activity
+            android:name=".Chat.ChatActivity"
+            android:label="@string/title_activity_chat"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ChefClient.AddChefMenu" />
         <activity
             android:name=".AdminClient.UsersActivity"
             android:label="@string/title_activity_users"
@@ -32,7 +35,6 @@
         <activity android:name=".ChefClient.ChefProfile" />
         <activity android:name=".LoginorRegistrationActivity.RegistrationActivity" />
         <activity android:name=".AdminClient.AdminActivity" />
-
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
