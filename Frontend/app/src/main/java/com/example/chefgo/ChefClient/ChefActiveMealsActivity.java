@@ -4,10 +4,6 @@ package com.example.chefgo.ChefClient;
  *
  */
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,11 +15,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.example.chefgo.CustomerOrderHistoryActivity;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.R;
 import com.example.chefgo.app.AppController;
