@@ -1,28 +1,18 @@
 package com.example.chefgo;
 
-import androidx.appcompat.app.AppCompatActivity;
-/**
- * @author SB_3
- *
- */
-
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.app.AppController;
 
@@ -33,6 +23,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import static com.example.chefgo.app.AppController.TAG;
+
+/**
+ * @author SB_3
+ */
 
 public class CustomerOrderHistoryActivity extends AppCompatActivity {
 
@@ -50,21 +44,10 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
         listView = findViewById(R.id.listview);
         description = findViewById(R.id.orderHistoryDescription);
 
-        getJSONArrayRequest();
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedOrder = parent.getItemAtPosition(position).toString();
-                Intent customerReviewOrderIntent = new Intent(CustomerOrderHistoryActivity.this, CustomerReviewOrder.class);
-                customerReviewOrderIntent.putExtra("order", selectedOrder);
-                customerReviewOrderIntent.putExtra("User", user);
-                customerReviewOrderIntent.putExtra("oid", getOrderID(selectedOrder));
-                startActivity(customerReviewOrderIntent);
-            }
-        });
+        getJSONArrayRequest(this);
     }
 
-    private void getJSONArrayRequest(){
+    private void getJSONArrayRequest(final Context ctx){
 
         JsonArrayRequest req = new JsonArrayRequest(URL,
                 new Response.Listener<JSONArray>() {
@@ -111,7 +94,7 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
                             if (arrayList.isEmpty()){
                                 description.setText("You have no order history.");
                             }
-                            ArrayAdapter arrayAdapter = new ArrayAdapter(CustomerOrderHistoryActivity.this, android.R.layout.simple_list_item_1, arrayList);
+                            OrderHistoryAdapter arrayAdapter = new OrderHistoryAdapter(arrayList, ctx);
                             listView.setAdapter(arrayAdapter);
 
                         } catch (JSONException e) {
@@ -140,3 +123,4 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
         return Integer.parseInt(orderDescription[0].replaceAll("[\\D]", ""));
     }
 }
+

@@ -77,7 +77,7 @@ public class CustomerOrderMealActivity extends AppCompatActivity {
 
         Map<String, String> orderMap = new HashMap<>();
         orderMap.put("isActive", "1");
-        orderMap.put("oid", "12");
+        orderMap.put("oid", Integer.toString(Integer.MAX_VALUE));
         orderMap.put("price", price);
         orderMap.put("dish", meal);
         orderMap.put("chef", null);
