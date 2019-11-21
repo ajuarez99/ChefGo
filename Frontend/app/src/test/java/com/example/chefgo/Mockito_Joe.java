@@ -2,6 +2,7 @@ package com.example.chefgo;
 
 import android.util.Log;
 
+import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.ProcessAndParse.ParserUtil;
 import com.example.chefgo.ProcessAndParse.ProcessReviews;
 
@@ -12,6 +13,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
+
+import java.util.ArrayList;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -115,6 +118,18 @@ public class Mockito_Joe {
 
         //Test that the parser util correctly grabbed the full last name
         Assert.assertEquals("Prakash", revieweeLname);
+    }
+
+    @Test
+    public void testOrderHistoryAdapter(){
+        UsersDomain user = new UsersDomain("jstr", "Jstr@gmail.com", "Joe", "pass",  4.5,
+                1, "morningside st", "IA", 55123);
+        ArrayList<String> list = new ArrayList<>();
+        list.add("Hello");
+        CustomerOrderHistoryActivity c = mock(CustomerOrderHistoryActivity.class);
+        OrderHistoryAdapter oha = new OrderHistoryAdapter(list, c, user);
+        Assert.assertEquals("Hello", oha.getItem(0));
+        Assert.assertEquals(1, oha.getCount());
     }
 
 }
