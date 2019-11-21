@@ -48,17 +48,20 @@ public class WebSocketServer2 {
     {
     	sessionUsernameMap.put(session, username);
     	usernameSessionMap.put(username, session);
+    	logger.info(username + " connected");
     }
  
     @OnMessage
-    public void onMessage(Session session, String message) throws IOException 
+    public void onMessage(Session session, String message, @PathParam("username") String username) throws IOException 
     {
     	try {
     		int oid = Integer.parseInt(message);
+    		logger.info(message);
     		OrderHistory order = orderService.getOrderByOid(oid);
     		//TODO: Error handling if customer does not exist
+    		logger.info(order.getCustomer().getUsername());
     		Session customer = usernameSessionMap.get(order.getCustomer().getUsername());
-    		String response = order.getChef().getName() + " has accepted your order";
+    		String response = userService.getUserByUsername(username).getName() + " has accepted your order";
     		customer.getBasicRemote().sendText(response);
     	}
     	catch(NumberFormatException e) {
@@ -80,7 +83,9 @@ public class WebSocketServer2 {
     public void onError(Session session, Throwable throwable) 
     {
         // Do error handling here
+
     	logger.info("Entered into Error");
+    	logger.info(throwable.toString());
     }
     
 

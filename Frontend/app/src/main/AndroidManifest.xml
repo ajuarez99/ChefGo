@@ -24,6 +24,10 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".CustomerSeeChefProfile"></activity>
+        <activity
+            android:name=".Chat.ChatActivity"
+            android:label="@string/title_activity_chat"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ChefClient.AddChefMenu" />
         <activity
             android:name=".AdminClient.UsersActivity"

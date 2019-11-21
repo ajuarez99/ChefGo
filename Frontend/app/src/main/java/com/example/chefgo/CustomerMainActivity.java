@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.chefgo.Chat.ChatActivity;
 import com.example.chefgo.DomainObjects.UsersDomain;
 
 public class CustomerMainActivity extends AppCompatActivity {
@@ -13,7 +15,7 @@ public class CustomerMainActivity extends AppCompatActivity {
     Button customerOrderHistoryButton;
     Button customerOrderMeal;
     Button acceptedMealButton;
-    Button map;
+    Button map, chat;
     private UsersDomain  user;
 
 
@@ -37,6 +39,15 @@ public class CustomerMainActivity extends AppCompatActivity {
                 Intent customerMapIntent = new Intent(CustomerMainActivity.this, CustomerMapsActivity.class);
                 customerMapIntent.putExtra("User", user);
                 startActivity(customerMapIntent);
+            }
+        });
+        chat = findViewById(R.id.chat);
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent chatIntent = new Intent(CustomerMainActivity.this, ChatActivity.class);
+                chatIntent.putExtra("User", user);
+                startActivity(chatIntent);
             }
         });
         customerProfileButton = findViewById(R.id.buttonCustomerProfile);

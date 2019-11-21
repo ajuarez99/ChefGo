@@ -23,60 +23,61 @@ import com.example.demo.user.Users;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-@ServerEndpoint(value = "/chat/{username}")
+@ServerEndpoint(value = "/chat/{oid}/{username}")
 @Component
 public class Notification {
 
- 	private static Map<Session, String> sessionUsernameMap = new HashMap<>();
+ 	
     private static Map<String, Session> usernameSessionMap = new HashMap<>();
+    private static Map<String, Integer> usernameOidMap = new HashMap<>();
+    
+	private static UserService userService;
+	private static OrderHistoryService orderService;
+
+	@Autowired
+	public void setUsersService(UserService service) {
+	      Notification.userService = service;
+	}
+	
+	@Autowired
+	public void setOrderService(OrderHistoryService orderService) {
+		Notification.orderService = orderService;
+	}
     
     private final Logger logger = LoggerFactory.getLogger(WebSocketServer.class);
     
     @OnOpen
-    public void onOpen(
-    	      Session session, 
-    	      @PathParam("username") String username) throws IOException 
+    public void onOpen(Session session, @PathParam("username") String username, @PathParam("oid") Integer oid) throws IOException 
     {
         logger.info("Entered into Open");
         
-        sessionUsernameMap.put(session, username);
         usernameSessionMap.put(username, session);
-        
-        String message="User:" + username + " has Joined the Chat";
-        	broadcast(message);
+        usernameOidMap.put(username, oid);
 		
     }
  
     @OnMessage
-    public void onMessage(Session session, String message) throws IOException 
+    public void onMessage(Session session, String message, @PathParam("username") String username, @PathParam("oid") Integer oid) throws IOException 
     {
         // Handle new messages
+    	Users recipient = null;
     	logger.info("Entered into Message: Got Message:"+message);
-    	String username = sessionUsernameMap.get(session);
+    	if(userService.getUserByUsername(username).getUserType() == 2) recipient = orderService.getOrderByOid(oid).getCustomer();
+    	if(userService.getUserByUsername(username).getUserType() == 1) recipient = orderService.getOrderByOid(oid).getChef();
     	
-    	if (message.startsWith("@")) // Direct message to a user using the format "@username <message>"
-    	{
-    		String destUsername = message.split(" ")[0].substring(1); // don't do this in your code!
-    		sendMessageToPArticularUser(destUsername, "[DM] " + username + ": " + message);
-    		sendMessageToPArticularUser(username, "[DM] " + username + ": " + message);
+    	if(recipient.equals(null)) logger.info("Recipient is invalid");
+    	else {
+    		Session toSend = usernameSessionMap.get(recipient.getUsername());
+    		toSend.getBasicRemote().sendText(recipient.getName() + ": " + message);
     	}
-    	else // Message to whole chat
-    	{
-	    	broadcast(username + ": " + message);
-    	}
+
     }
  
     @OnClose
-    public void onClose(Session session) throws IOException
+    public void onClose(Session session, @PathParam("username") String username) throws IOException
     {
-    	logger.info("Entered into Close");
+    	logger.info(username + "Entered into Close");
     	
-    	String username = sessionUsernameMap.get(session);
-    	sessionUsernameMap.remove(session);
-    	usernameSessionMap.remove(username);
-        
-    	String message= username + " disconnected";
-        broadcast(message);
     }
  
     @OnError
@@ -86,27 +87,5 @@ public class Notification {
     	logger.info("Entered into Error");
     }
     
-	private void sendMessageToPArticularUser(String username, String message) 
-    {	
-    	try {
-    		usernameSessionMap.get(username).getBasicRemote().sendText(message);
-        } catch (IOException e) {
-        	logger.info("Exception: " + e.getMessage().toString());
-            e.printStackTrace();
-        }
-    }
-    
-    private static void broadcast(String message) 
-    	      throws IOException 
-    {	  
-    	sessionUsernameMap.forEach((session, username) -> {
-    		synchronized (session) {
-	            try {
-	                session.getBasicRemote().sendText(message);
-	            } catch (IOException e) {
-	                e.printStackTrace();
-	            }
-	        }
-	    });
-	}
+
 }
