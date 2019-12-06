@@ -47,12 +47,12 @@ import static com.example.chefgo.app.AppController.TAG;
 
 public class ChefHandleMealActivity extends AppCompatActivity {
 
-    UsersDomain user;
-    TextView description;
-    Button acceptButton;
-    String URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory/active",itemDescription, oid;
-    String putURL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory/updateChef/";
-    JSONObject order;
+    private UsersDomain user;
+    private TextView description;
+    private Button acceptButton;
+    private String URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory/active",itemDescription, oid;
+    private String putURL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory/updateChef/";
+    private JSONObject order;
 
     //test
     @Override

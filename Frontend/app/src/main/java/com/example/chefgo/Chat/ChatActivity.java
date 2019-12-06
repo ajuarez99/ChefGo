@@ -26,12 +26,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ChatActivity extends AppCompatActivity {
 
-    Button  b1,b2;
-    EditText e1,e2;
-    TextView t1;
-    UsersDomain user;
-    Context con;
-    String oid;
+    private Button  b1,b2;
+    private EditText e1,e2;
+    private TextView t1;
+    private UsersDomain user;
+    private Context con;
+    private String oid;
     private WebSocketClient cc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -17,8 +17,8 @@ import com.example.chefgo.R;
 public class ChefMainActivity extends AppCompatActivity {
 
     private UsersDomain user;
-    Button profileButton;
-    Button activeMealsButton;
+    private Button profileButton;
+    private Button activeMealsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

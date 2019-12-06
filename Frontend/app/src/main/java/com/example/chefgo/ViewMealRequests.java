@@ -31,8 +31,7 @@ import static com.example.chefgo.app.AppController.TAG;
 
 public class ViewMealRequests extends AppCompatActivity {
 
-    ListView listView;
-    Button accept;
+    private ListView listView;
     private String  URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory", jsonResponse;
 
     @Override

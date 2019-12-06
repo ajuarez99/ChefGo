@@ -41,30 +41,24 @@ import static com.example.chefgo.app.AppController.TAG;
 
 public class CustomerProfileActivity extends AppCompatActivity {
 
-    Button refreshButton;
-    TextView responseView;
-    TextView nameView;
-    EditText nameInput;
-    Button postNameButton;
-    Button profilePicButton;
-    RatingBar ratingBar;
-    ImageView profilePic;
-    String username;
-    String rate;
+    private Button refreshButton;
+    private TextView responseView;
+    private TextView nameView;
+    private EditText nameInput;
+    private Button postNameButton;
+    private Button profilePicButton;
+    private RatingBar ratingBar;
+    private ImageView profilePic;
+    private String username;
+    private String rate;
     private String jsonResponse;
 
     private TextView txtResponse;
     private String URL = "http://coms-309-sb-3.misc.iastate.edu:8080/users";
-    //private String URL = "http://10.0.2.2:8080/user";
+    private String FName;
 
-    private String jsonObjectTag = "jobj_req", tag_json_arry = "jarray_req";
-    String tag_string_req = "string_req";
-    String FName;
-
-    private UsersDomain user ;
-
+    private UsersDomain user;
     private static final int GET_FROM_GALLERY = 3;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

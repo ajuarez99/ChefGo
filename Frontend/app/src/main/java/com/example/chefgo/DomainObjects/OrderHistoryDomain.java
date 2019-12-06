@@ -5,24 +5,15 @@ import java.util.Date;
 public class OrderHistoryDomain {
 
         private String customer;
-
         private Double price;
-
         private Date orderDate;
-
-
         private Integer oid;
-
         private String dishName;
-
         private Integer isActive;
-
         private String chef;
 
         public OrderHistoryDomain() {
         }
-
-
 
         public OrderHistoryDomain(Integer oid, Date orderDate, Double price, String chef, String dishName, String customer) {
             this.price = price;

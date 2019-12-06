@@ -11,15 +11,15 @@ import com.example.chefgo.Chat.ChatActivity;
 import com.example.chefgo.DomainObjects.UsersDomain;
 
 public class CustomerMainActivity extends AppCompatActivity {
-    Button customerProfileButton;
-    Button customerOrderHistoryButton;
-    Button customerOrderMeal;
-    Button acceptedMealButton;
-    Button map, chat;
-    private UsersDomain  user;
+    private Button customerProfileButton;
+    private Button customerOrderHistoryButton;
+    private Button customerOrderMeal;
+    private Button acceptedMealButton;
+    private Button map;
+    private UsersDomain user;
 
 
-    Button activeMealsButton, allergiesButton;
+    private Button activeMealsButton, allergiesButton;
 
     /**
      * view of the customer to interact with the app

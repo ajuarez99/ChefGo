@@ -41,7 +41,7 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
     private ListView listView;
 
     private String jsonResponse, URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory/active";
-    String allergy;
+    private String allergy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

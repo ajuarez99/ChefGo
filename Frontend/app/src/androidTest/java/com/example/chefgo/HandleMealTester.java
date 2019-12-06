@@ -25,7 +25,6 @@ public class HandleMealTester {
     public static void main(String[] args){
         HandleMealTester tester = new HandleMealTester();
         tester.testSplitJSONResponse();
-        //tester.testJSONObjectBuild();
     }
 
     @Test

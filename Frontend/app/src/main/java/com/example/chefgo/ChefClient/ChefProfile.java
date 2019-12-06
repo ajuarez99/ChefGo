@@ -36,11 +36,11 @@ import java.util.ArrayList;
 import static com.example.chefgo.app.AppController.TAG;
 
 public class ChefProfile extends AppCompatActivity {
-    ListView chefMenu;
-    ListView chefReviews;
-    RatingBar chefRating;
-    TextView chefName;
-    Button addMealButton;
+    private ListView chefMenu;
+    private ListView chefReviews;
+    private RatingBar chefRating;
+    private TextView chefName;
+    private Button addMealButton;
 
     private String jsonResponse;
 

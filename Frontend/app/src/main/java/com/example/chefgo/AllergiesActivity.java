@@ -30,9 +30,9 @@ import static com.example.chefgo.app.AppController.TAG;
 
 public class AllergiesActivity extends AppCompatActivity {
 
-    UsersDomain user = new UsersDomain();
-    EditText allergy;
-    Button confirm;
+    private UsersDomain user = new UsersDomain();
+    private EditText allergy;
+    private Button confirm;
     private String  URL = "http://coms-309-sb-3.misc.iastate.edu:8080/allergies";
     @Override
     protected void onCreate(Bundle savedInstanceState) {

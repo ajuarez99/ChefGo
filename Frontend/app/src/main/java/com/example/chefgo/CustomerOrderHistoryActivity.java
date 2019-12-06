@@ -30,8 +30,8 @@ import static com.example.chefgo.app.AppController.TAG;
 
 public class CustomerOrderHistoryActivity extends AppCompatActivity {
 
-    TextView description;
-    ListView listView;
+    private TextView description;
+    private ListView listView;
     UsersDomain user;
     private String  URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory", jsonResponse;
 
