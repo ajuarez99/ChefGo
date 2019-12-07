@@ -29,6 +29,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.CustomerClient.CustomerMainActivity;
 import com.example.chefgo.R;
+import com.example.chefgo.Validation.ValidationRegister;
 import com.example.chefgo.app.AppController;
 
 import org.json.JSONObject;
@@ -82,16 +83,16 @@ public class RegistrationActivity extends AppCompatActivity {
     }
     private void submitRegistration() {
 
-
-            if (!ValidationRegister.validateEmail(email.getText().toString())) {
+             ValidationRegister validator = new ValidationRegister();
+            if (!validator.validateEmail(email.getText().toString())) {
                 Toast.makeText(getApplicationContext(),"Invalid email address", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if(!ValidationRegister.validatePassword(password.getText().toString(), confirmPassword.getText().toString())){
+            if(!validator.validatePassword(password.getText().toString(), confirmPassword.getText().toString())){
                 Toast.makeText(getApplicationContext(),"Passwords dont match", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if(!ValidationRegister.validateAddress(this, address.getText().toString(), state.getSelectedItem().toString())){
+            if(!validator.validateAddress(this, address.getText().toString(), state.getSelectedItem().toString())){
                 Toast.makeText(getApplicationContext(), "Address is not valid", Toast.LENGTH_SHORT).show();
                 return;
             }

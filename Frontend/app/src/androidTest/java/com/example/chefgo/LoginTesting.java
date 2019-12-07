@@ -1,29 +1,19 @@
 package com.example.chefgo;
-import android.content.SharedPreferences;
 
-import androidx.test.espresso.Espresso;
 import androidx.test.runner.AndroidJUnit4;
 
-import com.example.chefgo.LoginorRegistrationActivity.ValidationRegister;
+import com.example.chefgo.Validation.ValidationRegister;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.mockito.Mockito.*;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;/**
+
+/**
  * @author SB_3
  *
  */
