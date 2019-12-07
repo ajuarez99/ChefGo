@@ -46,11 +46,9 @@ public class LoginActivity extends AppCompatActivity {
     private String URL = "http://coms-309-sb-3.misc.iastate.edu:8080/user";
     private String notficationWS = "ws://coms-309-sb-3.misc.iastate.edu:8080/notification/";
    //private String URL = "http://10.0.2.2:8080/user";
-    private String jsonObjectTag = "jobj_req", tag_json_arry = "jarray_req";
-    String tag_string_req ="string_req";
     public static UsersDomain user = new UsersDomain();
-    EditText username;
-    EditText password;
+    private EditText username;
+    private EditText password;
     private Button register;
     private OkHttpClient client;
     public static WebSocket ws;

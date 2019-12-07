@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Before;
@@ -78,6 +80,25 @@ public class Demo1ApplicationTests {
 		controller.updateOrderChef(chef, 1);
 		Mockito.verify(service).addOrderToHistory(Order);
 		assertEquals(Order.getChef().getUsername(), chef.getUsername());
+		
+	}
+	
+	@Test
+	public void testOrderByCustomer() throws Exception {
+		//Users chef = new Users("jstr", "asdfas", "karthik", "pass", 2.2 , 0, "way out west", "Iowa", "Ames");
+		Users user1 = new Users("jstr", "asdfas", "karthik", "pass", 2.2 , 0, "way out west", "Iowa", 50014);
+		Users user2 = new Users("kp", "asdfas", "karthik", "pass", 2.2 , 0, "way out west", "Iowa", 50014);
+		List<OrderHistory> orders = new ArrayList<OrderHistory>();
+		OrderHistory Order1 = new OrderHistory(1, new Date(100), 22.50, null, "chicken", user1);
+		OrderHistory Order2 = new OrderHistory(2, new Date(100), 22.50, null, "cheese", user2);
+		orders.add(Order1);
+		orders.add(Order2);
+		
+		Mockito.when(service.getOrderByCustName("jstr")).thenReturn(orders.subList(0, 0));
+		List<OrderHistory> check;
+		check = controller.getAllOrdersByCust("jstr");
+		Mockito.verify(service).getOrderByCustName("jstr");
+		assertEquals(orders.subList(0, 0), check);
 		
 	}
 

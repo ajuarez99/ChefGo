@@ -14,7 +14,7 @@ import android.widget.Button;
 import com.example.chefgo.R;
 
 public class AdminActivity extends AppCompatActivity {
-    Button users;
+    private Button users;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

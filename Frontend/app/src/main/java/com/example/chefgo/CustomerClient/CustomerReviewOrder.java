@@ -83,7 +83,7 @@ public class CustomerReviewOrder extends AppCompatActivity {
                         displayReview();
                     }
                     //order hasn't been review and is no longer active
-                    else if (order.has("review") && !order.isNull("review") && (order.getInt("isActive") == 0)) {
+                    else if (order.has("review") && order.isNull("review") && (order.getInt("isActive") == 0)) {
                         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                             @Override
                             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {

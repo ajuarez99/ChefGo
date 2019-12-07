@@ -34,10 +34,10 @@ import static com.example.chefgo.app.AppController.TAG;
 
 public class CustomerOrderMealActivity extends AppCompatActivity {
 
-    EditText inputDish, inputPrice;
-    Button confirmButton;
+    private EditText inputDish, inputPrice;
+    private Button confirmButton;
     private String  URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory";
-    UsersDomain user = new UsersDomain();
+    private UsersDomain user = new UsersDomain();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
