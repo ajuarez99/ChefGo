@@ -4,12 +4,9 @@ package com.example.chefgo.LoginorRegistrationActivity;
  *
  */
 
-import android.accounts.AccountManager;
-
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
@@ -26,7 +23,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.chefgo.AdminClient.AdminActivity;
 import com.example.chefgo.ChefClient.ChefMainActivity;
 import com.example.chefgo.DomainObjects.UsersDomain;
-import com.example.chefgo.CustomerMainActivity;
+import com.example.chefgo.CustomerClient.CustomerMainActivity;
 import com.example.chefgo.R;
 import com.example.chefgo.app.AppController;
 

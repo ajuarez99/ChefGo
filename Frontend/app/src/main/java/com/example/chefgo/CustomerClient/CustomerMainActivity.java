@@ -1,4 +1,4 @@
-package com.example.chefgo;
+package com.example.chefgo.CustomerClient;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +7,9 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.chefgo.Chat.ChatActivity;
 import com.example.chefgo.DomainObjects.UsersDomain;
+import com.example.chefgo.R;
+import com.example.chefgo.ViewMealRequests;
 
 public class CustomerMainActivity extends AppCompatActivity {
     Button customerProfileButton;
@@ -94,7 +95,7 @@ public class CustomerMainActivity extends AppCompatActivity {
         allergiesButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent allergiesIntent = new Intent(CustomerMainActivity.this, AllergiesActivity.class);
+                Intent allergiesIntent = new Intent(CustomerMainActivity.this, CustomerAllergiesActivity.class);
                 allergiesIntent.putExtra("User", user);
                 startActivity(allergiesIntent);
             }

@@ -30,6 +30,7 @@ public class UsersMockito {
     @Before
     public void setup(){
         mockUser = new UsersDomain();
+
     mockUser.setUsername(testUserName);
     mockUser.setName(testName);
     mockUser.setPassword(testPassword);

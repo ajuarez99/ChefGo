@@ -1,4 +1,4 @@
-package com.example.chefgo;
+package com.example.chefgo.CustomerClient;
 
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +24,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.chefgo.DomainObjects.UsersDomain;
+import com.example.chefgo.R;
 import com.example.chefgo.app.AppController;
 
 import org.json.JSONArray;

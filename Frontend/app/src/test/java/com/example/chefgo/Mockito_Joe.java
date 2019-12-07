@@ -2,6 +2,8 @@ package com.example.chefgo;
 
 import android.util.Log;
 
+import com.example.chefgo.Adapters.OrderHistoryAdapter;
+import com.example.chefgo.CustomerClient.CustomerOrderHistoryActivity;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.ProcessAndParse.ParserUtil;
 import com.example.chefgo.ProcessAndParse.ProcessReviews;

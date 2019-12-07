@@ -40,7 +40,7 @@
         <activity
             android:name=".lo"
             android:label="@string/title_activity_lo"></activity>
-        <activity android:name=".CustomerSeeChefProfile" />
+        <activity android:name=".CustomerClient.CustomerSeeChefProfile" />
         <activity
             android:name=".Chat.ChatActivity"
             android:label="@string/title_activity_chat"
@@ -53,10 +53,10 @@
         <activity android:name=".ChefClient.ChefProfile" />
         <activity android:name=".LoginorRegistrationActivity.RegistrationActivity" />
         <activity android:name=".AdminClient.AdminActivity" />
-        <activity android:name=".CustomerMapsActivity" />
-        <activity android:name=".CustomerReviewOrder" />
-        <activity android:name=".CustomerMealAccepted" />
-        <activity android:name=".AllergiesActivity" />
+        <activity android:name=".CustomerClient.CustomerMapsActivity" />
+        <activity android:name=".CustomerClient.CustomerReviewOrder" />
+        <activity android:name=".CustomerClient.CustomerMealAccepted" />
+        <activity android:name=".CustomerClient.CustomerAllergiesActivity" />
         <activity android:name=".ChefClient.ChefHandleMealActivity" />
         <activity android:name=".ChefClient.ChefActiveMealsActivity" />
         <activity android:name=".ChefClient.ChefMainActivity" />
@@ -69,10 +69,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CustomerOrderMealActivity" />
-        <activity android:name=".CustomerOrderHistoryActivity" />
-        <activity android:name=".CustomerProfileActivity" />
-        <activity android:name=".CustomerMainActivity" />
+        <activity android:name=".CustomerClient.CustomerOrderMealActivity" />
+        <activity android:name=".CustomerClient.CustomerOrderHistoryActivity" />
+        <activity android:name=".CustomerClient.CustomerProfileActivity" />
+        <activity android:name=".CustomerClient.CustomerMainActivity" />
         <activity android:name=".ViewMealRequests" />
     </application>
 

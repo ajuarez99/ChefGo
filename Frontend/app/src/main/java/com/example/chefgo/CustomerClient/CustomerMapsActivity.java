@@ -1,12 +1,10 @@
-package com.example.chefgo;
+package com.example.chefgo.CustomerClient;
 
 import androidx.fragment.app.FragmentActivity;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Address;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -15,10 +13,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.example.chefgo.AdminClient.UsersAdapter;
-import com.example.chefgo.Chat.ChatActivity;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.Geocoding.CustomerGeoCode;
+import com.example.chefgo.R;
 import com.example.chefgo.app.AppController;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;

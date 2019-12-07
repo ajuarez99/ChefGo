@@ -8,10 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,28 +17,18 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.chefgo.Chat.ChatActivity;
-import com.example.chefgo.CustomerOrderMealActivity;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.LoginorRegistrationActivity.LoginActivity;
 import com.example.chefgo.R;
 import com.example.chefgo.app.AppController;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.Instant;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
-import okhttp3.WebSocket.*;
-import okhttp3.WebSocketListener;
 
 import static com.example.chefgo.app.AppController.TAG;
 

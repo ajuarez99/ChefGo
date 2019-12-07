@@ -17,7 +17,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.example.chefgo.Chat.ChatActivity;
-import com.example.chefgo.CustomerOrderMealActivity;
 import com.example.chefgo.R;
 import com.example.chefgo.net_util.LruBitmapCache;
 

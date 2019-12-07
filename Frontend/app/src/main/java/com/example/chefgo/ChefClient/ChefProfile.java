@@ -22,7 +22,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.example.chefgo.CustomerOrderHistoryActivity;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.R;
 import com.example.chefgo.app.AppController;

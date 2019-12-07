@@ -1,4 +1,4 @@
-package com.example.chefgo.AdminClient;
+package com.example.chefgo.Adapters;
 /**
  * @author SB_3
  *

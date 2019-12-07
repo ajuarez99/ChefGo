@@ -1,4 +1,4 @@
-package com.example.chefgo;
+package com.example.chefgo.CustomerClient;
 /**
  * @author SB_3
  *
@@ -18,17 +18,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.chefgo.DomainObjects.UsersDomain;
+import com.example.chefgo.R;
 import com.example.chefgo.app.AppController;
-import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.example.chefgo.app.AppController.TAG;
 
-public class AllergiesActivity extends AppCompatActivity {
+public class CustomerAllergiesActivity extends AppCompatActivity {
 
     UsersDomain user = new UsersDomain();
     EditText allergy;
@@ -74,13 +72,13 @@ public class AllergiesActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        Toast.makeText(AllergiesActivity.this, "Allergy placed successfully", Toast.LENGTH_LONG).show();
+                        Toast.makeText(CustomerAllergiesActivity.this, "Allergy placed successfully", Toast.LENGTH_LONG).show();
                     }
                 }, new Response.ErrorListener() {
 
                 @Override
                  public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(AllergiesActivity.this, "Allergy placed successfully", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CustomerAllergiesActivity.this, "Allergy placed successfully", Toast.LENGTH_LONG).show();
                     VolleyLog.d(TAG, "Error: " + error.getMessage());
                 }
         }) ;

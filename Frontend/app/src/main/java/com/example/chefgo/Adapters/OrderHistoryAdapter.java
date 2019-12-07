@@ -1,4 +1,4 @@
-package com.example.chefgo;
+package com.example.chefgo.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +16,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.chefgo.Chat.ChatActivity;
+import com.example.chefgo.CustomerClient.CustomerReviewOrder;
+import com.example.chefgo.CustomerClient.CustomerSeeChefProfile;
 import com.example.chefgo.DomainObjects.UsersDomain;
+import com.example.chefgo.R;
 import com.example.chefgo.app.AppController;
 
 import org.json.JSONArray;
