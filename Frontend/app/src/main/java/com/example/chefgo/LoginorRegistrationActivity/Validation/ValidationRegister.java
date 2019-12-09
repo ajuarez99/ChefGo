@@ -1,4 +1,4 @@
-package com.example.chefgo.Validation;
+package com.example.chefgo.LoginorRegistrationActivity.Validation;
 /**
  * @author SB_3
  *
@@ -6,7 +6,7 @@ package com.example.chefgo.Validation;
 
 import android.content.Context;
 
-import com.example.chefgo.Geocoding.CustomerGeoCode;
+import com.example.chefgo.ChefClient.Geocoding.CustomerGeoCode;
 
 public class ValidationRegister implements IValidationRegister{
 

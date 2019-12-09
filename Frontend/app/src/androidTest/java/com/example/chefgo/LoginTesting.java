@@ -2,7 +2,7 @@ package com.example.chefgo;
 
 import androidx.test.runner.AndroidJUnit4;
 
-import com.example.chefgo.Validation.ValidationRegister;
+import com.example.chefgo.LoginorRegistrationActivity.Validation.ValidationRegister;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

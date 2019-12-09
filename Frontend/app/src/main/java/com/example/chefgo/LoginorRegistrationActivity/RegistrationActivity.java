@@ -29,7 +29,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.CustomerClient.CustomerMainActivity;
 import com.example.chefgo.R;
-import com.example.chefgo.Validation.ValidationRegister;
+import com.example.chefgo.LoginorRegistrationActivity.Validation.ValidationRegister;
 import com.example.chefgo.app.AppController;
 
 import org.json.JSONObject;

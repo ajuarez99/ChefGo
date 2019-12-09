@@ -1,9 +1,8 @@
-package com.example.chefgo.Geocoding;
+package com.example.chefgo.ChefClient.Geocoding;
 
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 

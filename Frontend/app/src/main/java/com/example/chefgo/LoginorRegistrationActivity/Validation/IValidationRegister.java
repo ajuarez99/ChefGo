@@ -1,4 +1,4 @@
-package com.example.chefgo.Validation;
+package com.example.chefgo.LoginorRegistrationActivity.Validation;
 
 
 import android.content.Context;
