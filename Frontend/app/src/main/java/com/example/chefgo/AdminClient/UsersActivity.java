@@ -12,6 +12,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.chefgo.Adapters.UsersAdapter;
+import com.example.chefgo.AdminClient.AdminRequests.UsersRequests;
 import com.example.chefgo.app.AppController;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -45,7 +46,7 @@ public class UsersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_users);
 
 
-        getJSONArrayRequest(this);
+        UsersRequests.getJSONArrayRequest(this,URL,jsonResponse,listView);
         listView = findViewById(R.id.users);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -59,70 +60,6 @@ public class UsersActivity extends AppCompatActivity {
     }
 
 
-    private void getJSONArrayRequest(final Context ctx){
 
-        JsonArrayRequest req = new JsonArrayRequest(URL,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        Log.d(TAG, response.toString());
-
-                        try {
-                            // Parsing json array response
-                            // loop through each json object
-                            ArrayList<String> arrayList = new ArrayList<>();
-
-                            for (int i = 0; i < response.length(); i++) {
-
-                                JSONObject order = (JSONObject) response.get(i);
-                                jsonResponse = "";
-
-                                String username = order.getString("username");
-
-                                String userType = order.getString("userType");
-                                String user = "";
-                                if(userType.equals("1")){
-                                    user = "Customer";
-                                }
-                                else if(userType.equals("0")){
-                                    user = "Administrator";
-                                }
-                                else{
-                                    user = "Chef";
-                                }
-                                String rating = order.getString("rating");
-
-                                jsonResponse += ("Username: " + username + "\n");
-
-                                jsonResponse += ("userType: " + user + "\n");
-                                jsonResponse += ("rating: " + rating + "\n");
-
-                                arrayList.add(jsonResponse);
-                            }
-                            UsersAdapter adapter = new UsersAdapter(arrayList, ctx);
-
-
-                            listView.setAdapter(adapter);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(getApplicationContext(),
-                                    "Error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG).show();
-                        }
-
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
-
-            }
-        });
-        AppController.getInstance().addToRequestQueue(req);
-    }
 
 }

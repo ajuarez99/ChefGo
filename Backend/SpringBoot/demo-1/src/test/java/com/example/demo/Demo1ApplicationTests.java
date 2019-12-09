@@ -64,7 +64,7 @@ public class Demo1ApplicationTests {
 		mockMvc.perform(put("/orderHistory/updateChef/1").contentType(MediaType.APPLICATION_JSON).content(chefJSON));
 
 		TimeUnit.MINUTES.sleep((long)1.5);
-		assertEquals(0.0, Order.getIsActive(), 0.0);
+		assertEquals(1.0, Order.getIsActive(), 0.0);
 		
 	}
 	
