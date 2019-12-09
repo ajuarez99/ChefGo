@@ -64,7 +64,7 @@ public class UsersRequests {
                             UsersAdapter adapter = new UsersAdapter(arrayList, ctx);
 
 
-                            listView.setAdapter(adapter);
+                          //  listView.setAdapter(adapter);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
