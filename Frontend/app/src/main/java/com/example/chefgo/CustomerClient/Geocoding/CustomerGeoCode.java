@@ -10,12 +10,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.io.IOException;
 import java.util.List;
 
-public class CustomerGeoCode {
-
-
-    public CustomerGeoCode() {
-
-    }
+public class CustomerGeoCode implements ICustomerGeoCode{
 
     public LatLng getLocationFromAddress(Context context, String inputtedAddress) throws NullPointerException {
         //consrtuct that geo coder
