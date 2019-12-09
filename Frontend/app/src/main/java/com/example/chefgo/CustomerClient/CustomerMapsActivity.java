@@ -1,22 +1,16 @@
 package com.example.chefgo.CustomerClient;
 
-import androidx.fragment.app.FragmentActivity;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.example.chefgo.DomainObjects.UsersDomain;
+import androidx.fragment.app.FragmentActivity;
+
+import com.example.chefgo.CustomerClient.CustomerRequests.MapsRequests;
 import com.example.chefgo.CustomerClient.Geocoding.CustomerGeoCode;
+import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.R;
-import com.example.chefgo.app.AppController;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -26,14 +20,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.chefgo.app.AppController.TAG;
 
 public class CustomerMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -52,10 +40,7 @@ public class CustomerMapsActivity extends FragmentActivity implements OnMapReady
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         URL += user.getZip();
-        getJSONArrayRequest(mapFragment, this);
-
-
-
+        MapsRequests.getJSONArrayRequest(getApplicationContext(), mapFragment, this, URL, (ArrayList<UsersDomain>) chefs);
 
     }
 
@@ -116,60 +101,4 @@ public class CustomerMapsActivity extends FragmentActivity implements OnMapReady
         });
     }
 
-
-    private void getJSONArrayRequest(final SupportMapFragment map , final OnMapReadyCallback ready){
-
-        JsonArrayRequest req = new JsonArrayRequest(URL,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        Log.d(TAG, response.toString());
-
-                        try {
-                            // Parsing json array response
-                            // loop through each json object
-                            ArrayList<String> arrayList = new ArrayList<>();
-
-                            for (int i = 0; i < response.length(); i++) {
-                                UsersDomain chef = new UsersDomain();
-
-
-                                JSONObject person = (JSONObject) response.get(i);
-                                chef.setUsername(person.getString("username"));
-                                chef.setEmail(person.getString("email"));
-                                chef.setName(person.getString("name"));
-                                chef.setAddress(person.getString("address"));
-                                chef.setState(person.getString("state"));
-                                chef.setZip(person.getInt("zip"));
-                                chef.setPassword(person.getString("password"));
-                                chef.setRating(person.getDouble("rating"));
-                                chef.setUserType(person.getInt("userType"));
-
-
-
-                                chefs.add(chef);
-
-                            }
-                            map.getMapAsync(ready);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(getApplicationContext(),
-                                    "Error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG).show();
-                        }
-
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
-
-            }
-        });
-        AppController.getInstance().addToRequestQueue(req);
-    }
 }
