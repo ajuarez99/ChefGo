@@ -103,20 +103,11 @@ public class AddChefMenu extends AppCompatActivity {
             return;
         } else {
 
-            InputMethodManager inputManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
 
             //Construct the user object for the menu object
-            Map<String, String> userMap = new HashMap<>();
-            userMap.put("username", theUser.getUsername());
-            userMap.put("email", theUser.getEmail());
-            userMap.put("name", theUser.getName());
-            userMap.put("password", theUser.getPassword());
-            userMap.put("userType", theUser.getUserType().toString());
-            userMap.put("rating", theUser.getRating().toString());
-            userMap.put("address", theUser.getAddress());
-            userMap.put("state", theUser.getState());
-            userMap.put("zip", theUser.getZip().toString());
+            Map<String, String> userMap =theUser.toJSON();
+
             JSONObject userObject = new JSONObject(userMap);
 
             //construct the menu object to be posted
@@ -149,7 +140,6 @@ public class AddChefMenu extends AppCompatActivity {
                 public void onErrorResponse(VolleyError error) {
                     error.printStackTrace();
                     Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-                    System.out.println("THIS IS THE ERROR: " + error.getMessage());
                 }
             });
 

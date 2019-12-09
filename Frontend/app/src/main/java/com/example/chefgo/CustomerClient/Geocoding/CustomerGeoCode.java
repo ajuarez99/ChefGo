@@ -1,4 +1,4 @@
-package com.example.chefgo.ChefClient.Geocoding;
+package com.example.chefgo.CustomerClient.Geocoding;
 
 import android.content.Context;
 import android.location.Address;

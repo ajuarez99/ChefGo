@@ -61,12 +61,6 @@ public class CustomerAllergiesActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-
-
-
-
-
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, URL, allergyObject,
                 new Response.Listener<JSONObject>() {
 
