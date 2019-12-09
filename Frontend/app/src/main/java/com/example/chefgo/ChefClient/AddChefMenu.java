@@ -3,6 +3,7 @@ package com.example.chefgo.ChefClient;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.chefgo.DomainObjects.MenuDomain;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.R;
 import com.example.chefgo.app.AppController;
@@ -101,7 +103,8 @@ public class AddChefMenu extends AppCompatActivity {
         } else if (cost.equals("")) {
             Toast.makeText(getApplicationContext(), "Enter a price.", Toast.LENGTH_SHORT).show();
             return;
-        } else {
+        }
+        MenuDomain menu = new MenuDomain(title,apps,entree,dessert,Double.valueOf(cost),desc, theUser);
 
 
 
@@ -111,13 +114,7 @@ public class AddChefMenu extends AppCompatActivity {
             JSONObject userObject = new JSONObject(userMap);
 
             //construct the menu object to be posted
-            Map<String, String> menuMap = new HashMap<>();
-            menuMap.put("title", title);
-            menuMap.put("appetizer", apps);
-            menuMap.put("entree", entree);
-            menuMap.put("dessert", dessert);
-            menuMap.put("description", desc);
-            menuMap.put("cost", cost);
+            Map<String, String> menuMap = menu.toJSON();
             JSONObject menuObject = new JSONObject(menuMap);
 
             try {
@@ -145,7 +142,7 @@ public class AddChefMenu extends AppCompatActivity {
 
             AppController.getInstance().addToRequestQueue(jsonRequest);
         }
-    }
+
 
 
 
