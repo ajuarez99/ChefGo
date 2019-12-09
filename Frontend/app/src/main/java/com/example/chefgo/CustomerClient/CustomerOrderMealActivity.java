@@ -64,16 +64,7 @@ public class CustomerOrderMealActivity extends AppCompatActivity {
 
         String date = Instant.now().toString();
 
-        Map<String, String> customerMap = new HashMap<>();
-        customerMap.put("username", user.getUsername());
-        customerMap.put("email", user.getEmail());
-        customerMap.put("name", user.getName());
-        customerMap.put("password", user.getPassword());
-        customerMap.put("userType", user.getUserType().toString());
-        customerMap.put("rating", user.getRating().toString());
-        customerMap.put("address", user.getAddress());
-        customerMap.put("state", user.getState());
-        customerMap.put("zip", user.getZip().toString());
+        Map<String, String> customerMap = user.toJSON();
         JSONObject customerObject = new JSONObject(customerMap);
 
         Map<String, String> orderMap = new HashMap<>();
