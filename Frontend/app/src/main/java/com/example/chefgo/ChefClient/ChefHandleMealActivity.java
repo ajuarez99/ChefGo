@@ -69,15 +69,7 @@ public class ChefHandleMealActivity extends AppCompatActivity {
         acceptButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Map<String, String> chefMap = new HashMap<>();
-                chefMap.put("username", user.getUsername());
-                chefMap.put("name", user.getName());
-                chefMap.put("password", user.getPassword());
-                chefMap.put("userType", user.getUserType().toString());
-                chefMap.put("rating", user.getRating().toString());
-                chefMap.put("address", user.getAddress());
-                chefMap.put("state", user.getState());
-                chefMap.put("zip", user.getZip().toString());
+                Map<String, String> chefMap = user.toJSON();
                 JSONObject chefObject = new JSONObject(chefMap);
                 try {
                     order.put("chef", chefObject);
