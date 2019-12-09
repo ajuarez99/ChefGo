@@ -42,8 +42,6 @@ import static com.example.chefgo.app.AppController.TAG;
 
 public class CustomerProfileActivity extends AppCompatActivity {
 
-    private Button refreshButton;
-    private TextView responseView;
     private TextView nameView;
     private EditText nameInput;
     private Button postNameButton;
@@ -55,8 +53,8 @@ public class CustomerProfileActivity extends AppCompatActivity {
     private String jsonResponse;
 
     private TextView txtResponse;
-    private String URL = "http://coms-309-sb-3.misc.iastate.edu:8080/users";
-    private String FName;
+    private String USERS_URL = "http://coms-309-sb-3.misc.iastate.edu:8080/users";
+    private String fName;
 
     private UsersDomain user;
     private static final int GET_FROM_GALLERY = 3;
@@ -64,23 +62,19 @@ public class CustomerProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_customer_profile);
-        refreshButton = findViewById(R.id.testButton);
+
         txtResponse = findViewById(R.id.responseView);
         nameInput = findViewById(R.id.nameInput);
         postNameButton = findViewById(R.id.postNameButton);
         nameView = findViewById(R.id.nameText);
-
-
-
-        user =  getIntent().getParcelableExtra("User");
-
         ratingBar = findViewById(R.id.ratingBar);
         profilePicButton = findViewById(R.id.setProfPic);
         profilePic = findViewById(R.id.profilePic);
 
+        user =  getIntent().getParcelableExtra("User");
         nameView.setText(user.getName());
+
         if(user.getRating() != null) {
             ratingBar.setRating(user.getRating().floatValue());
         }
@@ -99,9 +93,9 @@ public class CustomerProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 postUser(nameView.getText().toString(), rate);
-                FName = nameInput.getText().toString();
+                fName = nameInput.getText().toString();
                 makeJSONArrayReq();
-                nameView.setText(FName);
+                nameView.setText(fName);
                 nameInput.setText(null);
             }
         });
@@ -122,7 +116,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
     private void makeJSONArrayReq() {
 
 
-        JsonArrayRequest req = new JsonArrayRequest(URL,
+        JsonArrayRequest req = new JsonArrayRequest(USERS_URL,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -140,7 +134,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
                                 double rating = person.getDouble("rating");
                                 username = person.getString("username");
                                 if(username.equals(user.getUsername())){
-                                    FName = firstName;
+                                    fName = firstName;
                                 }
 
                                 jsonResponse += "firstName: " + firstName + "\n\n";
@@ -182,7 +176,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
 
         JSONObject parameters = new JSONObject(params);
 
-        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, URL, parameters, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, USERS_URL, parameters, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 System.out.println(response);
