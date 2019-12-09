@@ -3,7 +3,6 @@ package com.example.chefgo.CustomerClient.CustomerRequests;
 import android.content.Context;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -56,10 +55,7 @@ public class CustomerMealAcceptedRequests {
                             }
 
                         } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(c,
-                                    "Error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG).show();
+                            System.out.println(e.getMessage());
                         }
 
 
@@ -68,9 +64,6 @@ public class CustomerMealAcceptedRequests {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Toast.makeText(c,
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
-
             }
         });
         AppController.getInstance().addToRequestQueue(req);
