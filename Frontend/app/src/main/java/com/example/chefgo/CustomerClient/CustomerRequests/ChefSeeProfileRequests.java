@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 import static com.example.chefgo.app.AppController.TAG;
 
-public class ChefProfileRequests {
+public class ChefSeeProfileRequests {
 
     public static void makeMenuJSONArrayReq(final Context c, String MENU_URL, final ListView menuList){
 
