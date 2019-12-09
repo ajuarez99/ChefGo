@@ -79,8 +79,8 @@ public class CustomerProfileActivity extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBar);
         profilePicButton = findViewById(R.id.setProfPic);
         profilePic = findViewById(R.id.profilePic);
-        String name = user.getName();
-        nameView.setText(name);
+
+        nameView.setText(user.getName());
         if(user.getRating() != null) {
             ratingBar.setRating(user.getRating().floatValue());
         }
@@ -105,14 +105,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
                 nameInput.setText(null);
             }
         });
-/*        refreshButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                makeJSONArrayReq();
-                nameView.setText(FName);
-                nameInput.setText(null);
-            }
-        });*/
+
 
         profilePicButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,16 +178,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
         InputMethodManager inputManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
 
-        Map<String, String> params = new HashMap();
-        params.put("username", user.getUsername());
-        params.put("email", user.getEmail());
-        params.put("name", name);
-        params.put("password", user.getPassword());
-        params.put("userType", user.getUserType().toString());
-        params.put("rating", rating);
-        params.put("address", user.getAddress());
-        params.put("state", user.getState());
-        params.put("zip", user.getZip().toString());
+        Map<String, String> params = user.toJSON();
 
         JSONObject parameters = new JSONObject(params);
 
