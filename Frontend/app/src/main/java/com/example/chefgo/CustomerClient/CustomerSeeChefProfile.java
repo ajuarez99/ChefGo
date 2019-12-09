@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.chefgo.CustomerClient.CustomerRequests.ChefProfileRequests;
+import com.example.chefgo.CustomerClient.CustomerRequests.ChefSeeProfileRequests;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.R;
 
@@ -47,8 +47,8 @@ public class CustomerSeeChefProfile extends AppCompatActivity {
         ratingBar.setRating(user.getRating().floatValue());
 
         //Make requests
-        ChefProfileRequests.makeReviewsJSONArrayReq(this.getApplicationContext(), REVIEWS_URL, reviewsList);
-        ChefProfileRequests.makeMenuJSONArrayReq(this.getApplicationContext(), MENU_URL, menuList);
+        ChefSeeProfileRequests.makeReviewsJSONArrayReq(this.getApplicationContext(), REVIEWS_URL, reviewsList);
+        ChefSeeProfileRequests.makeMenuJSONArrayReq(this.getApplicationContext(), MENU_URL, menuList);
     }
 
 }
