@@ -39,19 +39,18 @@ public class UserService {
 		return u.get();
 	}
 	
-
-//	public List<Users> getUsersByCity(String city){
-//		Optional<List<Users>> u = userRepo.findByCityAndUserType(city,(Integer) 2);
-//		return u.get();
-//	}
-	
+	/**
+	 * Returns list of Chefs that live within specified zip code
+	 * @param zip Zip code where Chefs are wanted
+	 * @return List of Users that are Chefs and live in specified zip code
+	 */
 	public List<Users> getUsersByZip(int zip){
 		Optional<List<Users>> u = userRepo.findByZipAndUserType(zip,(Integer) 2);
 		return u.get();
 	}
 	
 	
-	/*
+	/**
 	 * Adds User to DB
 	 * @param user User object to be added
 	 */
@@ -96,35 +95,44 @@ public class UserService {
 		userRepo.save(update);
 	}
 	
+	/**
+	 * Updates the address for a specific User
+	 * @param username username of User to update
+	 * @param address new street address to assign to specified User
+	 * @param state new state to assign to specified User
+	 * @param zip new zip code to assign to specified User
+	 */
 	public void updateAddress(String username, String address, String state, Integer zip) {
 		Optional<Users> u = userRepo.findByUsername(username);
 		Users update = u.get();
 		update.setAddress(address);
 		update.setState(state);
 		update.setZip(zip);
-		//update.setCity(city);
 		userRepo.save(update);
 	}
 
+	/**
+	 * Delete a User with specified username from database
+	 * @param username Username of User to delete
+	 */
 	public void deleteUser(String username) {
 		Optional<Users> u = userRepo.findByUsername(username);
 		Users toDelete = u.get();
 		userRepo.delete(toDelete);
 	}
-	
-	public void updateUserType(String username, Integer type) {
+
+	/**
+	 * Updates the type of User (change between Customer, Chef, and Admin)
+	 * @param username username of User object to change
+	 * @param type new type of user to assigned to specified User object (0 = Admin, 1 = Customer, 2 = Chef) 
+	 */
+	void updateUserType(String username, Integer type) {
 		Optional<Users> u = userRepo.findByUsername(username);
 		Users toUpdate = u.get();
 		toUpdate.setUserType(type);
 		userRepo.save(toUpdate);
 	}
 	
-//	public void addOrder(String username, OrderHistory order) {
-//		Optional<Users> u = userRepo.findByUsername(username);
-//		Users madeOrder = u.get();
-//		madeOrder.addOrder(order);
-//		userRepo.save(madeOrder);
-//	}
 
 	
 	

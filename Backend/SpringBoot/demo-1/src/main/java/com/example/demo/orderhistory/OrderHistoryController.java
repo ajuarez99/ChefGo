@@ -21,7 +21,7 @@ import com.example.demo.user.Users;
 public class OrderHistoryController {
 	@Autowired
 	private OrderHistoryService orderHistory;
-	public final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	
 	/**
 	 * Endpoint for returning all Orders
@@ -128,7 +128,7 @@ public class OrderHistoryController {
 	}
 
 	/**
-	 * Endpoint for delting an Order object from DB
+	 * Endpoint for deleting an Order object from DB
 	 * @param id Id of Order object to be deleted
 	 */
 	@RequestMapping(method = RequestMethod.DELETE, path = "/delete/{id}")
@@ -136,6 +136,11 @@ public class OrderHistoryController {
 		orderHistory.deleteOrder(id);
 	}
 	
+	/**
+	 * Endpoint to obtain the User assigned to the Chef field of a specific Order object
+	 * @param oid Id of Order object from which Chef will fetched
+	 * @return ArrayList containing the single User object that is assigned to the Chef field of the ORder 
+	 */
 	@RequestMapping("/orderHistory/{oid}/chef")
 	public List<Users> getChefForOrder(@PathVariable Integer oid) {
 		return orderHistory.getChefByOid(oid);
@@ -144,8 +149,12 @@ public class OrderHistoryController {
 	
 	
 
-	
-	public void makeOrderInactive(OrderHistory order) {
+	/**
+	 * Helper method to make Order objects inactive after a certain amount of time
+	 * since a Chef has accepted the order 
+	 * @param order Order object that will be set to inactive after 8 hours
+	 */
+	private void makeOrderInactive(OrderHistory order) {
 		final Runnable setInactive = new Runnable() {
 			public void run() {
 				order.setActive(0);
@@ -153,6 +162,6 @@ public class OrderHistoryController {
 			}
 		};
 		
-		scheduler.schedule(setInactive, 1, TimeUnit.MINUTES);
+		scheduler.schedule(setInactive, 8, TimeUnit.HOURS);
 	}
 }

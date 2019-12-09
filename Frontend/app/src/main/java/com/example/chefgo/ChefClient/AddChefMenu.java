@@ -104,18 +104,17 @@ public class AddChefMenu extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Enter a price.", Toast.LENGTH_SHORT).show();
             return;
         }
+
         MenuDomain menu = new MenuDomain(title,apps,entree,dessert,Double.valueOf(cost),desc, theUser);
 
+        //Construct the user object for the menu object
+        Map<String, String> userMap =theUser.toJSON();
 
+        JSONObject userObject = new JSONObject(userMap);
 
-            //Construct the user object for the menu object
-            Map<String, String> userMap =theUser.toJSON();
-
-            JSONObject userObject = new JSONObject(userMap);
-
-            //construct the menu object to be posted
-            Map<String, String> menuMap = menu.toJSON();
-            JSONObject menuObject = new JSONObject(menuMap);
+        //construct the menu object to be posted
+        Map<String, String> menuMap = menu.toJSON();
+        JSONObject menuObject = new JSONObject(menuMap);
 
             try {
                 menuObject.put("chef", userObject);
