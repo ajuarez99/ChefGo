@@ -22,8 +22,8 @@ public class OrderHistoryService {
 	@Autowired
 	private OrderHistoryRepo orderHistoryRepo;
 	/**
-	 * gets all orders
-	 * @return list of all orders
+	 * Returns a list of all Order objects
+	 * @return ArrayList of all Order objects
 	 */
 	public List<OrderHistory> getAllOrders() {
 		List<OrderHistory> orders = new ArrayList<>();
@@ -32,24 +32,29 @@ public class OrderHistoryService {
 		return orders;
 	}
 	/**
-	 * gets an order if it is activly being made
-	 * @param isActive flag to tell if an order is active
-	 * @return a list of orders that are active
+	 * Return all Order objects by active or inactive
+	 * @param isActive integer to specify whether active or inactive orders should be returned (0 or 1)
+	 * @return a list of all orders where input value equals isActive variable of Order object
 	 */
 	public List<OrderHistory> getOrdersByIsActive(int isActive){
 		List<OrderHistory> u = orderHistoryRepo.findByIsActive(isActive);
 		return u;
 	}
 	/**
-	 * gets a list of orders by chef name
+	 * Returns a list of all Orders that has specified username assigned to Chef variable
 	 * @param username name of chef
-	 * @return list of orders by chef name
+	 * @return list of orders by chef username
 	 */
 	public List<OrderHistory> getOrderByChefName(String username) {
 		List<OrderHistory> u = orderHistoryRepo.findByChefUsername(username);
 		return u;
 	}
 
+	/**
+	 * Returns all Orders that has specified username assigned to Customer variable
+	 * @param username
+	 * @return ArrayList containing all orders for specified Customer
+	 */
 	public List<OrderHistory> getOrderByCustName(String username) {
 		List<OrderHistory> u = orderHistoryRepo.findByCustomerUsername(username);
 		return u;
@@ -64,7 +69,7 @@ public class OrderHistoryService {
 		return u;
 	}
 	/**
-	 * gets active orders that havent had a chef assigned to it yet
+	 * gets active orders that haven't had a chef assigned to it yet
 	 * @return a list of active orders waiting to be picked up
 	 */
 	public List<OrderHistory> getOrdersByIsActiveAndWithoutChef() {
@@ -73,7 +78,7 @@ public class OrderHistoryService {
 	}
 	
 	/**
-	 * finds active orders based on customer name
+	 * finds active orders based on customer username
 	 * @param username name of customer
 	 * @return list of active orders of customer
 	 */
@@ -85,7 +90,7 @@ public class OrderHistoryService {
 	/**
 	 * get order by id
 	 * @param oid id of order
-	 * @return order
+	 * @return Order object
 	 */
 	public OrderHistory getOrderByOid(int oid) {
 		Optional<OrderHistory> u = orderHistoryRepo.findByOid(oid);
@@ -94,7 +99,7 @@ public class OrderHistoryService {
 	}
 	
 	/**
-	 * gets most recent orders  
+	 * gets most recent orders for a specific User  
 	 * @param username name of customer
 	 * @return list in descending order of orders
 	 */
@@ -110,7 +115,7 @@ public class OrderHistoryService {
 		orderHistoryRepo.save(order);
 	}
 	/**
-	 * updates the dish name of a specfic order
+	 * updates the dish name for a specific order
 	 * @param id id of order
 	 * @param dish updated name of order
 	 */
@@ -121,6 +126,11 @@ public class OrderHistoryService {
 		orderHistoryRepo.save(update);	
 	}
 	
+	/**
+	 * updates the isActive variable for an Order object
+	 * @param id Id of Order object to update
+	 * @param active Value to assign to isActive variable of Order object (should be 0 or 1)
+	 */
 	public void updateIsActive(int id, int active) {
 		Optional<OrderHistory> u = orderHistoryRepo.findById(id);
 		OrderHistory update = u.get();
@@ -129,8 +139,8 @@ public class OrderHistoryService {
 	}
 	/**
 	 * adds a review to a specific order
-	 * @param id id of order
-	 * @param review review of order
+	 * @param id id of Order object
+	 * @param review Review object to assign to specified Order object 
 	 */
 	public void addReview(int id, Reviews review) {
 		Optional<OrderHistory> u = orderHistoryRepo.findById(id);
@@ -141,7 +151,7 @@ public class OrderHistoryService {
 	}
 	/**
 	 * deletes specific order off of order table
-	 * @param oid id of order
+	 * @param oid id of order to delete
 	 */
 	public void deleteOrder(Integer oid) {
 		Optional<OrderHistory> u = orderHistoryRepo.findByOid(oid);
@@ -149,6 +159,11 @@ public class OrderHistoryService {
 		orderHistoryRepo.delete(toDelete);
 	}
 	
+	/**
+	 * Returns ArrayList containing the one User that is assigned to the specified Order object
+	 * @param oid Id of Order object to fetch Chef from
+	 * @return List containing the one User assigned to Chef field of specified Order
+	 */
 	public List<Users> getChefByOid(int oid){
 		Optional<OrderHistory> u = orderHistoryRepo.findByOid(oid);
 		OrderHistory order = u.get();

@@ -17,20 +17,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.orderhistory.OrderHistory;
 import com.example.demo.orderhistory.OrderHistoryService;
 import com.example.demo.user.UserService;
-import com.example.demo.user.Users;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-
-@ServerEndpoint(value = "/chat/{oid}/{username}")
+@ServerEndpoint(value = "/notification/{username}")
 @Component
 public class Notification {
 
- 	
-    private static Map<String, Session> usernameSessionMap = new HashMap<>();
-    private static Map<String, Integer> usernameOidMap = new HashMap<>();
-    
 	private static UserService userService;
 	private static OrderHistoryService orderService;
 
@@ -43,54 +37,56 @@ public class Notification {
 	public void setOrderService(OrderHistoryService orderService) {
 		Notification.orderService = orderService;
 	}
+
+	private static Map<Session, String> sessionUsernameMap = new HashMap<>();
+    private static Map<String, Session> usernameSessionMap = new HashMap<>();
     
-    private final Logger logger = LoggerFactory.getLogger(WebSocketServer.class);
+    private final Logger logger = LoggerFactory.getLogger(Notification.class);
     
     @OnOpen
-    public void onOpen(Session session, @PathParam("username") String username, @PathParam("oid") Integer oid) throws IOException 
+    public void onOpen(Session session, @PathParam("username") String username) throws IOException 
     {
-        logger.info("Entered into Open");
-        
-        usernameSessionMap.put(username, session);
-        usernameOidMap.put(username, oid);
-		
+    	sessionUsernameMap.put(session, username);
+    	usernameSessionMap.put(username, session);
+    	logger.info(username + " connected");
     }
  
     @OnMessage
-    public void onMessage(Session session, String message, @PathParam("username") String username, @PathParam("oid") Integer oid) throws IOException 
+    public void onMessage(Session session, String message, @PathParam("username") String username) throws IOException 
     {
-        // Handle new messages
-    	Users recipient = null;
-    	Users sender = userService.getUserByUsername(username);
-    	logger.info("Entered into Message: Got Message:"+message);
-    	if(userService.getUserByUsername(username).getUserType() == 2) {
-    		recipient = orderService.getOrderByOid(oid).getCustomer();
-    		
+    	try {
+    		int oid = Integer.parseInt(message);
+    		logger.info(message);
+    		OrderHistory order = orderService.getOrderByOid(oid);
+    		//TODO: Error handling if customer does not exist
+    		logger.info(order.getCustomer().getUsername());
+    		Session customer = usernameSessionMap.get(order.getCustomer().getUsername());
+    		String response = userService.getUserByUsername(username).getName() + " has accepted your order";
+    		customer.getBasicRemote().sendText(oid+"");
+    		customer.getBasicRemote().sendText(response);
     	}
-    	if(userService.getUserByUsername(username).getUserType() == 1) { 
-    		recipient = orderService.getOrderByOid(oid).getChef();
+    	catch(NumberFormatException e) {
+    		logger.info("Message was not a number");
     	}
     	
-    	if(recipient.equals(null)) logger.info("Recipient is invalid");
-    	else {
-    		Session toSend = usernameSessionMap.get(recipient.getUsername());
-    		toSend.getBasicRemote().sendText(sender.getName() + ": " + message);
-    		session.getBasicRemote().sendText(sender.getName() + ": " + message);
-    	}
+    	
+    	
     }
  
     @OnClose
     public void onClose(Session session, @PathParam("username") String username) throws IOException
     {
-    	logger.info(username + "Entered into Close");
-    	
+    	usernameSessionMap.remove(username);
+    	logger.info(username + " disconnected");
     }
  
     @OnError
     public void onError(Session session, Throwable throwable) 
     {
         // Do error handling here
+
     	logger.info("Entered into Error");
+    	logger.info(throwable.toString());
     }
     
 

@@ -35,32 +35,17 @@ public class UserController {
 	public void addUser(@RequestBody Users user) {
 		users.addUser(user);
 	}
+	
 	/**
 	 * 
-	 * Return all chefs withen the users city
-	 * @param 
+	 * Return all chefs within the specified zip code
+	 * @param zip code from which Chefs will be obtained
+	 * @return ArrayList of Users of Chef type within specified zip code
 	 */
-//	@RequestMapping(method = RequestMethod.GET, path = "/users/chefs/{city}")
-//	public List<Users> getAllChefs(@PathVariable String city){
-//		return users.getUsersByCity(city);
-//	}
-	
 	@RequestMapping(method = RequestMethod.GET, path = "/users/chefs/{zip}")
 	public List<Users> getAllChefs(@PathVariable int zip){
 		return users.getUsersByZip(zip);
-	}
-	
-//	@RequestMapping("/user/{username}/{password}")
-//	public Users validateUser(@PathVariable String username, @PathVariable String password) {
-//		Users user = users.getUserByUsername(username);
-//		
-//		if(user.getPassword().equals(password)) {
-//			return user;
-//		}
-//		else {
-//			return null;
-//		}
-//	}
+	}	
 	
 	/**
 	 * Endpoint for updating a users email
@@ -71,11 +56,7 @@ public class UserController {
 	public void updateUserEmail(@PathVariable String username, @RequestBody String email) {
 		users.updateEmail(username, email);
 	}
-	
-//	@RequestMapping(method = RequestMethod.PUT, path = "/users/{username}/order")
-//	public void updateUserEmail(@PathVariable String username, @RequestBody OrderHistory order) {
-//		users.addOrder(username, order);
-//	}
+
 	
 	/**
 	 * Returns User with given username
@@ -135,6 +116,7 @@ public class UserController {
 	public void updateUserType(@PathVariable String username, @PathVariable Integer type) {
 		users.updateUserType(username, type);
 	}
+	
 	/**
 	 * Endpoint for changing address of User
 	 * @param username Username of User that needs to be changed
@@ -142,17 +124,12 @@ public class UserController {
 	 * @param state New state User lives in
 	 * @param zip New zip code for User
 	 */
-	
 	@RequestMapping(method = RequestMethod.PUT, path = "/users/{username}/address")
 	public void updateAddress(@PathVariable String username, @RequestBody String address, @RequestBody String state,
 			@RequestBody Integer zip) {
 		users.updateAddress(username, address, state, zip);
 	}
-//	@RequestMapping(method = RequestMethod.PUT, path = "/users/{username}/address")
-//	public void updateAddress(@PathVariable String username, @RequestBody String address, @RequestBody String state,
-//			@RequestBody String city) {
-//		users.updateAddress(username, address, state, city);
-//	}
+
 	/**
 	 * Endpoint for deleting User with given username
 	 * @param username Username for User to be deleted

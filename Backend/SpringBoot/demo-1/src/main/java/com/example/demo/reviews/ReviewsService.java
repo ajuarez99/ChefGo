@@ -72,13 +72,16 @@ public class ReviewsService {
 	 * @param newReview review you want to update it with
 	 */
 	public void updateReview(int id, Reviews newReview) {
-	Optional<Reviews> u = reviewsRepo.findById(id);
-	Reviews update = u.get();
-	update = newReview;
-	reviewsRepo.save(update);
+		Optional<Reviews> u = reviewsRepo.findById(id);
+		Reviews update = u.get();
+		update = newReview;
+		reviewsRepo.save(update);
 	}
 
-
+	/**
+	 * Deletes specified review from database
+	 * @param id Id of Review object to be deleted from database
+	 */
 	public void deleteReview(int id) {
 		reviewsRepo.deleteById(id);		
 	}

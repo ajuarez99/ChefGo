@@ -40,30 +40,27 @@ public class Users {
     private String username;
  
     @Column(name = "email")
-    /**
+    /*
      * Email of User
      */
     private String email;
     
     @Column(name = "name")
     @Size(max = 30)
-    /**
+    /*
      * Name of User
      */
     private String name;
-    
-//    @OneToMany(mappedBy = "customer")
-//    private List<OrderHistory> orders;
-    
+     
     @Column(name = "password")
     @Size(max = 30)
-    /**
+    /*
      * Password for User
      */
     private String password;
     
     @Column(name = "userType")
-    /**
+    /*
      * Type of User
      * 0 - admin
      * 1 - customer
@@ -72,7 +69,7 @@ public class Users {
     private Integer userType;
     
     @Column(name = "rating")
-    /**
+    /*
      * Rating out of 5 for User
      */
     private Double rating;
@@ -80,29 +77,26 @@ public class Users {
     
     @Column(name = "address")
     @Size(max = 40)
-    /**
+    /*
      * Address of User
      */
     private String address;
     
     @Column(name = "state")
     @Size(max = 20)
-    /** 
+    /*
      * State that User lives in
      */
     private String state;
     
     @Column (name = "zip")
-    /**
+    /*
      * Zip code of User
      */
-    private int zip;
-    //   private String city;
+    private Integer zip;
+
     
-//    @OneToMany(mappedBy = "user")
-//    private List<Allergies> allergies;
-    
-    /**
+    /*
      * Empty constructor
      */
     public Users() {
@@ -119,20 +113,7 @@ public class Users {
      * @param address Street Address
      * @param state State
      * @param zip Zip Code
-     */
-//    public Users(String username, String email, String name, String pass, Double rating,
-//    		Integer type, String address, String state, String city) {
-//    	this.username = username;
-//    	this.email = email;
-//    	this.name= name;
-//    	this.password = pass;
-//    	this.userType = type;
-//    	this.rating = rating;
-//    	this.address = address;
-//    	this.state = state;
-//    	this.city = city;
-//    }
-    
+     */    
     public Users(String username, String email, String name, String pass, Double rating,
     		Integer type, String address, String state, Integer zip) {
     	this.username = username;

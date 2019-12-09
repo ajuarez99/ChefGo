@@ -25,48 +25,48 @@ public class Menu {
 	@NotNull
 	@Column(name = "title")
 	@Size(max = 50)
-	/**
+	/*
 	 * Title of Menu
 	 */
 	private String title;
 	
 	@Column(name= "appetizer")
 	@Size(max = 50)
-	/**
+	/*
 	 * Name of appetizer 
 	 */
 	private String appetizer;
 	
 	@Column(name= "entree")
 	@Size(max = 50)
-	/**
+	/*
 	 * Name of entree
 	 */
 	private String entree;
 	
 	@Column(name= "dessert")
 	@Size(max = 50)
-	/**
+	/*
 	 * Name of dessert
 	 */
 	private String dessert;
 	
 	@Column(name = "cost")
-	/**
+	/*
 	 * Total cost of meal
 	 */
 	private double cost;
 	
 	@Column(name = "mDescription")
 	@Size(max =200)
-	/**
+	/*
 	 * Description of this menu
 	 */
 	private String mDescription;
 	
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "chefID")
-    /**
+    /*
      * User who will cook the meal
      */
 	private Users chef;
@@ -77,6 +77,7 @@ public class Menu {
 	public Menu() {
 	
 	}
+	
 	/**
 	 * 
 	 * @param title	nickname for menu
