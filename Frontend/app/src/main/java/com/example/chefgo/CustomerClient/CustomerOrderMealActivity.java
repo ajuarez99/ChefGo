@@ -35,24 +35,24 @@ import static com.example.chefgo.app.AppController.TAG;
 public class CustomerOrderMealActivity extends AppCompatActivity {
 
     private EditText inputDish, inputPrice;
-    private Button confirmButton;
-    private String  URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory";
-    private UsersDomain user = new UsersDomain();
+    private UsersDomain user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_order_meal);
+        user = getIntent().getParcelableExtra("User");
 
         inputDish = findViewById(R.id.inputAllergy);
         inputPrice = findViewById(R.id.inputPrice);
+
+        Button confirmButton;
         confirmButton = findViewById(R.id.confirmAllergy);
-        user = getIntent().getParcelableExtra("User");
         confirmButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 String meal = inputDish.getText().toString();
                 String price = inputPrice.getText().toString();
                 Toast.makeText(CustomerOrderMealActivity.this, "Order confirmed.", Toast.LENGTH_LONG).show();
-                postJSONObjectRequest(meal, price);
+                postOrder(meal, price);
                 inputDish.getText().clear();
                 inputPrice.getText().clear();
             }
@@ -60,8 +60,9 @@ public class CustomerOrderMealActivity extends AppCompatActivity {
     }
 
     @TargetApi(Build.VERSION_CODES.P)
-    private void postJSONObjectRequest(String meal, String price){
+    private void postOrder(String meal, String price){
 
+        final String ORDER_HISTORY_URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory";
         String date = Instant.now().toString();
 
         Map<String, String> customerMap = user.toJSON();
@@ -86,7 +87,7 @@ public class CustomerOrderMealActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
         }
 
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, URL, orderObject,
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, ORDER_HISTORY_URL, orderObject,
                 new Response.Listener<JSONObject>() {
 
                     @Override
@@ -94,13 +95,11 @@ public class CustomerOrderMealActivity extends AppCompatActivity {
                         Toast.makeText(CustomerOrderMealActivity.this, "Order placed successfully", Toast.LENGTH_LONG).show();
                     }
                 }, new Response.ErrorListener() {
-
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
             }
-        }) {
-        };
+        });
         AppController.getInstance().addToRequestQueue(jsonObjReq);
     }
 }
