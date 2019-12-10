@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.chefgo.Adapters.OrderHistoryAdapter;
 import com.example.chefgo.CustomerClient.CustomerOrderHistoryActivity;
+import com.example.chefgo.DomainObjects.MenuDomain;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.ProcessAndParse.ParserUtil;
 import com.example.chefgo.ProcessAndParse.ProcessReviews;
@@ -132,6 +133,28 @@ public class Mockito_Joe {
         OrderHistoryAdapter oha = new OrderHistoryAdapter(list, c, user);
         Assert.assertEquals("Hello", oha.getItem(0));
         Assert.assertEquals(1, oha.getCount());
+    }
+
+    @Test
+    public void testMenuDomain(){
+        //Create menu object with a user
+        UsersDomain u = new UsersDomain("krp", "test@gmail.com", "1", "pass",  5.0,
+                1, "3330 Morningside st", "IA", 55123);
+        MenuDomain m = new MenuDomain("Big meal", "Fries", "Burger", "Cake", 34.0, "Description", u);
+
+        //Get attributes of a menu using defined methods
+        String title = m.getTitle();
+        String app = m.getAppetizer();
+        String entree = m.getEntree();
+        String dessert = m.getDessert();
+        Double cost = m.getCost();
+
+        //test if they work correctly
+        Assert.assertEquals("Big meal", title);
+        Assert.assertEquals("Fries", app);
+        Assert.assertEquals("Burger", entree);
+        Assert.assertEquals("Cake", dessert);
+        Assert.assertEquals(34.0, cost, 1);
     }
 
 }
