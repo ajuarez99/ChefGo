@@ -17,23 +17,24 @@ import com.example.chefgo.R;
 
 public class CustomerAllergiesActivity extends AppCompatActivity {
 
-    private UsersDomain user = new UsersDomain();
+    private UsersDomain user;
     private EditText allergy;
-    private Button confirm;
-    private String  URL = "http://coms-309-sb-3.misc.iastate.edu:8080/allergies";
+    private String ALLERGIES_URL = "http://coms-309-sb-3.misc.iastate.edu:8080/allergies";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_allergies);
         allergy = findViewById(R.id.inputAllergy);
-        confirm = findViewById(R.id.confirmAllergy);
+        Button confirm = findViewById(R.id.confirmAllergy);
+
+        user = new UsersDomain();
         user = getIntent().getParcelableExtra("User");
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AllergiesRequests.postJSONObjectRequest(getApplicationContext(), URL, user, allergy);
+                AllergiesRequests.postJSONObjectRequest(getApplicationContext(), ALLERGIES_URL, user, allergy);
             }
         });
     }
