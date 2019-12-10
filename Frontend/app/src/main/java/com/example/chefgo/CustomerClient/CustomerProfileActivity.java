@@ -23,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.R;
 import com.example.chefgo.app.AppController;
@@ -31,8 +32,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.example.chefgo.app.AppController.TAG;
 /**
@@ -47,12 +46,6 @@ public class CustomerProfileActivity extends AppCompatActivity {
     private Button postNameButton, profilePicButton;
     private RatingBar ratingBar;
     private ImageView profilePic;
-    private String username, rate, jsonResponse;
-
-    private TextView txtResponse;
-    private String USERS_URL = "http://coms-309-sb-3.misc.iastate.edu:8080/users";
-    private String fName;
-
     private UsersDomain user;
     private static final int GET_FROM_GALLERY = 3;
 
@@ -62,7 +55,8 @@ public class CustomerProfileActivity extends AppCompatActivity {
 
         assignComponents();
         user = getIntent().getParcelableExtra("User");
-        nameView.setText(user.getName());
+        if (user.getName() != null)
+            nameView.setText(user.getName());
 
         if(user.getRating() != null) {
             ratingBar.setRating(user.getRating().floatValue());
@@ -75,7 +69,6 @@ public class CustomerProfileActivity extends AppCompatActivity {
 
     private void assignComponents(){
         setContentView(R.layout.activity_customer_profile);
-        txtResponse = findViewById(R.id.responseView);
         nameInput = findViewById(R.id.nameInput);
         postNameButton = findViewById(R.id.postNameButton);
         nameView = findViewById(R.id.nameText);
@@ -85,29 +78,16 @@ public class CustomerProfileActivity extends AppCompatActivity {
     }
 
     private void setListeners(){
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                ratingBar.setRating(v);
-                rate = Float.toString(v);
-            }
-        });
-
         postNameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                postUser(nameView.getText().toString(), rate);
-                fName = nameInput.getText().toString();
-                makeJSONArrayReq();
-                nameView.setText(fName);
-                nameInput.setText(null);
+                updateUser();
             }
         });
 
         profilePicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 startActivityForResult(new Intent(Intent.ACTION_PICK,
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI), GET_FROM_GALLERY);
 
@@ -115,83 +95,36 @@ public class CustomerProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void makeJSONArrayReq() {
+    private void updateUser() {
 
-        JsonArrayRequest req = new JsonArrayRequest(USERS_URL,
-                new Response.Listener<JSONArray>() {
+        String[] newName = nameInput.getText().toString().split(" ");
+        String fName = newName[0];
+        String lName = newName[1];
+
+        String update_user_url = "http://coms-309-sb-3.misc.iastate.edu:8080//user/";
+        update_user_url += (user.getUsername() + "/");
+        update_user_url += (fName + "/");
+        update_user_url += (lName + "/");
+
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.PUT, update_user_url, null,
+                new Response.Listener<JSONObject>() {
+
                     @Override
-                    public void onResponse(JSONArray response) {
-                        Log.d(TAG, response.toString());
-
-                        try {
-                            // Parsing json array response
-                            // loop through each json object
-                            jsonResponse = "";
-                            for (int i = 0; i < response.length(); i++) {
-
-                                JSONObject person = (JSONObject) response.get(i);
-
-                                String firstName = person.getString("name");
-                                double rating = person.getDouble("rating");
-                                username = person.getString("username");
-                                if(username.equals(user.getUsername())){
-                                    fName = firstName;
-                                }
-
-                                jsonResponse += ("firstName: " + firstName + "\n\n");
-                                nameView.setText(firstName);
-                                ratingBar.setRating((float) rating);
-
-                            }
-
-                            txtResponse.setText(jsonResponse);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(getApplicationContext(),
-                                    "Error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG).show();
-                        }
-
+                    public void onResponse(JSONObject response) {
 
                     }
                 }, new Response.ErrorListener() {
+
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
-
             }
         });
+        AppController.getInstance().addToRequestQueue(jsonObjReq);
 
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(req);
+        nameInput.setText(null);
+        nameView.setText(fName + " " + lName);
     }
-
-    private void postUser(final String name, final String rating) {
-
-        InputMethodManager inputManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
-
-        Map<String, String> params = user.toJSON();
-        JSONObject parameters = new JSONObject(params);
-
-        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, USERS_URL, parameters, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                System.out.println(response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-                Toast.makeText(getApplicationContext(), "POSTED", Toast.LENGTH_SHORT).show();
-                System.out.println("THIS IS THE ERROR: " + error.getMessage());
-            }
-        });
-        AppController.getInstance().addToRequestQueue(jsonRequest);
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
