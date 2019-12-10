@@ -93,10 +93,4 @@ public class CustomerOrderHistoryRequests {
         });
         AppController.getInstance().addToRequestQueue(req);
     }
-
-    private int getOrderID(String selectedOrder){
-        String[] orderDescription = selectedOrder.split("\n");
-        return Integer.parseInt(orderDescription[0].replaceAll("[\\D]", ""));
-    }
-
 }
