@@ -1,6 +1,7 @@
 package com.example.chefgo.DomainObjects;
 
 import java.util.Date;
+import java.util.InputMismatchException;
 
 public class OrderHistoryDomain {
 
@@ -16,13 +17,19 @@ public class OrderHistoryDomain {
         }
 
         public OrderHistoryDomain(Integer oid, Date orderDate, Double price, String chef, String dishName, String customer) {
-            this.price = price;
-            this.oid = oid;
-            this.orderDate = orderDate;
-            this.dishName = dishName;
-            this.chef = chef;
-            this.customer = customer;
-            this.isActive = 1;
+            try {
+                if (price >= 0)
+                    this.price = price;
+                if (oid >= 0)
+                    this.oid = oid;
+                this.orderDate = orderDate;
+                this.dishName = dishName;
+                this.chef = chef;
+                this.customer = customer;
+                this.isActive = 1;
+            } catch (InputMismatchException e){
+                System.out.println(e.getMessage());
+            }
         }
 
 
