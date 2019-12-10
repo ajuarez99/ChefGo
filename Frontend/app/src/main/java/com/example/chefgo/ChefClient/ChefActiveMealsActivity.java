@@ -23,6 +23,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.R;
+import com.example.chefgo.VolleyCallBack;
 import com.example.chefgo.app.AppController;
 
 import org.json.JSONArray;
@@ -74,54 +75,65 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
                             // Parsing json array response
                             // loop through each json object
                             final ArrayList<String> arrayList = new ArrayList<>();
-
+                            
                             for (int i = 0; i < response.length(); i++) {
 
-                                JSONObject order = (JSONObject) response.get(i);
-                                jsonResponse = "";
-
-                                String oid = order.getString("oid");
-                                String price = order.getString("price");
-                                String dish = order.getString("dish");
-                                //String chef = order.getString("chef");
+                                final JSONObject order = (JSONObject) response.get(i);
                                 JSONObject customer = order.getJSONObject("customer");
-                                String customerName = customer.getString("name");
-                                //String date = order.getString("date");
-                                getUserAllergies(customer.getString("username"));
 
-                                jsonResponse += (oid + "\n");
-                                jsonResponse += ("Dish: " + dish + "\n");
-                                jsonResponse += ("Price: " + price + "\n");
-                                jsonResponse += ("Customer name: " + customerName + "\n");
+                                getUserAllergies(customer.getString("username"), new VolleyCallBack() {
+                                    @Override
+                                    public void onSuccess() {
+                                        jsonResponse = "";
 
-                                if (allergy != null)
-                                    jsonResponse += ("Allergies: " + allergy);
-                                else
-                                    jsonResponse += ("Allergies: none");
-                                arrayList.add(jsonResponse);
-                            }
-                            ArrayAdapter arrayAdapter = new ArrayAdapter(ChefActiveMealsActivity.this, android.R.layout.simple_list_item_1, arrayList);
-                            listView.setAdapter(arrayAdapter);
+                                        String oid = "", price = "", dish = "", customerName = "";
+                                        try {
+                                            oid = order.getString("oid");
+                                            price = order.getString("price");
+                                            dish = order.getString("dish");
+                                            customerName = order.getJSONObject("customer").getString("name");
+                                        } catch (JSONException e){
+                                            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
 
-                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        jsonResponse += (oid + "\n");
+                                        jsonResponse += ("Dish: " + dish + "\n");
+                                        jsonResponse += ("Price: " + price + "\n");
+                                        jsonResponse += ("Customer name: " + customerName + "\n");
 
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    //launch new intent to accept or decline meal request
-                                    Intent i = new Intent(ChefActiveMealsActivity.this, ChefHandleMealActivity.class);
-                                    i.putExtra("User", user);
-                                    i.putExtra("JSON_RESPONSE", arrayList.get(position));
-                                    try {
-                                        i.putExtra("JSON_OBJECT", response.get(position).toString());
-                                    } catch(JSONException e){
-                                        e.printStackTrace();
-                                        Toast.makeText(getApplicationContext(),
-                                                "Error: " + e.getMessage(),
-                                                Toast.LENGTH_LONG).show();
+                                        if (allergy != null) {
+                                            jsonResponse += ("Allergies: " + allergy);
+                                        }
+                                        else {
+                                            jsonResponse += ("Allergies: none");
+                                        }
+                                        arrayList.add(jsonResponse);
+
+                                        ArrayAdapter arrayAdapter = new ArrayAdapter(ChefActiveMealsActivity.this, android.R.layout.simple_list_item_1, arrayList);
+                                        listView.setAdapter(arrayAdapter);
+
+                                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                                            @Override
+                                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                                //launch new intent to accept or decline meal request
+                                                Intent i = new Intent(ChefActiveMealsActivity.this, ChefHandleMealActivity.class);
+                                                i.putExtra("User", user);
+                                                i.putExtra("JSON_RESPONSE", arrayList.get(position));
+                                                try {
+                                                    i.putExtra("JSON_OBJECT", response.get(position).toString());
+                                                } catch(JSONException e){
+                                                    e.printStackTrace();
+                                                    Toast.makeText(getApplicationContext(),
+                                                            "Error: " + e.getMessage(),
+                                                            Toast.LENGTH_LONG).show();
+                                                }
+                                                startActivity(i);
+                                            }
+                                        });
                                     }
-                                    startActivity(i);
-                                }
-                            });
+                                });
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(),
@@ -142,7 +154,7 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(req);
     }
 
-    private void getUserAllergies(String uid){
+    private void getUserAllergies(String uid, final VolleyCallBack callback){
 
         String allergyURL = "http://coms-309-sb-3.misc.iastate.edu:8080/allergies/" + uid;
 
@@ -155,10 +167,12 @@ public class ChefActiveMealsActivity extends AppCompatActivity {
                         try {
                             // Parsing json array response
                             // loop through each json object
+                            allergy = "";
                             for (int i = 0; i < response.length(); i++) {
-                                JSONObject allergies = (JSONObject) response.get(i);
-                                allergy = allergies.getString("allergy");
+                                JSONObject allergyObject = (JSONObject) response.get(i);
+                                allergy += (allergyObject.getString("allergy") + " ");
                             }
+                            callback.onSuccess();
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(),

@@ -24,6 +24,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.example.chefgo.CustomerClient.CustomerRequests.CustomerProfileRequests;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.R;
 import com.example.chefgo.app.AppController;
@@ -57,6 +58,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
         user = getIntent().getParcelableExtra("User");
         if (user.getName() != null)
             nameView.setText(user.getName());
+        ratingBar.setEnabled(false);
 
         if(user.getRating() != null) {
             ratingBar.setRating(user.getRating().floatValue());
@@ -65,6 +67,14 @@ public class CustomerProfileActivity extends AppCompatActivity {
             ratingBar.setRating(0);
         }
         setListeners();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        user = getIntent().getParcelableExtra("User");
+        nameView.setText(user.getName());
     }
 
     private void assignComponents(){
@@ -98,6 +108,11 @@ public class CustomerProfileActivity extends AppCompatActivity {
     private void updateUser() {
 
         String[] newName = nameInput.getText().toString().split(" ");
+        if (newName.length != 2){
+            Toast.makeText(getApplicationContext(), "You must enter desired first and last name", Toast.LENGTH_LONG).show();
+            nameInput.setText(null);
+            return;
+        }
         String fName = newName[0];
         String lName = newName[1];
 
@@ -105,25 +120,11 @@ public class CustomerProfileActivity extends AppCompatActivity {
         update_user_url += (user.getUsername() + "/");
         update_user_url += (fName + "/");
         update_user_url += (lName + "/");
-
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.PUT, update_user_url, null,
-                new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                    }
-                }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-            }
-        });
-        AppController.getInstance().addToRequestQueue(jsonObjReq);
+        CustomerProfileRequests.updateCustomerName(update_user_url);
 
         nameInput.setText(null);
         nameView.setText(fName + " " + lName);
+        user.setName(fName + " " + lName);
     }
 
     @Override
