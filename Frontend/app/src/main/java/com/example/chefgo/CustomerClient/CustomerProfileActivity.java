@@ -69,6 +69,14 @@ public class CustomerProfileActivity extends AppCompatActivity {
         setListeners();
     }
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        user = getIntent().getParcelableExtra("User");
+        nameView.setText(user.getName());
+    }
+
     private void assignComponents(){
         setContentView(R.layout.activity_customer_profile);
         nameInput = findViewById(R.id.nameInput);
@@ -116,6 +124,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
 
         nameInput.setText(null);
         nameView.setText(fName + " " + lName);
+        user.setName(fName + " " + lName);
     }
 
     @Override
