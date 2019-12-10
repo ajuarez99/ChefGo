@@ -61,7 +61,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         assignComponents();
-        user =  getIntent().getParcelableExtra("User");
+        user = getIntent().getParcelableExtra("User");
         nameView.setText(user.getName());
 
         if(user.getRating() != null) {
@@ -70,6 +70,21 @@ public class CustomerProfileActivity extends AppCompatActivity {
         else{
             ratingBar.setRating(0);
         }
+        setListeners();
+    }
+
+    private void assignComponents(){
+        setContentView(R.layout.activity_customer_profile);
+        txtResponse = findViewById(R.id.responseView);
+        nameInput = findViewById(R.id.nameInput);
+        postNameButton = findViewById(R.id.postNameButton);
+        nameView = findViewById(R.id.nameText);
+        ratingBar = findViewById(R.id.ratingBar);
+        profilePicButton = findViewById(R.id.setProfPic);
+        profilePic = findViewById(R.id.profilePic);
+    }
+
+    private void setListeners(){
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
@@ -99,18 +114,6 @@ public class CustomerProfileActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void assignComponents(){
-        setContentView(R.layout.activity_customer_profile);
-        txtResponse = findViewById(R.id.responseView);
-        nameInput = findViewById(R.id.nameInput);
-        postNameButton = findViewById(R.id.postNameButton);
-        nameView = findViewById(R.id.nameText);
-        ratingBar = findViewById(R.id.ratingBar);
-        profilePicButton = findViewById(R.id.setProfPic);
-        profilePic = findViewById(R.id.profilePic);
-    }
-
 
     private void makeJSONArrayReq() {
 
@@ -171,7 +174,6 @@ public class CustomerProfileActivity extends AppCompatActivity {
         inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
 
         Map<String, String> params = user.toJSON();
-
         JSONObject parameters = new JSONObject(params);
 
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, USERS_URL, parameters, new Response.Listener<JSONObject>() {
@@ -187,7 +189,6 @@ public class CustomerProfileActivity extends AppCompatActivity {
                 System.out.println("THIS IS THE ERROR: " + error.getMessage());
             }
         });
-
         AppController.getInstance().addToRequestQueue(jsonRequest);
     }
 
