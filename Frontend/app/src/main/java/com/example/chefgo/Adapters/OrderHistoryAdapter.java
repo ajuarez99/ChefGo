@@ -142,12 +142,16 @@ public class OrderHistoryAdapter extends BaseAdapter implements ListAdapter {
                                         reviewIntent.putExtra("order", order);
                                         reviewIntent.putExtra("User", user);
                                         reviewIntent.putExtra("oid", String.valueOf(oid));
+                                        reviewIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        reviewIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         context.startActivity(reviewIntent);
                                     }else {
                                         Intent reviewIntent = new Intent(vi.getContext(), CustomerReviewOrder.class);
                                         reviewIntent.putExtra("order", order);
                                         reviewIntent.putExtra("User", chef);
                                         reviewIntent.putExtra("oid", getOrderID(order));
+                                        reviewIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        reviewIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         context.startActivity(reviewIntent);
                                     }
 
@@ -211,6 +215,8 @@ public class OrderHistoryAdapter extends BaseAdapter implements ListAdapter {
                                 }
                                 Intent i = new Intent(vi.getContext(), CustomerSeeChefProfile.class);
                                 i.putExtra("user", user);
+                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 context.startActivity(i);
 
                             }
