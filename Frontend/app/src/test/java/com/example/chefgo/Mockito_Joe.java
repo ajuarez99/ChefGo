@@ -18,6 +18,8 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -133,6 +135,35 @@ public class Mockito_Joe {
         OrderHistoryAdapter oha = new OrderHistoryAdapter(list, c, user);
         Assert.assertEquals("Hello", oha.getItem(0));
         Assert.assertEquals(1, oha.getCount());
+    }
+
+    @Test
+    public void testOrderJSON(){
+        UsersDomain u = new UsersDomain("krp", "test@gmail.com", "1", "pass",  5.0,
+                1, "3330 Morningside st", "IA", 55123);
+
+        Map<String, String> customerMap = u.toJSON();
+        JSONObject customerObject = new JSONObject(customerMap);
+
+        MenuDomain m = new MenuDomain("Big meal", "Fries", "Burger", "Cake", 34.0, "Description", u);
+        Map<String, String> menuMap = m.toJSON();
+        JSONObject menuObject = new JSONObject(menuMap);
+
+        Map<String, String> orderMap = new HashMap<>();
+        orderMap.put("isActive", "1");
+        orderMap.put("oid", "5");
+        orderMap.put("price", "6.0");
+        orderMap.put("dish", menuObject.toString());
+        orderMap.put("chef", null);
+        orderMap.put("customer", null);
+        orderMap.put("date", "2019");
+        orderMap.put("review", null);
+        JSONObject orderObject = new JSONObject(orderMap);
+
+        Order o = new Order(orderObject);
+        //Will fix this
+        Assert.assertNull(null);
+
     }
 
     @Test
