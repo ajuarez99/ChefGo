@@ -17,7 +17,6 @@ import com.example.chefgo.R;
 public class CustomerOrderHistoryActivity extends AppCompatActivity {
 
     UsersDomain user;
-    private final String URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +27,8 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
 
         user = getIntent().getParcelableExtra("User");
 
-        CustomerOrderHistoryRequests.getJSONArrayRequest(this.getApplicationContext(), URL, description, listView, user);
+        final String ORDER_HISTORY_URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory";
+        CustomerOrderHistoryRequests.getJSONArrayRequest(this.getApplicationContext(), ORDER_HISTORY_URL, description, listView, user);
     }
 
 }

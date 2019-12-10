@@ -28,6 +28,7 @@ import com.example.chefgo.app.AppController;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.time.Instant;
 import java.util.HashMap;
@@ -37,9 +38,6 @@ import static com.example.chefgo.app.AppController.TAG;
 
 public class CustomerReviewOrder extends AppCompatActivity {
 
-    private UsersDomain user;
-    private String selectedOrder;
-    private TextView orderDescriptionTitle, orderDescription;
     private RatingBar ratingBar;
     private EditText reviewBox;
     private Button submitReview;
@@ -47,23 +45,19 @@ public class CustomerReviewOrder extends AppCompatActivity {
     private JSONObject order;
     private int oid;
     private float reviewRating;
-    private String  add_review_url = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory/review/";
-    private static final String ORDER_HISTORY_URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory";
+    private String add_review_url = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory/review/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_review_order);
 
-
-        selectedOrder = getIntent().getStringExtra("order");
-        user = getIntent().getParcelableExtra("User");
+        String selectedOrder = getIntent().getStringExtra("order");
         oid = getIntent().getIntExtra("oid", oid);
         add_review_url += oid;
 
-
-        orderDescriptionTitle = findViewById(R.id.orderDescriptionTitle);
-        orderDescription = findViewById(R.id.orderDescription);
+        TextView orderDescriptionTitle = findViewById(R.id.orderDescriptionTitle);
+        TextView orderDescription = findViewById(R.id.orderDescription);
         reviewBox = findViewById(R.id.reviewBox);
         submitReview = findViewById(R.id.submitReview);
         ratingBar = findViewById(R.id.reviewOrderRB);
@@ -202,6 +196,8 @@ public class CustomerReviewOrder extends AppCompatActivity {
     }
 
     private void setOrder(final VolleyCallBack callback){
+        final String ORDER_HISTORY_URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory";
+
         JsonArrayRequest req = new JsonArrayRequest(ORDER_HISTORY_URL,
                 new Response.Listener<JSONArray>() {
                     @Override
