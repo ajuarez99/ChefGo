@@ -74,7 +74,7 @@
         android:layout_width="255dp"
         android:layout_height="47dp"
 
-        android:hint="First Name"
+        android:hint="Enter new name"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
