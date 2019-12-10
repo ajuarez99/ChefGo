@@ -66,15 +66,6 @@ public class CustomerMainActivity extends AppCompatActivity {
             }
         });
 
-        Button activeMealsButton = findViewById(R.id.activeMealsButton);
-        activeMealsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent activeMealsIntent = new Intent(CustomerMainActivity.this, ViewMealRequests.class);
-                startActivity(activeMealsIntent);
-            }
-        });
-
         Button acceptedMealButton = findViewById(R.id.accpetedMealButton);
         acceptedMealButton.setOnClickListener(new View.OnClickListener() {
             @Override
