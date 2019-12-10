@@ -12,15 +12,8 @@ import com.example.chefgo.R;
 import com.example.chefgo.ViewMealRequests;
 
 public class CustomerMainActivity extends AppCompatActivity {
-    private Button customerProfileButton;
-    private Button customerOrderHistoryButton;
-    private Button customerOrderMeal;
-    private Button acceptedMealButton;
-    private Button map;
+
     private UsersDomain user;
-
-
-    private Button activeMealsButton, allergiesButton;
 
     /**
      * view of the customer to interact with the app
@@ -32,8 +25,8 @@ public class CustomerMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        user = (UsersDomain) getIntent().getParcelableExtra("User");
-        map = findViewById(R.id.map);
+        user = getIntent().getParcelableExtra("User");
+        Button map = findViewById(R.id.map);
         map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,7 +36,7 @@ public class CustomerMainActivity extends AppCompatActivity {
             }
         });
 
-        customerProfileButton = findViewById(R.id.buttonCustomerProfile);
+        Button customerProfileButton = findViewById(R.id.buttonCustomerProfile);
         customerProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,7 +46,7 @@ public class CustomerMainActivity extends AppCompatActivity {
             }
         });
 
-        customerOrderHistoryButton = findViewById(R.id.buttonCustomerOrderHistory);
+        Button customerOrderHistoryButton = findViewById(R.id.buttonCustomerOrderHistory);
         customerOrderHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,7 +56,7 @@ public class CustomerMainActivity extends AppCompatActivity {
             }
         });
 
-        customerOrderMeal = findViewById(R.id.buttonCustomerOrderMeal);
+        Button customerOrderMeal = findViewById(R.id.buttonCustomerOrderMeal);
         customerOrderMeal.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -73,7 +66,7 @@ public class CustomerMainActivity extends AppCompatActivity {
             }
         });
 
-        activeMealsButton = findViewById(R.id.activeMealsButton);
+        Button activeMealsButton = findViewById(R.id.activeMealsButton);
         activeMealsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,7 +75,7 @@ public class CustomerMainActivity extends AppCompatActivity {
             }
         });
 
-        acceptedMealButton = findViewById(R.id.accpetedMealButton);
+        Button acceptedMealButton = findViewById(R.id.accpetedMealButton);
         acceptedMealButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,7 +84,7 @@ public class CustomerMainActivity extends AppCompatActivity {
                 startActivity(accepted);
             }
         });
-        allergiesButton = findViewById(R.id.allergies);
+        Button allergiesButton = findViewById(R.id.allergies);
         allergiesButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
