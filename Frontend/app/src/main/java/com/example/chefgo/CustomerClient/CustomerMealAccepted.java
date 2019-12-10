@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.chefgo.CustomerClient.CustomerRequests.CustomerMealAcceptedRequests;
 import com.example.chefgo.DomainObjects.UsersDomain;
 import com.example.chefgo.R;
+
+import org.w3c.dom.Text;
+
 /**
  * @author SB_3
  *
@@ -15,24 +18,17 @@ import com.example.chefgo.R;
 
 public class CustomerMealAccepted extends AppCompatActivity {
 
-    private UsersDomain user;
-
-    private String URL = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory/recent/";
-    private String jsonResponse;
-
-    private TextView mealText;
+    private String recent_order_url = "http://coms-309-sb-3.misc.iastate.edu:8080/orderHistory/recent/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_meal_accepted);
+        TextView mealText = findViewById(R.id.mealBox);
 
-        user = getIntent().getParcelableExtra("User");
-
-        mealText = findViewById(R.id.mealBox);
-
-        URL += user.getUsername();
-        CustomerMealAcceptedRequests.makeJSONArrayReq(getApplicationContext(), URL, mealText);
+        UsersDomain user = getIntent().getParcelableExtra("User");
+        recent_order_url += user.getUsername();
+        CustomerMealAcceptedRequests.makeJSONArrayReq(getApplicationContext(), recent_order_url, mealText);
     }
 
 }

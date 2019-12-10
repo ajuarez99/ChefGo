@@ -24,26 +24,11 @@ public class CustomerMealAcceptedRequests {
                     @Override
                     public void onResponse(JSONArray response){
                         Log.d(TAG, response.toString());
-
                         try {
-                            String chef = new String();
-                            String ret = new String();
-                            for(int i = 0; i < response.length(); i++){
-                                JSONObject order = (JSONObject) response.get(i);
-                                String jsonResponse = "";
+                            String chef;
 
-                                String oid = order.getString("oid");
-                                String dish = order.getString("dish");
-                                String date = order.getString("date");
-                                chef = order.getString("chef");
-
-                                //If we want all of this info
-                                jsonResponse += ("Order id: " + oid + "\n");
-                                jsonResponse += ("Dish: " + dish + "\n");
-                                jsonResponse += ("Date: " + date + "\n");
-                                jsonResponse += ("Chef: " + chef + "\n");
-                                ret += jsonResponse;
-                            }
+                            JSONObject order = (JSONObject) response.get(0);
+                            chef = order.getString("chef");
 
                             //Check if there is a chef
                             if(chef == null){
@@ -53,7 +38,6 @@ public class CustomerMealAcceptedRequests {
                                 String chefName = chefJson.getString("name");
                                 mealText.setText("Your meal has been accepted! \n\n Chef: " + chefName);
                             }
-
                         } catch (JSONException e) {
                             System.out.println(e.getMessage());
                         }
