@@ -186,7 +186,6 @@ public class CustomerProfileActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
                 Toast.makeText(getApplicationContext(), "POSTED", Toast.LENGTH_SHORT);
-                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                 System.out.println("THIS IS THE ERROR: " + error.getMessage());
             }
         });
