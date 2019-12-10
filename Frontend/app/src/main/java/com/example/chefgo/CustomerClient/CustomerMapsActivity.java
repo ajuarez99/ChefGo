@@ -25,23 +25,20 @@ import java.util.List;
 
 public class CustomerMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
-    private CustomerGeoCode geocode;
     private UsersDomain user;
-    private String  URL = "http://coms-309-sb-3.misc.iastate.edu:8080/users/chefs/";
-    private String jsonResponse;
+    private String CHEFS_URL = "http://coms-309-sb-3.misc.iastate.edu:8080/users/chefs/";
     private List<UsersDomain> chefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_maps);
-        chefs = new ArrayList<UsersDomain>();
+        chefs = new ArrayList<>();
         user = getIntent().getParcelableExtra("User");
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        URL += user.getZip();
-        MapsRequests.getJSONArrayRequest(getApplicationContext(), mapFragment, this, URL, (ArrayList<UsersDomain>) chefs);
-
+        CHEFS_URL += user.getZip();
+        MapsRequests.getJSONArrayRequest(getApplicationContext(), mapFragment, this, CHEFS_URL, (ArrayList<UsersDomain>) chefs);
     }
 
 
@@ -56,48 +53,41 @@ public class CustomerMapsActivity extends FragmentActivity implements OnMapReady
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        geocode = new CustomerGeoCode();
+        CustomerGeoCode geocode = new CustomerGeoCode();
         LatLng currentUserLocation = geocode.getLocationFromAddress(this, user.getAddress()+ ", " +user.getState() );
 
-        mMap.addMarker(new MarkerOptions().position(currentUserLocation).title("MyHome").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentUserLocation,17));
+        googleMap.addMarker(new MarkerOptions().position(currentUserLocation).title("MyHome").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentUserLocation,17));
 
         for(int i =0;i<chefs.size();i++){
             LatLng chefHomeLocation = geocode.getLocationFromAddress(this, chefs.get(i).getAddress() + ", " + chefs.get(i).getState());
-            mMap.addMarker((new MarkerOptions().position(chefHomeLocation).title(i+ ") " +chefs.get(i).getUsername())));
+            googleMap.addMarker((new MarkerOptions().position(chefHomeLocation).title(i+ ") " +chefs.get(i).getUsername())));
         }
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
-        {
-
+        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(final Marker arg0) {
-
-                    // Use the Builder class for convenient dialog construction
+                // Use the Builder class for convenient dialog construction
                 String chefIndex = arg0.getTitle().charAt(0) + "";
-               final UsersDomain chef = chefs.get(Integer.parseInt(chefIndex));
-                    AlertDialog.Builder builder = new AlertDialog.Builder(CustomerMapsActivity.this);
-                    builder.setMessage("See "+ chef.getName()+  " Profile?" + "\n" +"Rating: " + chef.getRating())
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    Intent chefProfile = new Intent(CustomerMapsActivity.this, CustomerSeeChefProfile.class);
-                                    chefProfile.putExtra("user", chef);
-                                    startActivity(chefProfile);
-                                }
-                            })
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    // User cancelled the dialog
-                                }
-                            });
-                    // Create the AlertDialog object and return it
-                    builder.show();
+                final UsersDomain chef = chefs.get(Integer.parseInt(chefIndex));
 
-
+                AlertDialog.Builder builder = new AlertDialog.Builder(CustomerMapsActivity.this);
+                builder.setMessage("See "+ chef.getName()+  " Profile?" + "\n" +"Rating: " + chef.getRating())
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Intent chefProfile = new Intent(CustomerMapsActivity.this, CustomerSeeChefProfile.class);
+                                chefProfile.putExtra("user", chef);
+                                startActivity(chefProfile);
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                            }
+                        });
+                // Create the AlertDialog object and return it
+                builder.show();
                 return true;
-            }// if marker source is clicked
-                // display toast
-
+            }// if marker source is clicked, display toast
         });
     }
 
