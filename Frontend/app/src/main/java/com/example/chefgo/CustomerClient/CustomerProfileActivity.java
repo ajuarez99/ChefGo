@@ -44,13 +44,10 @@ public class CustomerProfileActivity extends AppCompatActivity {
 
     private TextView nameView;
     private EditText nameInput;
-    private Button postNameButton;
-    private Button profilePicButton;
+    private Button postNameButton, profilePicButton;
     private RatingBar ratingBar;
     private ImageView profilePic;
-    private String username;
-    private String rate;
-    private String jsonResponse;
+    private String username, rate, jsonResponse;
 
     private TextView txtResponse;
     private String USERS_URL = "http://coms-309-sb-3.misc.iastate.edu:8080/users";
@@ -62,16 +59,8 @@ public class CustomerProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer_profile);
 
-        txtResponse = findViewById(R.id.responseView);
-        nameInput = findViewById(R.id.nameInput);
-        postNameButton = findViewById(R.id.postNameButton);
-        nameView = findViewById(R.id.nameText);
-        ratingBar = findViewById(R.id.ratingBar);
-        profilePicButton = findViewById(R.id.setProfPic);
-        profilePic = findViewById(R.id.profilePic);
-
+        assignComponents();
         user =  getIntent().getParcelableExtra("User");
         nameView.setText(user.getName());
 
@@ -100,7 +89,6 @@ public class CustomerProfileActivity extends AppCompatActivity {
             }
         });
 
-
         profilePicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,9 +100,19 @@ public class CustomerProfileActivity extends AppCompatActivity {
         });
     }
 
+    private void assignComponents(){
+        setContentView(R.layout.activity_customer_profile);
+        txtResponse = findViewById(R.id.responseView);
+        nameInput = findViewById(R.id.nameInput);
+        postNameButton = findViewById(R.id.postNameButton);
+        nameView = findViewById(R.id.nameText);
+        ratingBar = findViewById(R.id.ratingBar);
+        profilePicButton = findViewById(R.id.setProfPic);
+        profilePic = findViewById(R.id.profilePic);
+    }
+
 
     private void makeJSONArrayReq() {
-
 
         JsonArrayRequest req = new JsonArrayRequest(USERS_URL,
                 new Response.Listener<JSONArray>() {
@@ -137,7 +135,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
                                     fName = firstName;
                                 }
 
-                                jsonResponse += "firstName: " + firstName + "\n\n";
+                                jsonResponse += ("firstName: " + firstName + "\n\n");
                                 nameView.setText(firstName);
                                 ratingBar.setRating((float) rating);
 
@@ -185,7 +183,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Toast.makeText(getApplicationContext(), "POSTED", Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(), "POSTED", Toast.LENGTH_SHORT).show();
                 System.out.println("THIS IS THE ERROR: " + error.getMessage());
             }
         });
