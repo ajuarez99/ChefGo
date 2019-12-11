@@ -14,6 +14,9 @@ public class CustomerGeoCode implements ICustomerGeoCode{
 
     public LatLng getLocationFromAddress(Context context, String inputtedAddress) throws NullPointerException {
         //consrtuct that geo coder
+        if (context == null){
+            return null;
+        }
         Geocoder coder = new Geocoder(context);
         List<Address> address;
         //LatLng resLatLng = null;

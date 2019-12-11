@@ -20,6 +20,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
 public class LoginTesting {
+    private ValidationRegister ValidationRegister = new ValidationRegister();
     @Test
     public void emailValidator_CorrectEmailSimple_ReturnsTrue() {
         assertTrue(ValidationRegister.validateEmail("name@email.com"));

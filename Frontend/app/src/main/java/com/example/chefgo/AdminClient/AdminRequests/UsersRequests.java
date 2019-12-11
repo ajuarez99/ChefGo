@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import static com.example.chefgo.app.AppController.TAG;
 
 public class UsersRequests {
-    public static void getJSONArrayRequest(final Context ctx, String URL, ListView listView){
+    public static void getJSONArrayRequest(final Context ctx, String URL, final ListView listView){
 
         JsonArrayRequest req = new JsonArrayRequest(URL,
                 new Response.Listener<JSONArray>() {
@@ -64,7 +64,7 @@ public class UsersRequests {
                             UsersAdapter adapter = new UsersAdapter(arrayList, ctx);
 
 
-                          //  listView.setAdapter(adapter);
+                            listView.setAdapter(adapter);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
