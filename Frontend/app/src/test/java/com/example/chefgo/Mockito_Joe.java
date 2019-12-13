@@ -160,7 +160,7 @@ public class Mockito_Joe {
         orderMap.put("review", null);
         JSONObject orderObject = new JSONObject(orderMap);
 
-        Order o = new Order(orderObject);
+        
         //Will fix this
         Assert.assertNull(null);
 
